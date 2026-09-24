@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// -----------------------------------------------------------------------------
+// Enums
+// -----------------------------------------------------------------------------
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum Status {
+  PENDING_VERIFICATION
+  ACTIVE
+  SUSPENDED
+}
+
+// -----------------------------------------------------------------------------
+// User Model
+// -----------------------------------------------------------------------------
+
+model User {
+  id           String  @id @default(cuid())
+  name         String
+  email        String? @unique
+  phone        String  @unique
+  passwordHash String
+  role         Role    @default(USER)
+  status       Status  @default(PENDING_VERIFICATION)
+  address      String?
+
+  // Geographic references
+  divisionId String?
+  division   Division? @relation(fields: [divisionId], references: [id], onDelete: SetNull)
+
+  districtId String?
+  district   District? @relation(fields: [districtId], references: [id], onDelete: SetNull)
+
+  upazilaId String?
+  upazila   Upazila? @relation(fields: [upazilaId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([phone])
+  @@index([email])
+}
+
+// -----------------------------------------------------------------------------
+// OTP Verification Model
+// -----------------------------------------------------------------------------
+
+model OtpVerification {
+  id         String    @id @default(cuid())
+  phone      String
+  otpHash    String
+  attempts   Int       @default(0)
+  expiresAt  DateTime
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([phone])
+}
+
+// -----------------------------------------------------------------------------
+// Bangladesh Geographic Models (Division -> District -> Upazila/Thana)
+// -----------------------------------------------------------------------------
+
+model Division {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  bnName    String?
+  districts District[]
+  users     User[]
+  createdAt DateTime   @default(now())
+}
+
+model District {
+  id         String    @id @default(cuid())
+  name       String
+  bnName     String?
+  divisionId String
+  division   Division  @relation(fields: [divisionId], references: [id], onDelete: Cascade)
+  upazilas   Upazila[]
+  users      User[]
+  createdAt  DateTime  @default(now())
+
+  @@index([divisionId])
+}
+
+model Upazila {
+  id         String   @id @default(cuid())
+  name       String
+  bnName     String?
+  districtId String
+  district   District @relation(fields: [districtId], references: [id], onDelete: Cascade)
+  users      User[]
+  createdAt  DateTime @default(now())
+
+  @@index([districtId])
+}
