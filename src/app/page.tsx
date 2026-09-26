@@ -9,7 +9,9 @@ import {
   MapPin,
   KeyRound,
   Sparkles,
-  Zap,
+  Lock,
+  ChevronRight,
+  CheckCircle2,
 } from "lucide-react";
 import Navbar from "@/components/common/Navbar";
 import { getSession } from "@/lib/auth";
@@ -18,8 +20,8 @@ export default async function HomePage() {
   const session = await getSession();
 
   return (
-    <div className="min-h-screen bg-slate-200 text-slate-800 flex flex-col justify-between">
-      {/* Universal Top Header */}
+    <div className="min-h-screen bg-[#f4f0e6] text-stone-800 flex flex-col justify-between selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
+      {/* Universal Frosted Cream Header */}
       <Navbar
         initialSession={
           session
@@ -35,48 +37,47 @@ export default async function HomePage() {
 
       {/* Main Content Area */}
       <main className="flex-1">
-        {/* Hero Section - Corporate Neutral Slate-200 with Soft Gradient Depth */}
-        <section className="relative overflow-hidden py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-300/80 bg-gradient-to-b from-slate-200 via-slate-200/90 to-slate-300/40">
-          <div className="max-w-5xl mx-auto text-center space-y-6">
-            {/* Pill Tag */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/80 text-sky-800 border border-slate-300 shadow-xs backdrop-blur-xs">
-              <ShieldCheck className="w-3.5 h-3.5 text-sky-600" />
+        {/* ================================================================= */}
+        {/* Hero Section - Clean, Centered, Spacious & Minimalist */}
+        {/* ================================================================= */}
+        <section className="relative overflow-hidden py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#d4ccc0]">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            {/* Pill Tag / Kicker Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0] shadow-2xs">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#4a3b32]" />
               <span>Felna Identity & Role-Based Access</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 max-w-3xl mx-auto leading-[1.15]">
-              Seamless Authentication &{" "}
-              <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Role Management
-              </span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#4a3b32] max-w-3xl mx-auto leading-[1.16]">
+              Felna Portal: Secure Role-Based Authentication
             </h1>
 
-            {/* Subhead */}
-            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal">
-              Unified credentials portal with dual-mode password and mobile OTP login,
-              geographic cascading profiling, and high-performance administrative controls.
+            {/* Subtitle */}
+            <p className="text-base sm:text-lg text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
+              A refined credentials platform offering seamless dual-mode password and mobile OTP login,
+              cascading Bangladesh geographic profiling, and enterprise-grade administrative controls.
             </p>
 
-            {/* Dynamic Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-3">
               {session ? (
                 <>
                   <Link
                     href="/dashboard"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-blue-600/25 transition-all hover:scale-[1.01]"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#4a3b32] hover:bg-[#3d3028] text-[#fcfbf9] font-semibold text-sm rounded-xl shadow-sm shadow-[#4a3b32]/25 transition hover:scale-[1.01]"
                   >
-                    <LayoutDashboard className="w-4 h-4" />
+                    <LayoutDashboard className="w-4 h-4 text-[#fcfbf9]" />
                     <span>Go to Member Dashboard</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 text-[#fcfbf9]" />
                   </Link>
 
                   {session.role === "ADMIN" && (
                     <Link
                       href="/admin/dashboard"
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-purple-600/25 transition-all hover:scale-[1.01]"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-transparent hover:bg-[#ebe5da]/60 text-[#4a3b32] border-2 border-[#4a3b32] font-semibold text-sm rounded-xl transition hover:scale-[1.01]"
                     >
-                      <Shield className="w-4 h-4" />
+                      <Shield className="w-4 h-4 text-[#4a3b32]" />
                       <span>Open Admin Console</span>
                     </Link>
                   )}
@@ -85,132 +86,192 @@ export default async function HomePage() {
                 <>
                   <Link
                     href="/login"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-md shadow-blue-600/25 transition-all hover:scale-[1.01]"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#4a3b32] hover:bg-[#3d3028] text-[#fcfbf9] font-semibold text-sm rounded-xl shadow-sm shadow-[#4a3b32]/25 transition hover:scale-[1.01]"
                   >
-                    <KeyRound className="w-4 h-4" />
-                    <span>Sign In to Portal</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <KeyRound className="w-4 h-4 text-[#fcfbf9]" />
+                    <span>Go to Portal</span>
+                    <ArrowRight className="w-4 h-4 text-[#fcfbf9]" />
                   </Link>
-                  <Link
-                    href="/register"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white hover:bg-slate-50 text-slate-800 font-semibold text-sm rounded-xl border border-slate-300 shadow-sm transition-all hover:scale-[1.01]"
+
+                  <a
+                    href="#features"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-transparent hover:bg-[#ebe5da]/60 text-[#4a3b32] border-2 border-[#4a3b32] font-semibold text-sm rounded-xl transition hover:scale-[1.01]"
                   >
-                    <span>Create New Account</span>
-                  </Link>
+                    <span>Learn More</span>
+                    <ChevronRight className="w-4 h-4 text-[#4a3b32]" />
+                  </a>
                 </>
               )}
             </div>
 
-            {/* Quick Gradient Highlight Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-6 max-w-3xl mx-auto text-left">
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-md flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center shrink-0 border border-white/20">
-                  <Sparkles className="w-4 h-4 text-white" />
+            {/* Quick Vintage Highlight Badges */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-8 max-w-3xl mx-auto text-left">
+              <div className="p-4 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-xs flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0] flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 text-[#4a3b32]" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold leading-tight">Instant OTP Auth</div>
-                  <div className="text-[11px] text-purple-100 mt-0.5">Password & 6-Digit SMS</div>
+                  <div className="text-xs font-bold text-[#4a3b32] leading-tight">Instant OTP Auth</div>
+                  <div className="text-[11px] text-stone-500 mt-0.5">Password & 6-Digit SMS</div>
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-md flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center shrink-0 border border-white/20">
-                  <MapPin className="w-4 h-4 text-white" />
+              <div className="p-4 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-xs flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0] flex items-center justify-center shrink-0">
+                  <MapPin className="w-4 h-4 text-[#4a3b32]" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold leading-tight">Cascading BD Geo</div>
-                  <div className="text-[11px] text-cyan-100 mt-0.5">Divisions, Districts & Thanas</div>
+                  <div className="text-xs font-bold text-[#4a3b32] leading-tight">Cascading BD Geo</div>
+                  <div className="text-[11px] text-stone-500 mt-0.5">Divisions, Districts & Thanas</div>
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-md flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center shrink-0 border border-white/20">
-                  <Zap className="w-4 h-4 text-white" />
+              <div className="p-4 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-xs flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0] flex items-center justify-center shrink-0">
+                  <Shield className="w-4 h-4 text-[#4a3b32]" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold leading-tight">Role-Based Control</div>
-                  <div className="text-[11px] text-emerald-100 mt-0.5">Admin & User RBAC</div>
+                  <div className="text-xs font-bold text-[#4a3b32] leading-tight">Role-Based Access</div>
+                  <div className="text-[11px] text-stone-500 mt-0.5">Admin & User RBAC</div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Feature Grid Section - Clean White Cards with Soft Shadows on Slate-200 */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        {/* ================================================================= */}
+        {/* Feature Cards Section */}
+        {/* ================================================================= */}
+        <section id="features" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-16">
           <div className="text-center space-y-2 mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
-              Engineered for Speed, Precision & Security
+            <span className="text-[11px] font-bold text-[#4a3b32] uppercase tracking-widest px-3 py-1 bg-[#ebe5da] rounded-full border border-[#d4ccc0]">
+              Architecture & Capabilities
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#4a3b32]">
+              Engineered for Security, Precision & Trust
             </h2>
-            <p className="text-sm text-slate-600">
-              Built on Next.js, Neon Serverless PostgreSQL, and Cryptographic JWT Sessions
+            <p className="text-sm text-stone-600 max-w-xl mx-auto">
+              Built on Next.js, Neon Serverless PostgreSQL, and Cryptographic JWT Sessions.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Feature 1 */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-300/80 shadow-sm hover:shadow-md transition-all space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center border border-purple-200/80 shadow-xs">
-                <ShieldCheck className="w-5 h-5" />
+            <div className="p-6 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-sm hover:shadow-md transition-all space-y-3">
+              <div className="w-11 h-11 rounded-xl bg-[#ebe5da] text-[#4a3b32] flex items-center justify-center border border-[#d4ccc0] shadow-2xs">
+                <ShieldCheck className="w-5 h-5 text-[#4a3b32]" />
               </div>
-              <h3 className="font-bold text-base text-slate-900">
+              <h3 className="font-bold text-base text-[#4a3b32]">
                 Unified Credential Hub
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-stone-600 leading-relaxed">
                 Single-page authentication with instant tab-switching between Sign In and Registration.
-                Supports both password credentials and 6-digit phone OTP verification.
+                Supports credential hashing, tamper-safe sessions, and 6-digit phone verification.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-300/80 shadow-sm hover:shadow-md transition-all space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center border border-cyan-200/80 shadow-xs">
-                <MapPin className="w-5 h-5" />
+            <div className="p-6 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-sm hover:shadow-md transition-all space-y-3">
+              <div className="w-11 h-11 rounded-xl bg-[#ebe5da] text-[#4a3b32] flex items-center justify-center border border-[#d4ccc0] shadow-2xs">
+                <MapPin className="w-5 h-5 text-[#4a3b32]" />
               </div>
-              <h3 className="font-bold text-base text-slate-900">
+              <h3 className="font-bold text-base text-[#4a3b32]">
                 Bangladesh Geographic Engine
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-stone-600 leading-relaxed">
                 Real-time cascading dropdowns for 8 Divisions, 64 Districts, and Upazilas/Thanas
                 with automated relational querying and localized address validation.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-300/80 shadow-sm hover:shadow-md transition-all space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200/80 shadow-xs">
-                <Users className="w-5 h-5" />
+            <div className="p-6 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-sm hover:shadow-md transition-all space-y-3">
+              <div className="w-11 h-11 rounded-xl bg-[#ebe5da] text-[#4a3b32] flex items-center justify-center border border-[#d4ccc0] shadow-2xs">
+                <Users className="w-5 h-5 text-[#4a3b32]" />
               </div>
-              <h3 className="font-bold text-base text-slate-900">
+              <h3 className="font-bold text-base text-[#4a3b32]">
                 Admin Console & RBAC
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-stone-600 leading-relaxed">
                 Real-time role-based access control with live user search, role toggling (USER / ADMIN),
                 account suspension, and metric analytics counters.
               </p>
             </div>
           </div>
+
+          {/* Standards & Security Overview Banner */}
+          <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#e5ded4] pb-4">
+              <div>
+                <h3 className="font-bold text-base text-[#4a3b32]">
+                  Security Specifications & Standards
+                </h3>
+                <p className="text-xs text-stone-600 mt-0.5">
+                  Multi-layered defense architecture protecting identities and credentials.
+                </p>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#ebe5da] text-[#4a3b32] text-xs font-semibold border border-[#d4ccc0] self-start sm:self-auto">
+                <Lock className="w-3.5 h-3.5 text-[#4a3b32]" />
+                <span>SSL & Hashing Enforced</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#4a3b32] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-semibold text-stone-800">Neon PostgreSQL:</span>
+                  <p className="text-stone-600 mt-0.5">Serverless pooled database with SSL connection verification.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#4a3b32] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-semibold text-stone-800">Cryptographic OTP:</span>
+                  <p className="text-stone-600 mt-0.5">SHA-256 OTP hashing with timingSafeEqual and lockout defenses.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#4a3b32] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-semibold text-stone-800">Stateless JWT Cookies:</span>
+                  <p className="text-stone-600 mt-0.5">HTTP-only signed cookies verified through Edge Middleware.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
 
+      {/* ================================================================= */}
       {/* Footer */}
-      <footer className="border-t border-slate-300/80 py-6 px-4 bg-slate-200/90 text-center text-xs text-slate-600">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      {/* ================================================================= */}
+      <footer className="border-t border-[#d4ccc0] py-8 px-4 bg-[#f4f0e6] text-center text-xs text-stone-600">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-blue-600" />
-            <span className="font-bold text-slate-800">Felna.com</span>
-            <span>&mdash; Secure Role-Based Authentication</span>
+            <div className="w-6 h-6 rounded-lg bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#fcfbf9]" />
+            </div>
+            <span className="font-bold text-[#4a3b32]">Felna.com</span>
+            <span>&mdash; Secure Role-Based Authentication System</span>
           </div>
-          <div className="flex items-center gap-4 text-xs">
-            <Link href="/login" className="hover:text-blue-600 transition">
+
+          <div className="flex items-center gap-5 text-xs font-medium">
+            <Link href="/login" className="hover:text-[#4a3b32] transition">
               Sign In
             </Link>
-            <Link href="/register" className="hover:text-blue-600 transition">
+            <Link href="/register" className="hover:text-[#4a3b32] transition">
               Register
             </Link>
-            <Link href="/dashboard" className="hover:text-blue-600 transition">
+            <Link href="/dashboard" className="hover:text-[#4a3b32] transition">
               Dashboard
             </Link>
+            <span className="text-stone-400">|</span>
+            <span className="text-stone-500">
+              &copy; {new Date().getFullYear()} Felna Inc.
+            </span>
           </div>
         </div>
       </footer>
