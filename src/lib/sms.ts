@@ -577,7 +577,7 @@ export async function verifyOtp(
     console.warn(`[OTP VERIFY] OTP for ${phone} has expired at ${latest.expiresAt.toISOString()}`);
     return {
       success: false,
-      error: "This OTP has expired. Please request a new one.",
+      error: "OTP Expired. Please request a new code.",
     };
   }
 
