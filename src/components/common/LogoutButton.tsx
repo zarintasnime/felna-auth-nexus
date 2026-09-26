@@ -43,7 +43,7 @@ export default function LogoutButton({
   // Variant styles
   const variantStyles = {
     navbar:
-      "inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 rounded-xl transition-colors border border-transparent hover:border-rose-200",
+      "inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:text-[#7a271a] bg-[#ebe5da] hover:bg-[#fbeae8] rounded-xl transition-colors border border-[#d4ccc0] hover:border-[#e8b5af]",
     compact:
       "inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition",
     destructive:
