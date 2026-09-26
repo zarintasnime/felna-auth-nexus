@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   User,
   Phone,
@@ -36,6 +37,7 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Cascading Geo Data
   const [divisions, setDivisions] = useState<GeoDivision[]>([]);
@@ -154,6 +156,18 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
     e.preventDefault();
     setFormError(null);
 
+    // Strict Email Requirement Validation
+    if (!email || !email.trim()) {
+      setFormError("Email is required.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      setFormError("Please provide a valid email address.");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setFormError("Passwords do not match.");
       return;
@@ -167,7 +181,7 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
         body: JSON.stringify({
           name,
           phone,
-          email: email || undefined,
+          email: email.trim(),
           divisionId,
           districtId,
           upazilaId,
@@ -279,19 +293,19 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
       {step === "form" && (
         <form onSubmit={handleRegister} className="space-y-4">
           {formError && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-start gap-2.5 text-red-700 text-xs">
-              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-500" />
+            <div className="p-3 bg-[#fbeae8] border border-[#e8b5af] rounded-xl flex items-start gap-2.5 text-[#7a271a] text-xs shadow-xs">
+              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-[#7a271a]" />
               <span>{formError}</span>
             </div>
           )}
 
           {/* Full Name */}
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
-              Full Name <span className="text-red-500">*</span>
+            <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1">
+              Full Name <span className="text-[#991b1b]">*</span>
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-500">
                 <User className="w-4 h-4" />
               </div>
               <input
@@ -299,8 +313,7 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Rahim Ahmed"
-                className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition"
+                className="w-full pl-10 pr-4 py-2 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl text-xs text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32] focus:bg-[#fcfbf9] transition"
               />
             </div>
           </div>
@@ -308,11 +321,11 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
           {/* Phone & Email */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
-                Mobile Phone <span className="text-red-500">*</span>
+              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1">
+                Mobile Phone <span className="text-[#991b1b]">*</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-500">
                   <Phone className="w-4 h-4" />
                 </div>
                 <input
@@ -320,46 +333,45 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                   required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="017XXXXXXXX"
-                  className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition"
+                  className="w-full pl-10 pr-4 py-2 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl text-xs text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32] focus:bg-[#fcfbf9] transition"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
-                Email <span className="text-slate-400 font-normal lowercase">(optional)</span>
+              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1">
+                Email <span className="text-[#991b1b]">*</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-500">
                   <Mail className="w-4 h-4" />
                 </div>
                 <input
                   type="email"
+                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="rahim@felna.com"
-                  className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition"
+                  className="w-full pl-10 pr-4 py-2 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl text-xs text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32] focus:bg-[#fcfbf9] transition"
                 />
               </div>
             </div>
           </div>
 
           {/* Bangladesh Geo Cascading Dropdowns */}
-          <div className="bg-slate-50/80 p-3.5 rounded-xl border border-slate-200 space-y-2.5">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 uppercase tracking-wider">
-              <MapPin className="w-3.5 h-3.5 text-blue-600" />
+          <div className="bg-[#f5efe6] p-3.5 rounded-xl border border-[#d4ccc0] space-y-2.5">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-stone-700 uppercase tracking-wider">
+              <MapPin className="w-3.5 h-3.5 text-[#4a3b32]" />
               <span>Location in Bangladesh</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               <div>
-                <label className="block text-[11px] text-slate-600 mb-1">Division *</label>
+                <label className="block text-[11px] text-stone-600 mb-1">Division *</label>
                 <select
                   required
                   value={divisionId}
                   onChange={(e) => setDivisionId(e.target.value)}
-                  className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="w-full px-2.5 py-1.5 bg-[#ebe5da] border border-[#d4ccc0] rounded-lg text-xs text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32]"
                 >
                   <option value="">Select Division</option>
                   {divisions.map((div) => (
@@ -371,13 +383,13 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
               </div>
 
               <div>
-                <label className="block text-[11px] text-slate-600 mb-1">District *</label>
+                <label className="block text-[11px] text-stone-600 mb-1">District *</label>
                 <select
                   required
                   disabled={!divisionId || loadingGeo}
                   value={districtId}
                   onChange={(e) => setDistrictId(e.target.value)}
-                  className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:opacity-50 disabled:bg-slate-100"
+                  className="w-full px-2.5 py-1.5 bg-[#ebe5da] border border-[#d4ccc0] rounded-lg text-xs text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32] disabled:opacity-50 disabled:bg-[#e4ddd2]"
                 >
                   <option value="">
                     {!divisionId ? "Select Division First" : "Select District"}
@@ -391,13 +403,13 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
               </div>
 
               <div>
-                <label className="block text-[11px] text-slate-600 mb-1">Thana / Upazila *</label>
+                <label className="block text-[11px] text-stone-600 mb-1">Thana / Upazila *</label>
                 <select
                   required
                   disabled={!districtId || loadingGeo}
                   value={upazilaId}
                   onChange={(e) => setUpazilaId(e.target.value)}
-                  className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:opacity-50 disabled:bg-slate-100"
+                  className="w-full px-2.5 py-1.5 bg-[#ebe5da] border border-[#d4ccc0] rounded-lg text-xs text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32] disabled:opacity-50 disabled:bg-[#e4ddd2]"
                 >
                   <option value="">
                     {!districtId ? "Select District First" : "Select Thana"}
@@ -412,13 +424,13 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
             </div>
 
             <div>
-              <label className="block text-[11px] text-slate-600 mb-1">Permanent Address</label>
+              <label className="block text-[11px] text-stone-600 mb-1">Permanent Address</label>
               <input
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="House/Road, Area, Ward"
-                className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-2.5 py-1.5 bg-[#ebe5da] border border-[#d4ccc0] rounded-lg text-xs text-stone-800 placeholder:text-stone-500/70 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32]"
               />
             </div>
           </div>
@@ -426,11 +438,11 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
           {/* Passwords */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
-                Password <span className="text-red-500">*</span>
+              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1">
+                Password <span className="text-[#991b1b]">*</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-500">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
@@ -438,13 +450,14 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Min 8 chars, 1 uppercase, 1 num"
-                  className="w-full pl-10 pr-9 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition"
+                  placeholder="....."
+                  className="w-full pl-10 pr-9 py-2 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl text-xs text-stone-800 placeholder:text-base placeholder:font-bold placeholder:tracking-widest placeholder:text-stone-500/80 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32] focus:bg-[#fcfbf9] transition"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-500 hover:text-stone-700 focus:outline-none"
                 >
                   {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                 </button>
@@ -452,34 +465,46 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">
-                Confirm Password <span className="text-red-500">*</span>
+              <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1">
+                Confirm Password <span className="text-[#991b1b]">*</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-500">
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showConfirmPassword ? "text" : "password"}
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Re-enter password"
-                  className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition"
+                  placeholder="....."
+                  className="w-full pl-10 pr-9 py-2 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl text-xs text-stone-800 placeholder:text-base placeholder:font-bold placeholder:tracking-widest placeholder:text-stone-500/80 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32] focus:bg-[#fcfbf9] transition"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-500 hover:text-stone-700 focus:outline-none"
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff className="w-3.5 h-3.5" />
+                  ) : (
+                    <Eye className="w-3.5 h-3.5" />
+                  )}
+                </button>
               </div>
             </div>
           </div>
 
-          {/* Submit Button */}
+          {/* Deep Dark Brown Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md shadow-blue-600/20 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 transition flex items-center justify-center gap-2 disabled:opacity-50 mt-3"
+            className="w-full py-3 px-4 bg-[#4a3b32] hover:bg-[#3d3028] text-[#fcfbf9] font-semibold rounded-xl shadow-sm shadow-[#4a3b32]/25 focus:outline-none focus:ring-2 focus:ring-[#4a3b32] focus:ring-offset-2 transition flex items-center justify-center gap-2 disabled:opacity-50 mt-3"
           >
             {isSubmitting ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin text-[#fcfbf9]" />
                 <span>Creating Account...</span>
               </>
             ) : (
@@ -487,15 +512,21 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
             )}
           </button>
 
-          <div className="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
+          <div className="text-center text-xs text-stone-600 pt-2 border-t border-[#e5ded4]">
             Already have an account?{" "}
-            <button
-              type="button"
-              onClick={onSwitchToLogin}
-              className="text-blue-600 font-semibold hover:underline"
-            >
-              Sign in
-            </button>
+            {onSwitchToLogin ? (
+              <button
+                type="button"
+                onClick={onSwitchToLogin}
+                className="text-[#4a3b32] font-semibold hover:underline"
+              >
+                Sign in
+              </button>
+            ) : (
+              <Link href="/login" className="text-[#4a3b32] font-semibold hover:underline">
+                Sign in
+              </Link>
+            )}
           </div>
         </form>
       )}
@@ -506,21 +537,22 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
       {step === "otp" && (
         <form onSubmit={handleVerifyOtp} className="space-y-4">
           <div className="text-center space-y-1">
-            <h3 className="text-base font-bold text-slate-900">Verify Mobile Number</h3>
-            <p className="text-xs text-slate-500">
+            <h3 className="text-base font-bold text-stone-800">Verify Mobile Number</h3>
+            <p className="text-xs text-stone-600">
               We sent a 6-digit code to{" "}
-              <span className="font-semibold text-slate-800">{normalizedPhone}</span>
+              <span className="font-semibold text-stone-800">{normalizedPhone}</span>
             </p>
           </div>
 
           {otpError && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-start gap-2 text-red-700 text-xs">
-              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-red-500" />
+            <div className="p-3 bg-[#fbeae8] border border-[#e8b5af] rounded-xl flex items-start gap-2 text-[#7a271a] text-xs shadow-xs">
+              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-[#7a271a]" />
               <div className="flex-1">
                 <span>{otpError}</span>
                 {typeof remainingAttempts === "number" && remainingAttempts > 0 && (
-                  <div className="mt-1 font-semibold text-red-800">
-                    Remaining attempts: {remainingAttempts}
+                  <div className="mt-2 p-1.5 bg-[#fef8e7] border border-[#ecd99d] rounded-lg font-semibold text-[#6d5008] flex items-center gap-1.5">
+                    <AlertCircle className="w-3.5 h-3.5 text-[#6d5008]" />
+                    <span>Remaining attempts: {remainingAttempts}</span>
                   </div>
                 )}
               </div>
@@ -535,18 +567,18 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
               value={otp}
               onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
               placeholder="••••••"
-              className="w-full text-center text-2xl tracking-[0.4em] font-mono py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition"
+              className="w-full text-center text-2xl tracking-[0.4em] font-mono py-2.5 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32] focus:bg-[#fcfbf9] transition text-stone-800"
             />
           </div>
 
           <button
             type="submit"
             disabled={isVerifying || otp.length !== 6}
-            className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md shadow-blue-600/20 focus:outline-none focus:ring-2 focus:ring-blue-600 transition flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-3 px-4 bg-[#4a3b32] hover:bg-[#3d3028] text-[#fcfbf9] font-semibold rounded-xl shadow-sm shadow-[#4a3b32]/25 focus:outline-none focus:ring-2 focus:ring-[#4a3b32] transition flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {isVerifying ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-4 h-4 animate-spin text-[#fcfbf9]" />
                 <span>Activating Account...</span>
               </>
             ) : (
@@ -554,7 +586,7 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
             )}
           </button>
 
-          <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs text-slate-500">
+          <div className="flex items-center justify-between pt-2 border-t border-[#e5ded4] text-xs text-stone-600">
             <button
               type="button"
               onClick={() => {
@@ -562,7 +594,7 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                 setFormError(null);
                 setOtpError(null);
               }}
-              className="text-slate-500 hover:text-slate-800 underline"
+              className="text-stone-600 hover:text-stone-800 underline"
             >
               Edit details
             </button>
@@ -572,14 +604,14 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                 type="button"
                 onClick={handleResendOtp}
                 disabled={isResending}
-                className="inline-flex items-center gap-1 text-blue-600 font-semibold hover:underline disabled:opacity-50"
+                className="inline-flex items-center gap-1 text-[#4a3b32] font-semibold hover:underline disabled:opacity-50"
               >
                 <RefreshCw className={`w-3 h-3 ${isResending ? "animate-spin" : ""}`} />
                 <span>Resend Code</span>
               </button>
             ) : (
-              <span className="text-slate-400">
-                Resend in <span className="font-semibold text-slate-600">{cooldown}s</span>
+              <span className="text-stone-500">
+                Resend in <span className="font-semibold text-stone-700">{cooldown}s</span>
               </span>
             )}
           </div>
@@ -591,34 +623,47 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
       {/* =================================================================== */}
       {step === "success" && (
         <div className="text-center space-y-4 py-4 animate-in fade-in zoom-in-95 duration-200">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-green-100 text-green-600 rounded-full shadow-sm">
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-[#edf5ee] text-[#215428] rounded-full shadow-xs border border-[#b8dcbc]">
             <CheckCircle className="w-8 h-8" />
           </div>
 
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-slate-900">Account Verified & Active!</h3>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              Welcome to Felna. Your mobile phone has been verified and your account is active.
+            <h3 className="text-lg font-bold text-stone-800">Account Verified & Active!</h3>
+            <p className="text-xs text-stone-600 max-w-sm mx-auto">
+              Welcome to Felna. Your mobile phone and email have been verified and your account is active.
             </p>
           </div>
 
-          <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-left text-xs space-y-1 text-slate-600">
+          <div className="p-3.5 bg-[#f5efe6] border border-[#d4ccc0] rounded-xl text-left text-xs space-y-1 text-stone-700">
             <div>
-              <span className="font-semibold text-slate-700">Name:</span> {name}
+              <span className="font-semibold text-stone-800">Name:</span> {name}
             </div>
             <div>
-              <span className="font-semibold text-slate-700">Phone:</span> {normalizedPhone}
+              <span className="font-semibold text-stone-800">Phone:</span> {normalizedPhone}
+            </div>
+            <div>
+              <span className="font-semibold text-stone-800">Email:</span> {email}
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={onSwitchToLogin}
-            className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2"
-          >
-            <span>Proceed to Sign In</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          {onSwitchToLogin ? (
+            <button
+              type="button"
+              onClick={onSwitchToLogin}
+              className="w-full py-2.5 px-4 bg-[#4a3b32] hover:bg-[#3d3028] text-[#fcfbf9] text-xs font-semibold rounded-xl shadow-sm shadow-[#4a3b32]/25 transition flex items-center justify-center gap-2"
+            >
+              <span>Proceed to Sign In</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="w-full py-2.5 px-4 bg-[#4a3b32] hover:bg-[#3d3028] text-[#fcfbf9] text-xs font-semibold rounded-xl shadow-sm shadow-[#4a3b32]/25 transition flex items-center justify-center gap-2"
+            >
+              <span>Proceed to Sign In</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          )}
         </div>
       )}
     </div>

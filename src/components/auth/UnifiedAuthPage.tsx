@@ -37,40 +37,40 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-between py-8 px-4 sm:px-6">
+    <div className="min-h-screen bg-[#f4f0e6] text-stone-800 flex flex-col justify-between py-10 px-4 sm:px-6 selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
       {/* Top Bar with Return to Home */}
-      <div className="max-w-md w-full mx-auto flex items-center justify-between mb-4">
+      <div className="max-w-lg w-full mx-auto flex items-center justify-between mb-4">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-white transition"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-600 hover:text-[#4a3b32] transition"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Home</span>
         </Link>
-        <span className="text-[11px] text-slate-400 font-medium">Felna Portal</span>
+        <span className="text-[11px] text-stone-500 font-medium">Felna Portal</span>
       </div>
 
-      {/* Main Unified Credentials Card */}
-      <div className="w-full max-w-md mx-auto bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+      {/* Main Unified Credentials Card - Vintage Parchment Styling */}
+      <div className="w-full max-w-lg mx-auto bg-[#fcfbf9] rounded-2xl shadow-[0_10px_35px_rgba(74,59,50,0.08)] border border-[#d4ccc0] overflow-hidden">
         {/* Brand Card Header */}
-        <div className="bg-gradient-to-b from-slate-900 to-slate-950 px-6 py-6 text-white text-center border-b border-slate-800">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600/20 text-blue-400 rounded-2xl mb-2.5 border border-blue-500/30 shadow-inner">
-            <ShieldCheck className="w-6 h-6 text-blue-400" />
+        <div className="bg-[#fcfbf9] px-6 pt-7 pb-4 text-center border-b border-[#e5ded4]">
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-[#ebe5da] text-[#4a3b32] rounded-2xl mb-2.5 border border-[#d4ccc0] shadow-xs">
+            <ShieldCheck className="w-6 h-6 text-[#4a3b32]" />
           </div>
-          <h1 className="text-xl font-bold tracking-tight">Felna Portal</h1>
-          <p className="text-slate-400 text-xs mt-0.5">
+          <h1 className="text-xl font-bold tracking-tight text-stone-800">Felna Portal</h1>
+          <p className="text-stone-600 text-xs mt-0.5">
             Role-Based Authentication & Verification System
           </p>
 
-          {/* Master Tab Selector (Sign In vs Create Account) */}
-          <div className="mt-5 grid grid-cols-2 p-1 bg-slate-800/90 rounded-2xl border border-slate-700/60 text-xs font-semibold">
+          {/* Segmented Toggle Control (Vintage Pill Switcher) */}
+          <div className="mt-5 p-1 bg-[#ebe5da] rounded-xl border border-[#d4ccc0] grid grid-cols-2 gap-1 text-xs font-semibold">
             <button
               type="button"
               onClick={() => handleTabChange("login")}
-              className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+              className={`py-2 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 activeTab === "login"
-                  ? "bg-blue-600 text-white shadow-sm font-bold"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#4a3b32] text-[#fcfbf9] shadow-sm font-bold"
+                  : "bg-transparent text-[#4a3b32] hover:text-stone-900 font-medium"
               }`}
             >
               <LogIn className="w-3.5 h-3.5" />
@@ -79,10 +79,10 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
             <button
               type="button"
               onClick={() => handleTabChange("register")}
-              className={`py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+              className={`py-2 px-3 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 activeTab === "register"
-                  ? "bg-blue-600 text-white shadow-sm font-bold"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-[#4a3b32] text-[#fcfbf9] shadow-sm font-bold"
+                  : "bg-transparent text-[#4a3b32] hover:text-stone-900 font-medium"
               }`}
             >
               <UserPlus className="w-3.5 h-3.5" />
@@ -92,12 +92,9 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
         </div>
 
         {/* Card Body */}
-        <div className="p-6 space-y-5">
-          {/* Active Tab Content */}
+        <div className="p-6 space-y-5 bg-[#fcfbf9]">
           {activeTab === "login" ? (
-            <LoginForm
-              onSwitchToRegister={() => handleTabChange("register")}
-            />
+            <LoginForm onSwitchToRegister={() => handleTabChange("register")} />
           ) : (
             <RegisterForm onSwitchToLogin={() => handleTabChange("login")} />
           )}
@@ -105,8 +102,8 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
       </div>
 
       {/* Footer info */}
-      <footer className="max-w-md w-full mx-auto text-center mt-6">
-        <p className="text-[11px] text-slate-400">
+      <footer className="max-w-lg w-full mx-auto text-center mt-6">
+        <p className="text-[11px] text-stone-500">
           Felna Secure Authentication &copy; {new Date().getFullYear()}. All rights reserved.
         </p>
       </footer>

@@ -11,7 +11,13 @@ export async function POST(request: NextRequest) {
     // 1. Zod input validation
     const validation = registerSchema.safeParse(body);
     if (!validation.success) {
-      const firstError = validation.error.issues[0]?.message || "Invalid registration data.";
+      let firstError = validation.error.issues[0]?.message || "Invalid registration data.";
+      if (
+        validation.error.issues[0]?.path[0] === "email" &&
+        validation.error.issues[0]?.code === "invalid_type"
+      ) {
+        firstError = "Email is required.";
+      }
       return NextResponse.json(
         {
           success: false,

@@ -16,6 +16,7 @@ import {
   Calendar,
   Home,
   Shield,
+  Zap,
 } from "lucide-react";
 import LogoutButton from "@/components/common/LogoutButton";
 import { GeoDivision, GeoDistrict, GeoUpazila } from "@/lib/data/bangladesh-geo";
@@ -193,21 +194,21 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Top Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div className="min-h-screen bg-slate-200 flex flex-col justify-between">
+      {/* Top Header - Clean, modern light backdrop with crisp typography and brand identity */}
+      <header className="bg-white/90 backdrop-blur-md border-b border-slate-300/80 sticky top-0 z-30 shadow-xs">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 font-bold text-lg text-slate-900 hover:text-blue-600 transition">
-            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-sm">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center shadow-md shadow-sky-500/20">
               <ShieldCheck className="w-5 h-5" />
             </div>
-            <span>Felna.com</span>
+            <span>Felna<span className="text-sky-600">.com</span></span>
           </Link>
 
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="text-xs text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition px-2.5 py-1.5 rounded-lg hover:bg-slate-100"
+              className="text-xs text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition px-3 py-1.5 rounded-lg hover:bg-slate-100 font-medium"
             >
               <Home className="w-3.5 h-3.5" />
               <span>Home</span>
@@ -216,7 +217,7 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
             {user.role === "ADMIN" && (
               <Link
                 href="/admin/dashboard"
-                className="text-xs text-red-600 hover:text-red-700 flex items-center gap-1.5 transition px-2.5 py-1.5 rounded-lg hover:bg-red-50 font-medium"
+                className="text-xs text-purple-700 hover:text-purple-800 flex items-center gap-1.5 transition px-3 py-1.5 rounded-lg hover:bg-purple-50 font-semibold border border-purple-200"
               >
                 <Shield className="w-3.5 h-3.5" />
                 <span>Admin Console</span>
@@ -228,26 +229,26 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+      {/* Main Content Area - Soft off-white / light gray bg-slate-100 */}
+      <main className="max-w-6xl w-full mx-auto px-4 py-8 space-y-6 flex-1">
         {/* Success Alert */}
         {successMessage && (
-          <div className="p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3 text-green-800 text-sm shadow-sm">
-            <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+          <div className="p-4 bg-emerald-100 border border-emerald-200 rounded-xl flex items-center gap-3 text-emerald-800 text-sm shadow-xs">
+            <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
             <span>{successMessage}</span>
           </div>
         )}
 
-        {/* Dashboard Title & Hero */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm">
+        {/* Dashboard Title & Hero - Clean White Card */}
+        <div className="bg-white rounded-2xl border border-slate-300/80 p-6 sm:p-8 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
             <div>
               <div className="flex items-center gap-3">
                 <h1 className="text-2xl font-bold text-slate-900">{user.name}</h1>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 border border-emerald-200">
                   {user.status}
                 </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-700 border border-sky-200">
                   {user.role}
                 </span>
               </div>
@@ -258,17 +259,47 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
 
             <button
               onClick={openEditModal}
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-xl shadow-sm transition self-start sm:self-auto"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-md shadow-blue-600/20 transition self-start sm:self-auto"
             >
               <Edit3 className="w-4 h-4" />
               <span>Edit Profile</span>
             </button>
           </div>
 
+          {/* Quick Stats Highlights */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+            <div className="p-4 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-sm flex items-center justify-between">
+              <div>
+                <div className="text-xs uppercase font-semibold text-emerald-100">Verification Status</div>
+                <div className="text-xl font-bold mt-0.5">Phone Verified & Active</div>
+                <div className="text-[11px] text-emerald-100/90 mt-1">Full access to Felna features</div>
+              </div>
+              <div className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-xs flex items-center justify-center shrink-0">
+                <CheckCircle className="w-5 h-5 text-white" />
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-sm flex items-center justify-between">
+              <div>
+                <div className="text-xs uppercase font-semibold text-cyan-100">Geographic Profile</div>
+                <div className="text-xl font-bold mt-0.5">
+                  {user.division?.name ? `${user.division.name}` : "Bangladesh"}
+                </div>
+                <div className="text-[11px] text-cyan-100/90 mt-1">
+                  {user.district?.name ? `${user.district.name}, ` : ""}
+                  {user.upazila?.name ? user.upazila.name : "Location synced"}
+                </div>
+              </div>
+              <div className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-xs flex items-center justify-center shrink-0">
+                <MapPin className="w-5 h-5 text-white" />
+              </div>
+            </div>
+          </div>
+
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
             {/* Card 1: Account Credentials */}
-            <div className="p-6 bg-slate-50/70 rounded-2xl border border-slate-200/80 space-y-4">
+            <div className="p-6 bg-slate-100 rounded-2xl border border-slate-300/80 space-y-4">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-700 uppercase tracking-wider">
                 <User className="w-4 h-4 text-blue-600" />
                 <span>Account Credentials</span>
@@ -283,7 +314,7 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
                 <div>
                   <span className="text-xs text-slate-400 font-medium">Verified Phone Number</span>
                   <div className="font-semibold text-slate-800 flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5 text-green-600" />
+                    <Phone className="w-3.5 h-3.5 text-emerald-600" />
                     <span>{user.phone}</span>
                   </div>
                 </div>
@@ -313,7 +344,7 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
             </div>
 
             {/* Card 2: Bangladesh Geographic Location */}
-            <div className="p-6 bg-slate-50/70 rounded-2xl border border-slate-200/80 space-y-4">
+            <div className="p-6 bg-slate-100 rounded-2xl border border-slate-300/80 space-y-4">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-700 uppercase tracking-wider">
                 <MapPin className="w-4 h-4 text-blue-600" />
                 <span>Registered Location (Bangladesh)</span>
@@ -355,10 +386,22 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
         </div>
       </main>
 
-      {/* Edit Profile Modal */}
+      {/* Footer */}
+      <footer className="border-t border-slate-300/80 py-6 px-4 bg-slate-200/90 text-center text-xs text-slate-600">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-blue-600" />
+            <span className="font-bold text-slate-800">Felna.com</span>
+            <span>&mdash; Secure Member Portal</span>
+          </div>
+          <p className="text-slate-500">&copy; {new Date().getFullYear()} Felna. All rights reserved.</p>
+        </div>
+      </footer>
+
+      {/* Edit Profile Modal - Clean White Card with Rounded-2xl & Soft Shadow */}
       {isEditModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-300/80 w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             {/* Modal Header */}
             <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
               <h3 className="font-bold text-lg text-slate-900">Edit Profile Information</h3>
@@ -373,8 +416,8 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
             {/* Modal Form */}
             <form onSubmit={handleSaveProfile} className="p-6 space-y-4">
               {errorMessage && (
-                <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2 text-red-700 text-xs">
-                  <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-500" />
+                <div className="p-3 bg-rose-100 border border-rose-200 rounded-xl flex items-center gap-2 text-rose-800 text-xs shadow-xs">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0 text-rose-600" />
                   <span>{errorMessage}</span>
                 </div>
               )}
@@ -389,7 +432,7 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
                   required
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 focus:bg-white"
                 />
               </div>
 
@@ -403,12 +446,12 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
                   value={editEmail}
                   onChange={(e) => setEditEmail(e.target.value)}
                   placeholder="name@example.com"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 focus:bg-white"
                 />
               </div>
 
               {/* Geographic Cascading Location */}
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 space-y-3">
+              <div className="p-4 bg-slate-50/80 rounded-xl border border-slate-200/80 space-y-3">
                 <div className="text-xs font-semibold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-blue-600" />
                   <span>Update Location (Bangladesh)</span>
@@ -420,7 +463,7 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
                     <select
                       value={editDivisionId}
                       onChange={(e) => setEditDivisionId(e.target.value)}
-                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
                     >
                       <option value="">Select Division</option>
                       {divisions.map((d) => (
@@ -437,7 +480,7 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
                       disabled={!editDivisionId || loadingGeo}
                       value={editDistrictId}
                       onChange={(e) => setEditDistrictId(e.target.value)}
-                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:opacity-50 disabled:bg-slate-100"
+                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 disabled:opacity-50 disabled:bg-slate-100"
                     >
                       <option value="">Select District</option>
                       {districts.map((dist) => (
@@ -454,7 +497,7 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
                       disabled={!editDistrictId || loadingGeo}
                       value={editUpazilaId}
                       onChange={(e) => setEditUpazilaId(e.target.value)}
-                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:opacity-50 disabled:bg-slate-100"
+                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 disabled:opacity-50 disabled:bg-slate-100"
                     >
                       <option value="">Select Thana</option>
                       {upazilas.map((u) => (
@@ -473,7 +516,7 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
                     value={editAddress}
                     onChange={(e) => setEditAddress(e.target.value)}
                     placeholder="House/Street, Ward"
-                    className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
                   />
                 </div>
               </div>
@@ -490,7 +533,7 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-xl shadow-sm transition flex items-center gap-2 disabled:opacity-50"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl shadow-md shadow-blue-600/20 transition flex items-center gap-2 disabled:opacity-50"
                 >
                   {isSaving ? (
                     <>

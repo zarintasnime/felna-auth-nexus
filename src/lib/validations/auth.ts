@@ -20,9 +20,8 @@ export const registerSchema = z
     email: z
       .string()
       .trim()
-      .email("Please provide a valid email address.")
-      .optional()
-      .or(z.literal("")),
+      .min(1, "Email is required.")
+      .email("Please provide a valid email address."),
     divisionId: z.string().min(1, "Please select your division."),
     districtId: z.string().min(1, "Please select your district."),
     upazilaId: z.string().min(1, "Please select your thana / upazila."),

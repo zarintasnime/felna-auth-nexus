@@ -19,8 +19,6 @@ import {
   User,
   ExternalLink,
   ChevronDown,
-  Shield,
-  Activity,
   Home,
 } from "lucide-react";
 
@@ -110,9 +108,9 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
   }
 
   return (
-    <div className="min-h-screen flex bg-slate-50 text-slate-800 antialiased">
+    <div className="min-h-screen flex bg-slate-200 text-slate-800 antialiased">
       {/* ========================================================================= */}
-      {/* 1. DARK-THEMED LEFT SIDEBAR                                               */}
+      {/* 1. DEEP DARK SLATE / NAVY BLUE SIDEBAR                                    */}
       {/* ========================================================================= */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800 text-slate-300 flex flex-col justify-between transition-transform duration-200 ease-in-out md:translate-x-0 ${
@@ -121,12 +119,12 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
       >
         {/* Sidebar Header / Brand Logo */}
         <div>
-          <div className="h-16 flex items-center justify-between px-5 border-b border-slate-800 bg-slate-950/70">
+          <div className="h-16 flex items-center justify-between px-5 border-b border-slate-800/90 bg-slate-950/60">
             <Link
               href="/admin/dashboard"
               className="flex items-center gap-3 group focus:outline-none"
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center font-bold shadow-md shadow-sky-500/20 group-hover:scale-105 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center font-bold shadow-md shadow-sky-500/25 group-hover:scale-105 transition-transform">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div className="flex flex-col">
@@ -156,7 +154,7 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 Live Neon DB
               </span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/30">
                 ACTIVE
               </span>
             </div>
@@ -170,8 +168,6 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
 
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
-              // Check if currently active:
-              // Handles root path or query match
               const isActive =
                 pathname === item.href ||
                 (item.href === "/admin/dashboard" && pathname.startsWith("/admin/dashboard"));
@@ -183,8 +179,8 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
                     isActive
-                      ? "bg-sky-500/15 text-sky-400 font-semibold border-l-[3px] border-sky-400 shadow-xs"
-                      : "text-slate-300 hover:text-white hover:bg-slate-800/80"
+                      ? "bg-sky-500/15 text-sky-400 font-semibold border-l-4 border-sky-400 shadow-xs"
+                      : "text-slate-300 hover:text-white hover:bg-slate-800/70"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -210,7 +206,7 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
             <Link
               href="/"
               target="_blank"
-              className="flex items-center justify-between px-3.5 py-2 rounded-xl text-xs text-slate-300 hover:text-white hover:bg-slate-800/80 transition-colors"
+              className="flex items-center justify-between px-3.5 py-2 rounded-xl text-xs text-slate-300 hover:text-white hover:bg-slate-800/70 transition-colors"
             >
               <div className="flex items-center gap-3">
                 <ExternalLink className="w-4 h-4 text-slate-400" />
@@ -222,8 +218,8 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
         </div>
 
         {/* Sidebar Footer / User Profile summary */}
-        <div className="p-3 border-t border-slate-800 bg-slate-950/60">
-          <div className="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 border border-slate-700/60">
+        <div className="p-3 border-t border-slate-800/90 bg-slate-950/60">
+          <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 shadow-xs">
             <div className="flex items-center gap-2.5 min-w-0">
               <div className="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/30 flex items-center justify-center font-bold text-xs shrink-0">
                 {session?.name ? session.name.charAt(0).toUpperCase() : "A"}
@@ -242,7 +238,7 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
               onClick={handleLogout}
               disabled={isLoggingOut}
               title="Sign Out"
-              className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-slate-700/50 transition"
+              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-slate-700/50 transition"
             >
               <LogOut className="w-4 h-4" />
             </button>
@@ -254,16 +250,16 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
       {isMobileMenuOpen && (
         <div
           onClick={() => setIsMobileMenuOpen(false)}
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs md:hidden"
+          className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-xs md:hidden"
         />
       )}
 
       {/* ========================================================================= */}
-      {/* 2. MAIN LAYOUT WRAPPER (TOP NAVBAR + CONTENT)                             */}
+      {/* 2. MAIN LAYOUT WRAPPER (CLEAN LIGHT TOP NAVBAR + SOFT CONTENT)            */}
       {/* ========================================================================= */}
       <div className="flex-1 md:ml-64 flex flex-col min-w-0">
-        {/* Light-Themed Top Navbar */}
-        <header className="h-16 bg-white border-b border-slate-200 sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 shadow-2xs">
+        {/* Clean, modern light backdrop header */}
+        <header className="h-16 bg-white/90 backdrop-blur-md border-b border-slate-300/80 sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 shadow-xs">
           {/* Left: Mobile Toggle & Breadcrumbs */}
           <div className="flex items-center gap-3">
             <button
@@ -312,7 +308,7 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
               <input
                 type="text"
                 placeholder="Search resources..."
-                className="w-48 pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:bg-white transition"
+                className="w-48 pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 focus:bg-white transition"
               />
             </div>
 
@@ -394,7 +390,7 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
                         type="button"
                         onClick={handleLogout}
                         disabled={isLoggingOut}
-                        className="w-full flex items-center gap-2.5 px-4 py-2 text-red-600 hover:bg-red-50 transition text-left"
+                        className="w-full flex items-center gap-2.5 px-4 py-2 text-rose-600 hover:bg-rose-50 transition text-left"
                       >
                         <LogOut className="w-3.5 h-3.5" />
                         <span>{isLoggingOut ? "Signing out..." : "Sign Out"}</span>
@@ -407,8 +403,8 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
           </div>
         </header>
 
-        {/* Content Body */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 bg-slate-50">
+        {/* Content Body - Soft corporate slate-200 soothing background */}
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 bg-slate-200">
           <div className="max-w-7xl mx-auto">{children}</div>
         </main>
       </div>
