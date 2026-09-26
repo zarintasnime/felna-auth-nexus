@@ -1,32 +1,46 @@
+import { cookies } from "next/headers";
+import {
+  SESSION_COOKIE_NAME,
+  sessionCookieOptions,
+  verifySessionToken,
+  SessionPayload,
+} from "./auth-token";
+
+export * from "./auth-token";
+
+// =============================================================================
+// Server-Side Cookie Management (Next.js cookies())
+// =============================================================================
+
 /**
- * Session & Authentication Boilerplate
- * 
- * Handles session tokens, cookie options, and auth utilities.
+ * Stores the signed session JWT in an HttpOnly, Secure cookie.
  */
-
-export interface SessionPayload {
-  userId: string;
-  phone: string;
-  role: string;
-  expiresAt: Date;
+export async function setSessionCookie(token: string): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.set(SESSION_COOKIE_NAME, token, sessionCookieOptions);
 }
 
-export const SESSION_COOKIE_NAME = "felma_session";
-
-export const cookieOptions = {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "lax" as const,
-  path: "/",
-};
-
-export async function createSession(payload: Omit<SessionPayload, "expiresAt">): Promise<string> {
-  // Implementation will use jose / JWT in Phase 5
-  return `session_${payload.userId}`;
+/**
+ * Clears the session cookie on logout.
+ */
+export async function clearSessionCookie(): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.set(SESSION_COOKIE_NAME, "", {
+    ...sessionCookieOptions,
+    maxAge: 0,
+  });
 }
 
-export async function verifySession(token: string): Promise<SessionPayload | null> {
-  // Implementation will verify token in Phase 5
-  if (!token) return null;
-  return null;
+/**
+ * Retrieves and validates the current session from incoming request cookies.
+ */
+export async function getSession(): Promise<SessionPayload | null> {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get(SESSION_COOKIE_NAME)?.value;
+    if (!token) return null;
+    return await verifySessionToken(token);
+  } catch {
+    return null;
+  }
 }

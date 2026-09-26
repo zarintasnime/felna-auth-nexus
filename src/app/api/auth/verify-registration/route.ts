@@ -24,8 +24,15 @@ export async function POST(request: NextRequest) {
     const { phone, otp } = validation.data;
     const normalizedPhone = normalizeBdPhone(phone);
 
+    console.log(`\n================== [API: VERIFY REGISTRATION] ==================`);
+    console.log(`📱 Target Phone : ${phone} (Normalized: ${normalizedPhone})`);
+    console.log(`🔑 Submitted OTP: ${otp}`);
+    console.log(`================================================================`);
+
     // 2. Verify OTP using Phase 3 engine (handles attempts, expiration, hashing)
     const verification = await verifyOtp(normalizedPhone, otp);
+    console.log(`[API: VERIFY REGISTRATION] Result for ${normalizedPhone}:`, verification);
+
     if (!verification.success) {
       return NextResponse.json(
         {
@@ -40,6 +47,7 @@ export async function POST(request: NextRequest) {
     // 3. Ensure user exists
     const user = await findUserByPhone(normalizedPhone);
     if (!user) {
+      console.warn(`[API: VERIFY REGISTRATION] User not found for phone: ${normalizedPhone}`);
       return NextResponse.json(
         {
           success: false,
@@ -51,6 +59,7 @@ export async function POST(request: NextRequest) {
 
     // 4. Activate user: flip status from PENDING_VERIFICATION to ACTIVE
     await activateUser(normalizedPhone);
+    console.log(`[API: VERIFY REGISTRATION] ✅ Account activated for ${normalizedPhone} (${user.name})`);
 
     return NextResponse.json({
       success: true,

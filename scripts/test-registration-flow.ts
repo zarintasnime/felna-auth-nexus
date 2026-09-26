@@ -9,6 +9,8 @@
  * 5. OTP verification and state transition to ACTIVE.
  */
 
+import "dotenv/config";
+process.env.MOCK_SMS = "true";
 import { getGeoDivisions, getGeoDistricts, getGeoUpazilas } from "../src/lib/data/bangladesh-geo";
 import { registerSchema, verifyOtpSchema } from "../src/lib/validations/auth";
 import {

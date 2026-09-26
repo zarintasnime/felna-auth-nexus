@@ -26,10 +26,18 @@ export async function POST(request: NextRequest) {
       validation.data;
     const normalizedPhone = normalizeBdPhone(phone);
 
+    console.log(`\n================== [API: REGISTER REQUEST] ==================`);
+    console.log(`👤 Name           : ${name}`);
+    console.log(`📱 Phone          : ${phone} (Normalized: ${normalizedPhone})`);
+    console.log(`📧 Email          : ${email || "N/A"}`);
+    console.log(`📍 Region IDs     : Div: ${divisionId}, Dist: ${districtId}, Upz: ${upazilaId}`);
+    console.log(`============================================================`);
+
     // 2. Duplicate phone check
     const existingPhoneUser = await findUserByPhone(normalizedPhone);
     if (existingPhoneUser) {
       if (existingPhoneUser.status === USER_STATUS.ACTIVE) {
+        console.warn(`[API: REGISTER] Registration rejected - phone already active: ${normalizedPhone}`);
         return NextResponse.json(
           {
             success: false,
@@ -44,6 +52,7 @@ export async function POST(request: NextRequest) {
     if (email) {
       const existingEmailUser = await findUserByEmail(email);
       if (existingEmailUser) {
+        console.warn(`[API: REGISTER] Registration rejected - email already exists: ${email}`);
         return NextResponse.json(
           {
             success: false,
@@ -66,10 +75,14 @@ export async function POST(request: NextRequest) {
         upazilaId,
         address: address || null,
       });
+      console.log(`[API: REGISTER] Created pending user record for ${normalizedPhone}`);
     }
 
     // 5. Trigger initial OTP dispatch via Phase 3 engine
+    console.log(`[API: REGISTER] Dispatching registration OTP to ${normalizedPhone}...`);
     const otpResult = await requestOtp(normalizedPhone);
+    console.log(`[API: REGISTER] OTP Result for ${normalizedPhone}:`, otpResult);
+
     if (!otpResult.success) {
       return NextResponse.json(
         {

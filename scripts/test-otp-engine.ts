@@ -9,6 +9,8 @@
  * 5. Single-use and expiration enforcement.
  */
 
+import "dotenv/config";
+process.env.MOCK_SMS = "true";
 import {
   generateOtp,
   hashOtp,

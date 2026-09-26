@@ -18,9 +18,14 @@ export async function POST(request: NextRequest) {
     }
 
     const normalizedPhone = normalizeBdPhone(phone);
+    console.log(`\n================== [API: RESEND REGISTRATION OTP] ==================`);
+    console.log(`📱 Target Phone : ${phone} (Normalized: ${normalizedPhone})`);
+    console.log(`====================================================================`);
+
     const user = await findUserByPhone(normalizedPhone);
 
     if (!user) {
+      console.warn(`[API: RESEND REGISTRATION OTP] User not found for phone: ${normalizedPhone}`);
       return NextResponse.json(
         {
           success: false,
@@ -30,7 +35,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    console.log(`[API: RESEND REGISTRATION OTP] Requesting new OTP for ${normalizedPhone}...`);
     const result = await requestOtp(normalizedPhone);
+    console.log(`[API: RESEND REGISTRATION OTP] Result for ${normalizedPhone}:`, result);
+
     if (!result.success) {
       return NextResponse.json(
         {

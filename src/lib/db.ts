@@ -1,30 +1,30 @@
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
+  pool: Pool | undefined;
 };
 
-function getPrismaClient(): PrismaClient {
-  if (globalForPrisma.prisma) {
-    return globalForPrisma.prisma;
+function createPrismaClient(): PrismaClient {
+  const connectionString = process.env.DATABASE_URL;
+
+  if (!connectionString) {
+    throw new Error("DATABASE_URL environment variable is not defined.");
   }
 
-  // When live DB credentials are configured, driver adapter will be wired here
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const client = new PrismaClient({} as any);
-
+  const pool = globalForPrisma.pool ?? new Pool({ connectionString });
   if (process.env.NODE_ENV !== "production") {
-    globalForPrisma.prisma = client;
+    globalForPrisma.pool = pool;
   }
 
-  return client;
+  const adapter = new PrismaPg(pool);
+  return new PrismaClient({ adapter });
 }
 
-// Lazy proxy pattern to prevent premature instantiation on module import
-export const db = new Proxy({} as PrismaClient, {
-  get(_target, prop) {
-    const client = getPrismaClient();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (client as any)[prop];
-  },
-});
+export const db = globalForPrisma.prisma ?? createPrismaClient();
+
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = db;
+}

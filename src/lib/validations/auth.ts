@@ -23,15 +23,9 @@ export const registerSchema = z
       .email("Please provide a valid email address.")
       .optional()
       .or(z.literal("")),
-    divisionId: z
-      .string()
-      .min(1, "Please select your division."),
-    districtId: z
-      .string()
-      .min(1, "Please select your district."),
-    upazilaId: z
-      .string()
-      .min(1, "Please select your thana / upazila."),
+    divisionId: z.string().min(1, "Please select your division."),
+    districtId: z.string().min(1, "Please select your district."),
+    upazilaId: z.string().min(1, "Please select your thana / upazila."),
     address: z.string().trim().optional(),
     password: z
       .string()
@@ -60,3 +54,41 @@ export const verifyOtpSchema = z.object({
 });
 
 export type VerifyOtpInput = z.infer<typeof verifyOtpSchema>;
+
+export const loginOtpRequestSchema = z.object({
+  phone: z
+    .string()
+    .trim()
+    .regex(
+      bdPhoneRegex,
+      "Please enter a valid Bangladesh mobile number (e.g., 01712345678 or +8801712345678)."
+    ),
+});
+
+export type LoginOtpRequestInput = z.infer<typeof loginOtpRequestSchema>;
+
+export const loginOtpVerifySchema = z.object({
+  phone: z
+    .string()
+    .trim()
+    .regex(bdPhoneRegex, "Please enter a valid Bangladesh phone number."),
+  otp: z
+    .string()
+    .trim()
+    .length(6, "Verification code must be exactly 6 digits.")
+    .regex(/^\d{6}$/, "Verification code must contain only numbers."),
+});
+
+export type LoginOtpVerifyInput = z.infer<typeof loginOtpVerifySchema>;
+
+export const passwordLoginSchema = z.object({
+  identifier: z
+    .string()
+    .trim()
+    .min(1, "Please enter your email address or mobile number."),
+  password: z
+    .string()
+    .min(1, "Please enter your account password."),
+});
+
+export type PasswordLoginInput = z.infer<typeof passwordLoginSchema>;
