@@ -7,9 +7,10 @@ import { db } from "./db";
 
 export const OTP_CONFIG = {
   CODE_LENGTH: 6,
-  COOLDOWN_SECONDS: 60,
+  COOLDOWN_SECONDS: 30, // Temporarily set to 30s for testing
   MAX_FAILED_ATTEMPTS: 5,
-  EXPIRATION_MINUTES: 5,
+  EXPIRATION_SECONDS: 30, // Temporarily set to 30s for testing
+  EXPIRATION_MINUTES: 0.5,
 } as const;
 
 /**
@@ -501,19 +502,19 @@ export async function requestOtp(
 
   const rawOtp = generateOtp();
   const otpHash = hashOtp(rawOtp);
-  const expiresAt = new Date(Date.now() + OTP_CONFIG.EXPIRATION_MINUTES * 60 * 1000);
+  const expiresAt = new Date(Date.now() + OTP_CONFIG.EXPIRATION_SECONDS * 1000);
 
   console.log(`\n================== [OTP GENERATION] ==================`);
   console.log(`📱 Target Phone : ${phone}`);
   console.log(`🔑 Generated OTP: ${rawOtp}`);
-  console.log(`⏳ Valid For    : ${OTP_CONFIG.EXPIRATION_MINUTES} minutes (Expires at ${expiresAt.toLocaleTimeString()})`);
+  console.log(`⏳ Valid For    : ${OTP_CONFIG.EXPIRATION_SECONDS} seconds (Expires at ${expiresAt.toLocaleTimeString()})`);
   console.log(`======================================================\n`);
 
   await store.createOtp(phone, otpHash, expiresAt);
 
   const smsResult = await sendSms({
     phone,
-    message: `Your Felna verification code is: ${rawOtp}. Valid for ${OTP_CONFIG.EXPIRATION_MINUTES} minutes.`,
+    message: `Your Felna verification code is: ${rawOtp}. Valid for ${OTP_CONFIG.EXPIRATION_SECONDS} seconds.`,
   });
 
   if (!smsResult.success) {
