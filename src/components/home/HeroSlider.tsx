@@ -116,7 +116,7 @@ export default function HeroSlider({
           <div className="absolute inset-0 bg-gradient-to-r from-[#201915]/95 via-[#2d221c]/80 to-[#201915]/50" />
 
           {/* Banner Content Container */}
-          <div className="relative h-full w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 flex flex-col justify-center items-start">
+          <div className="relative h-full w-full max-w-[1880px] mx-auto px-12 sm:px-16 md:px-20 lg:px-24 xl:px-28 2xl:px-32 flex flex-col justify-center items-start">
             <div className="max-w-2xl space-y-4">
               {single.badge && (
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#4a3b32]/90 text-[#fcfbf9] border border-[#7c6a5e] shadow-sm backdrop-blur-xs">
@@ -229,7 +229,7 @@ export default function HeroSlider({
               <div className="absolute inset-0 bg-gradient-to-r from-[#201915]/95 via-[#2d221c]/80 to-[#201915]/40" />
 
               {/* Text & Content Overlay */}
-              <div className="relative h-full w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 flex flex-col justify-center items-start">
+              <div className="relative h-full w-full max-w-[1880px] mx-auto px-12 sm:px-16 md:px-20 lg:px-24 xl:px-28 2xl:px-32 flex flex-col justify-center items-start">
                 <div className="max-w-2xl space-y-4">
                   {slide.badge && (
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#4a3b32]/90 text-[#fcfbf9] border border-[#7c6a5e] shadow-sm backdrop-blur-xs">
@@ -291,12 +291,12 @@ export default function HeroSlider({
         {/* ================================================================= */}
         {/* Navigation Arrow Controls                                         */}
         {/* ================================================================= */}
-        <div className="absolute inset-y-0 left-0 right-0 z-20 flex items-center justify-between px-3 sm:px-6 pointer-events-none">
+        <div className="absolute inset-y-0 left-0 right-0 z-20 flex items-center justify-between px-3 sm:px-4 md:px-8 pointer-events-none">
           <button
             type="button"
             onClick={goToPrev}
             aria-label="Previous slide"
-            className="pointer-events-auto p-2.5 sm:p-3 rounded-2xl bg-[#201915]/60 hover:bg-[#201915]/90 text-[#fcfbf9] border border-[#7c6a5e]/50 backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-md focus:outline-none focus:ring-2 focus:ring-[#ebe5da]"
+            className="pointer-events-auto p-2 sm:p-2.5 md:p-3 rounded-2xl bg-[#201915]/75 hover:bg-[#201915] text-[#fcfbf9] border border-[#7c6a5e]/50 backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#ebe5da]"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#fcfbf9]" />
           </button>
@@ -305,7 +305,7 @@ export default function HeroSlider({
             type="button"
             onClick={goToNext}
             aria-label="Next slide"
-            className="pointer-events-auto p-2.5 sm:p-3 rounded-2xl bg-[#201915]/60 hover:bg-[#201915]/90 text-[#fcfbf9] border border-[#7c6a5e]/50 backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-md focus:outline-none focus:ring-2 focus:ring-[#ebe5da]"
+            className="pointer-events-auto p-2 sm:p-2.5 md:p-3 rounded-2xl bg-[#201915]/75 hover:bg-[#201915] text-[#fcfbf9] border border-[#7c6a5e]/50 backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#ebe5da]"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#fcfbf9]" />
           </button>
