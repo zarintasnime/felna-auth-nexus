@@ -26,35 +26,40 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#f4f0e6] text-stone-800 flex flex-col justify-between selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
+    <div className="min-h-screen bg-[#181310] text-[#fcfbf9] flex flex-col justify-between selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
       {/* =================================================================== */}
-      {/* 1. Utility TopBar & Dynamic Navbar                                  */}
+      {/* 1. Boxed Header Card Wrapper (TopBar + DynamicNavbar + HeroSlider)  */}
       {/* =================================================================== */}
-      <TopBar />
-      <DynamicNavbar
-        items={homeData.navItems}
-        initialSession={
-          session
-            ? {
-                userId: session.userId,
-                name: session.name || "Member",
-                phone: session.phone,
-                role: session.role,
-              }
-            : null
-        }
-      />
+      <header className="w-full px-3 sm:px-4 md:px-6 pt-3 pb-4 md:pt-6 md:pb-8">
+        <div className="max-w-[1400px] mx-auto rounded-2xl md:rounded-3xl overflow-hidden border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative">
+          {/* Top Utility Bar (Edge-to-Edge) */}
+          <TopBar />
 
-      {/* =================================================================== */}
-      {/* 2. Hero Slider (LCP Priority & Accessible Controls)                 */}
-      {/* =================================================================== */}
-      <div id="home">
-        <SectionErrorBoundary sectionName="Hero Slider" fallback={<HeroSliderSkeleton />}>
-          <Suspense fallback={<HeroSliderSkeleton />}>
-            <HeroSlider slides={homeData.heroSlides} />
-          </Suspense>
-        </SectionErrorBoundary>
-      </div>
+          {/* Dynamic Frosted Navbar (Edge-to-Edge) */}
+          <DynamicNavbar
+            items={homeData.navItems}
+            initialSession={
+              session
+                ? {
+                    userId: session.userId,
+                    name: session.name || "Member",
+                    phone: session.phone,
+                    role: session.role,
+                  }
+                : null
+            }
+          />
+
+          {/* Hero Slider Island (Seamless bottom of the card) */}
+          <div id="home">
+            <SectionErrorBoundary sectionName="Hero Slider" fallback={<HeroSliderSkeleton />}>
+              <Suspense fallback={<HeroSliderSkeleton />}>
+                <HeroSlider slides={homeData.heroSlides} />
+              </Suspense>
+            </SectionErrorBoundary>
+          </div>
+        </div>
+      </header>
 
       {/* =================================================================== */}
       {/* Main Content Area: Sections 3 to 6 + Security Overview              */}

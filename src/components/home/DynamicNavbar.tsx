@@ -141,7 +141,7 @@ export default function DynamicNavbar({
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[#d4ccc0] bg-[#f4f0e6]/95 backdrop-blur-md shadow-xs transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between gap-4">
           {/* =============================================================== */}
           {/* 1. Brand Logo & Title                                           */}
@@ -266,7 +266,7 @@ export default function DynamicNavbar({
         <>
           {/* Backdrop overlay */}
           <div
-            className="fixed inset-0 top-20 z-40 bg-[#4a3b32]/40 backdrop-blur-xs xl:hidden transition-opacity"
+            className="fixed inset-0 z-40 bg-[#4a3b32]/50 backdrop-blur-xs xl:hidden transition-opacity"
             onClick={() => setIsMobileMenuOpen(false)}
             aria-hidden="true"
           />
@@ -275,8 +275,33 @@ export default function DynamicNavbar({
           <nav
             id="mobile-navigation-drawer"
             aria-label="Mobile Navigation"
-            className="fixed inset-x-0 top-20 z-50 max-h-[calc(100vh-5rem)] overflow-y-auto border-b border-[#d4ccc0] bg-[#fcfbf9] px-6 py-6 space-y-6 shadow-xl xl:hidden animate-in slide-in-from-top-2 duration-200"
+            className="fixed inset-x-0 top-0 z-50 max-h-[100vh] overflow-y-auto border-b border-[#d4ccc0] bg-[#fcfbf9] px-6 py-6 space-y-6 shadow-xl xl:hidden animate-in slide-in-from-top-2 duration-200"
           >
+            {/* Header row in mobile drawer */}
+            <div className="flex items-center justify-between pb-4 border-b border-[#d4ccc0]">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center">
+                  <ShieldCheck className="w-5 h-5 text-[#fcfbf9]" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-extrabold text-[#4a3b32] text-base leading-none">
+                    Felna<span className="text-stone-500 font-bold">.com</span>
+                  </span>
+                  <span className="text-[10px] font-semibold text-stone-500 mt-0.5">
+                    Bulk SMS & OTP Gateway
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 rounded-xl text-stone-700 hover:bg-[#ebe5da] transition"
+                aria-label="Close navigation menu"
+              >
+                <X className="w-6 h-6 text-[#4a3b32]" />
+              </button>
+            </div>
+
             {/* Dynamic Navigation Links */}
             <div className="space-y-1">
               <span className="text-[11px] font-bold uppercase tracking-wider text-stone-500 px-3">
