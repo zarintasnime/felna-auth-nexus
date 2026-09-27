@@ -13,16 +13,21 @@ import {
   ChevronRight,
   CheckCircle2,
 } from "lucide-react";
-import Navbar from "@/components/common/Navbar";
+import DynamicNavbar from "@/components/home/DynamicNavbar";
 import { getSession } from "@/lib/auth";
+import { getHomePageData } from "@/lib/services/homepage-service";
 
 export default async function HomePage() {
-  const session = await getSession();
+  const [session, homeData] = await Promise.all([
+    getSession(),
+    getHomePageData(),
+  ]);
 
   return (
     <div className="min-h-screen bg-[#f4f0e6] text-stone-800 flex flex-col justify-between selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
-      {/* Universal Frosted Cream Header */}
-      <Navbar
+      {/* Dynamic Frosted Navbar with Dynamic Links & Auth State */}
+      <DynamicNavbar
+        items={homeData.navItems}
         initialSession={
           session
             ? {
