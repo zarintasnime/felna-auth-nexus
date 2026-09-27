@@ -7,11 +7,14 @@ import { normalizeHomePageData } from "@/lib/adapters/homepage-adapter";
 
 export const FELNA_MOCK_RAW_PAYLOAD: RawHomePagePayload = {
   navItems: [
-    { Id: "nav-1", nav_nm: "SMS Services", nav_url: "#services" },
-    { Id: "nav-2", nav_nm: "Pricing & Coverage", nav_url: "#pricing" },
-    { Id: "nav-3", nav_nm: "Developer API", nav_url: "#developer-api" },
-    { Id: "nav-4", nav_nm: "Campaign Benefits", nav_url: "#benefits" },
-    { Id: "nav-5", nav_nm: "Why Choose Felna", nav_url: "#why-choose-us" },
+    { Id: "nav-1", nav_nm: "Home", nav_url: "#home" },
+    { Id: "nav-2", nav_nm: "SMS Services", nav_url: "#services" },
+    { Id: "nav-3", nav_nm: "Facebook Marketing", nav_url: "#marketing" },
+    { Id: "nav-4", nav_nm: "Mobile Bill Solution", nav_url: "#benefits" },
+    { Id: "nav-5", nav_nm: "SEO", nav_url: "#why-choose-us" },
+    { Id: "nav-6", nav_nm: "Contact Us", nav_url: "#contact" },
+    { Id: "nav-7", nav_nm: "Content Creator", nav_url: "#services" },
+    { Id: "nav-8", nav_nm: "Payment", nav_url: "#services" },
   ],
   heroBanners: [
     {

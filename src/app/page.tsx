@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
 import { ShieldCheck, Lock, CheckCircle2 } from "lucide-react";
+import TopBar from "@/components/home/TopBar";
 import DynamicNavbar from "@/components/home/DynamicNavbar";
 import HeroSlider from "@/components/home/HeroSlider";
 import BulkSmsOffer from "@/components/home/BulkSmsOffer";
@@ -27,8 +28,9 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen bg-[#f4f0e6] text-stone-800 flex flex-col justify-between selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
       {/* =================================================================== */}
-      {/* 1. Dynamic Navbar with Dynamic Items & Server Session State         */}
+      {/* 1. Utility TopBar & Dynamic Navbar                                  */}
       {/* =================================================================== */}
+      <TopBar />
       <DynamicNavbar
         items={homeData.navItems}
         initialSession={
@@ -46,11 +48,13 @@ export default async function HomePage() {
       {/* =================================================================== */}
       {/* 2. Hero Slider (LCP Priority & Accessible Controls)                 */}
       {/* =================================================================== */}
-      <SectionErrorBoundary sectionName="Hero Slider" fallback={<HeroSliderSkeleton />}>
-        <Suspense fallback={<HeroSliderSkeleton />}>
-          <HeroSlider slides={homeData.heroSlides} />
-        </Suspense>
-      </SectionErrorBoundary>
+      <div id="home">
+        <SectionErrorBoundary sectionName="Hero Slider" fallback={<HeroSliderSkeleton />}>
+          <Suspense fallback={<HeroSliderSkeleton />}>
+            <HeroSlider slides={homeData.heroSlides} />
+          </Suspense>
+        </SectionErrorBoundary>
+      </div>
 
       {/* =================================================================== */}
       {/* Main Content Area: Sections 3 to 6 + Security Overview              */}
@@ -140,7 +144,7 @@ export default async function HomePage() {
       {/* =================================================================== */}
       {/* Universal Footer                                                    */}
       {/* =================================================================== */}
-      <footer className="border-t border-[#d4ccc0] py-8 px-4 bg-[#f4f0e6] text-center text-xs text-stone-600">
+      <footer id="contact" className="border-t border-[#d4ccc0] py-8 px-4 bg-[#f4f0e6] text-center text-xs text-stone-600">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-lg bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center">

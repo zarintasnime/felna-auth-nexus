@@ -11,7 +11,6 @@ import {
   UserPlus,
   Menu,
   X,
-  ExternalLink,
 } from "lucide-react";
 import LogoutButton from "@/components/common/LogoutButton";
 import { NavItem } from "@/types/homepage";
@@ -23,6 +22,17 @@ export interface SessionUser {
   role: string;
 }
 
+export const DEFAULT_NAV_ITEMS: NavItem[] = [
+  { id: "nav-1", label: "Home", url: "#home", isExternal: false },
+  { id: "nav-2", label: "SMS Services", url: "#services", isExternal: false },
+  { id: "nav-3", label: "Facebook Marketing", url: "#marketing", isExternal: false },
+  { id: "nav-4", label: "Mobile Bill Solution", url: "#benefits", isExternal: false },
+  { id: "nav-5", label: "SEO", url: "#why-choose-us", isExternal: false },
+  { id: "nav-6", label: "Contact Us", url: "#contact", isExternal: false },
+  { id: "nav-7", label: "Content Creator", url: "#services", isExternal: false },
+  { id: "nav-8", label: "Payment", url: "#services", isExternal: false },
+];
+
 export interface DynamicNavbarProps {
   items?: NavItem[];
   initialSession?: SessionUser | null;
@@ -30,12 +40,14 @@ export interface DynamicNavbarProps {
 
 export default function DynamicNavbar({
   items = [],
-  initialSession = null,
+  initialSession,
 }: DynamicNavbarProps) {
   const pathname = usePathname();
-  const [user, setUser] = useState<SessionUser | null>(initialSession);
+  const [user, setUser] = useState<SessionUser | null>(initialSession ?? null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoadingSession, setIsLoadingSession] = useState(!initialSession);
+  const [isLoadingSession, setIsLoadingSession] = useState(initialSession === undefined);
+
+  const navLinks = items && items.length > 0 ? items : DEFAULT_NAV_ITEMS;
 
   // Sync state if initialSession prop changes
   useEffect(() => {
@@ -98,38 +110,22 @@ export default function DynamicNavbar({
 
   const isAdmin = user?.role === "ADMIN";
 
-  // Helper to render dynamic navigation links
+  // Helper to render navigation items cleanly (NO external link icon, prominent styling)
   const renderNavLink = (item: NavItem, isMobile = false) => {
     const isAnchor = item.url.startsWith("#");
     const isActive = !isAnchor && pathname === item.url;
 
     const baseClasses = isMobile
-      ? `flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+      ? `flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-all ${
           isActive
-            ? "bg-[#ebe5da] text-[#4a3b32] font-semibold border border-[#d4ccc0]"
-            : "text-stone-700 hover:text-[#4a3b32] hover:bg-[#ebe5da]/60"
+            ? "bg-[#ebe5da] text-[#4a3b32] font-bold border border-[#d4ccc0]"
+            : "text-stone-700 hover:text-[#4a3b32] hover:bg-[#ebe5da]/70"
         }`
-      : `inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
+      : `inline-flex items-center justify-center px-3 2xl:px-3.5 py-2 rounded-xl text-sm font-semibold tracking-tight whitespace-nowrap transition-all duration-150 ${
           isActive
-            ? "bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0]"
-            : "text-stone-600 hover:text-[#4a3b32] hover:bg-[#ebe5da]/50"
+            ? "bg-[#ebe5da] text-[#4a3b32] font-bold border border-[#d4ccc0] shadow-2xs"
+            : "text-stone-700 hover:text-[#4a3b32] hover:bg-[#ebe5da]/70"
         }`;
-
-    if (item.isExternal) {
-      return (
-        <a
-          key={item.id}
-          href={item.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={baseClasses}
-          onClick={() => isMobile && setIsMobileMenuOpen(false)}
-        >
-          <span>{item.label}</span>
-          <ExternalLink className="w-3 h-3 opacity-60 ml-0.5" />
-        </a>
-      );
-    }
 
     return (
       <Link
@@ -144,25 +140,25 @@ export default function DynamicNavbar({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#d4ccc0] bg-[#f4f0e6]/90 backdrop-blur-md shadow-xs transition-all">
+    <header className="sticky top-0 z-40 w-full border-b border-[#d4ccc0] bg-[#f4f0e6]/95 backdrop-blur-md shadow-xs transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
+        <div className="flex h-20 items-center justify-between gap-4">
           {/* =============================================================== */}
           {/* 1. Brand Logo & Title                                           */}
           {/* =============================================================== */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <Link
               href="/"
-              className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4a3b32]/20 rounded-xl py-1 px-1.5"
+              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4a3b32]/20 rounded-xl py-1 px-1.5"
             >
-              <div className="w-9 h-9 rounded-xl bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
                 <ShieldCheck className="w-5 h-5 text-[#fcfbf9]" />
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-[#4a3b32] text-base tracking-tight leading-none">
-                  Felna<span className="text-stone-500 font-semibold">.com</span>
+                <span className="font-extrabold text-[#4a3b32] text-lg tracking-tight leading-none">
+                  Felna<span className="text-stone-500 font-bold">.com</span>
                 </span>
-                <span className="text-[10px] font-medium text-stone-500 mt-0.5">
+                <span className="text-xs font-semibold text-stone-500 mt-1">
                   Bulk SMS & OTP Gateway
                 </span>
               </div>
@@ -170,51 +166,51 @@ export default function DynamicNavbar({
           </div>
 
           {/* =============================================================== */}
-          {/* 2. Desktop Dynamic Navigation Links                             */}
+          {/* 2. Desktop Dynamic Navigation Links (No link icons)             */}
           {/* =============================================================== */}
           <nav
             aria-label="Main Navigation"
-            className="hidden lg:flex items-center gap-1.5"
+            className="hidden xl:flex items-center gap-1 2xl:gap-1.5"
           >
-            {items.map((item) => renderNavLink(item, false))}
+            {navLinks.map((item) => renderNavLink(item, false))}
           </nav>
 
           {/* =============================================================== */}
-          {/* 3. Desktop Auth & Session Actions                               */}
+          {/* 3. Desktop Auth & Session Actions (Prominent, High-impact)      */}
           {/* =============================================================== */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden xl:flex items-center gap-3 shrink-0">
             {isLoadingSession ? (
-              <div className="h-8 w-28 bg-[#ebe5da] animate-pulse rounded-xl" />
+              <div className="h-10 w-32 bg-[#ebe5da] animate-pulse rounded-xl" />
             ) : user ? (
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-3">
                 {/* Member Dashboard Link */}
                 <Link
                   href="/dashboard"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:text-[#4a3b32] hover:bg-[#ebe5da]/60 rounded-xl transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-stone-700 hover:text-[#4a3b32] hover:bg-[#ebe5da] border border-[#d4ccc0] rounded-xl transition-all shadow-2xs"
                 >
-                  <LayoutDashboard className="w-3.5 h-3.5 text-[#4a3b32]" />
-                  <span>Member Dashboard</span>
+                  <LayoutDashboard className="w-4 h-4 text-[#4a3b32]" />
+                  <span>Dashboard</span>
                 </Link>
 
                 {isAdmin && (
                   <Link
                     href="/admin/dashboard"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-[#4a3b32] bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-[#4a3b32] bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition-all shadow-2xs"
                   >
-                    <Shield className="w-3.5 h-3.5 text-[#4a3b32]" />
+                    <Shield className="w-4 h-4 text-[#4a3b32]" />
                     <span>Admin</span>
                   </Link>
                 )}
 
                 {/* User Avatar & Role Badge */}
-                <div className="flex items-center gap-2 pl-3 pr-2 py-1 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl text-xs">
-                  <div className="w-5 h-5 rounded-full bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center font-bold text-[10px] uppercase">
+                <div className="flex items-center gap-2.5 pl-3.5 pr-3 py-1.5 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl text-sm">
+                  <div className="w-6 h-6 rounded-full bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center font-bold text-xs uppercase">
                     {user.name ? user.name.charAt(0) : "U"}
                   </div>
-                  <span className="font-semibold text-stone-800 max-w-[110px] truncate">
+                  <span className="font-bold text-stone-800 max-w-[120px] truncate">
                     {user.name || "Member"}
                   </span>
-                  <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#f5efe6] text-[#4a3b32] border border-[#d4ccc0]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#f5efe6] text-[#4a3b32] border border-[#d4ccc0]">
                     {user.role}
                   </span>
                 </div>
@@ -223,22 +219,22 @@ export default function DynamicNavbar({
                 <LogoutButton variant="navbar" />
               </div>
             ) : (
-              <div className="flex items-center gap-2">
-                {/* Outline / Ghost Button for Sign In */}
+              <div className="flex items-center gap-3">
+                {/* Outline / Soft Button for Sign In */}
                 <Link
                   href="/login"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-[#4a3b32] hover:text-[#3d3028] bg-transparent hover:bg-[#ebe5da]/80 border border-[#d4ccc0] rounded-xl transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold text-[#4a3b32] hover:text-[#3d3028] bg-[#ebe5da]/80 hover:bg-[#ebe5da] border border-[#d4ccc0] rounded-xl transition-all shadow-2xs hover:shadow-xs active:scale-[0.98]"
                 >
-                  <LogIn className="w-3.5 h-3.5 text-[#4a3b32]" />
+                  <LogIn className="w-4 h-4 text-[#4a3b32]" />
                   <span>Sign In</span>
                 </Link>
 
                 {/* Solid Primary Button for Create Account */}
                 <Link
                   href="/register"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-[#fcfbf9] bg-[#4a3b32] hover:bg-[#3d3028] rounded-xl shadow-xs transition"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold text-[#fcfbf9] bg-[#4a3b32] hover:bg-[#3d3028] rounded-xl shadow-md shadow-[#4a3b32]/25 hover:shadow-lg hover:shadow-[#4a3b32]/30 transition-all active:scale-[0.98]"
                 >
-                  <UserPlus className="w-3.5 h-3.5 text-[#fcfbf9]" />
+                  <UserPlus className="w-4 h-4 text-[#fcfbf9]" />
                   <span>Create Account</span>
                 </Link>
               </div>
@@ -248,16 +244,16 @@ export default function DynamicNavbar({
           {/* =============================================================== */}
           {/* 4. Mobile Menu Trigger Button                                   */}
           {/* =============================================================== */}
-          <div className="flex lg:hidden">
+          <div className="flex xl:hidden">
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-xl text-stone-700 hover:bg-[#ebe5da] transition"
+              className="p-2.5 rounded-xl text-[#4a3b32] bg-[#ebe5da]/70 hover:bg-[#ebe5da] border border-[#d4ccc0] transition"
               aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation-drawer"
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5 text-[#4a3b32]" /> : <Menu className="w-5 h-5 text-[#4a3b32]" />}
+              {isMobileMenuOpen ? <X className="w-6 h-6 text-[#4a3b32]" /> : <Menu className="w-6 h-6 text-[#4a3b32]" />}
             </button>
           </div>
         </div>
@@ -270,7 +266,7 @@ export default function DynamicNavbar({
         <>
           {/* Backdrop overlay */}
           <div
-            className="fixed inset-0 top-16 z-40 bg-[#4a3b32]/40 backdrop-blur-xs lg:hidden transition-opacity"
+            className="fixed inset-0 top-20 z-40 bg-[#4a3b32]/40 backdrop-blur-xs xl:hidden transition-opacity"
             onClick={() => setIsMobileMenuOpen(false)}
             aria-hidden="true"
           />
@@ -279,18 +275,18 @@ export default function DynamicNavbar({
           <nav
             id="mobile-navigation-drawer"
             aria-label="Mobile Navigation"
-            className="fixed inset-x-0 top-16 z-50 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-[#d4ccc0] bg-[#fcfbf9] px-5 py-6 space-y-5 shadow-lg lg:hidden animate-in slide-in-from-top-2 duration-200"
+            className="fixed inset-x-0 top-20 z-50 max-h-[calc(100vh-5rem)] overflow-y-auto border-b border-[#d4ccc0] bg-[#fcfbf9] px-6 py-6 space-y-6 shadow-xl xl:hidden animate-in slide-in-from-top-2 duration-200"
           >
             {/* Dynamic Navigation Links */}
             <div className="space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500 px-3">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-stone-500 px-3">
                 Navigation
               </span>
-              <div className="pt-1 space-y-1">
-                {items.length === 0 ? (
+              <div className="pt-2 space-y-1.5">
+                {navLinks.length === 0 ? (
                   <p className="text-xs text-stone-500 px-3 py-2">No navigation links configured.</p>
                 ) : (
-                  items.map((item) => renderNavLink(item, true))
+                  navLinks.map((item) => renderNavLink(item, true))
                 )}
               </div>
             </div>
@@ -299,30 +295,30 @@ export default function DynamicNavbar({
             <div className="pt-4 border-t border-[#d4ccc0]">
               {user ? (
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-[#f5efe6] border border-[#d4ccc0]">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-full bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center font-bold text-xs uppercase">
+                  <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#f5efe6] border border-[#d4ccc0]">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center font-bold text-xs uppercase">
                         {user.name ? user.name.charAt(0) : "U"}
                       </div>
                       <div>
-                        <div className="text-xs font-semibold text-stone-800">
+                        <div className="text-sm font-bold text-stone-800">
                           {user.name || "Member"}
                         </div>
-                        <div className="text-[10px] text-stone-500">{user.phone}</div>
+                        <div className="text-xs text-stone-500">{user.phone}</div>
                       </div>
                     </div>
-                    <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0]">
                       {user.role}
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-3">
                     <Link
                       href="/dashboard"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-2 py-2.5 px-3 text-xs font-semibold text-stone-800 bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition"
+                      className="flex items-center justify-center gap-2 py-3 px-3 text-sm font-bold text-stone-800 bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition"
                     >
-                      <LayoutDashboard className="w-3.5 h-3.5 text-[#4a3b32]" />
+                      <LayoutDashboard className="w-4 h-4 text-[#4a3b32]" />
                       <span>Dashboard</span>
                     </Link>
 
@@ -330,9 +326,9 @@ export default function DynamicNavbar({
                       <Link
                         href="/admin/dashboard"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center justify-center gap-2 py-2.5 px-3 text-xs font-semibold text-[#4a3b32] bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition"
+                        className="flex items-center justify-center gap-2 py-3 px-3 text-sm font-bold text-[#4a3b32] bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition"
                       >
-                        <Shield className="w-3.5 h-3.5 text-[#4a3b32]" />
+                        <Shield className="w-4 h-4 text-[#4a3b32]" />
                         <span>Admin</span>
                       </Link>
                     ) : (
@@ -344,30 +340,30 @@ export default function DynamicNavbar({
 
                   {isAdmin && (
                     <div className="pt-1">
-                      <LogoutButton variant="navbar" className="w-full justify-center py-2.5" />
+                      <LogoutButton variant="navbar" className="w-full justify-center py-3 text-sm" />
                     </div>
                   )}
                 </div>
               ) : (
-                <div className="space-y-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500 px-3">
+                <div className="space-y-3">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-stone-500 px-3">
                     Account Access
                   </span>
-                  <div className="grid grid-cols-2 gap-2 pt-1">
+                  <div className="grid grid-cols-2 gap-3 pt-1">
                     <Link
                       href="/login"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 text-xs font-semibold text-[#4a3b32] bg-transparent hover:bg-[#ebe5da]/80 border border-[#d4ccc0] rounded-xl transition"
+                      className="flex items-center justify-center gap-2 py-3 px-4 text-sm font-bold text-[#4a3b32] bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition shadow-2xs"
                     >
-                      <LogIn className="w-3.5 h-3.5 text-[#4a3b32]" />
+                      <LogIn className="w-4 h-4 text-[#4a3b32]" />
                       <span>Sign In</span>
                     </Link>
                     <Link
                       href="/register"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 text-xs font-semibold text-[#fcfbf9] bg-[#4a3b32] hover:bg-[#3d3028] rounded-xl shadow-xs transition"
+                      className="flex items-center justify-center gap-2 py-3 px-4 text-sm font-bold text-[#fcfbf9] bg-[#4a3b32] hover:bg-[#3d3028] rounded-xl shadow-md transition"
                     >
-                      <UserPlus className="w-3.5 h-3.5 text-[#fcfbf9]" />
+                      <UserPlus className="w-4 h-4 text-[#fcfbf9]" />
                       <span>Register</span>
                     </Link>
                   </div>
