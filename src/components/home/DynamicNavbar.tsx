@@ -114,6 +114,7 @@ export default function DynamicNavbar({
   const renderNavLink = (item: NavItem, isMobile = false) => {
     const isAnchor = item.url.startsWith("#");
     const isActive = !isAnchor && pathname === item.url;
+    const href = isAnchor && pathname !== "/" ? `/${item.url}` : item.url;
 
     const baseClasses = isMobile
       ? `flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-all ${
@@ -130,7 +131,7 @@ export default function DynamicNavbar({
     return (
       <Link
         key={item.id}
-        href={item.url}
+        href={href}
         className={baseClasses}
         onClick={() => isMobile && setIsMobileMenuOpen(false)}
       >
@@ -223,7 +224,11 @@ export default function DynamicNavbar({
                 {/* Outline / Soft Button for Sign In */}
                 <Link
                   href="/login"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold text-[#4a3b32] hover:text-[#3d3028] bg-[#ebe5da]/80 hover:bg-[#ebe5da] border border-[#d4ccc0] rounded-xl transition-all shadow-2xs hover:shadow-xs active:scale-[0.98]"
+                  className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold border rounded-xl transition-all shadow-2xs hover:shadow-xs active:scale-[0.98] ${
+                    pathname === "/login"
+                      ? "text-[#4a3b32] bg-[#ebe5da] border-[#7c6a5e] ring-2 ring-[#4a3b32]/25 font-extrabold"
+                      : "text-[#4a3b32] hover:text-[#3d3028] bg-[#ebe5da]/80 hover:bg-[#ebe5da] border-[#d4ccc0]"
+                  }`}
                 >
                   <LogIn className="w-4 h-4 text-[#4a3b32]" />
                   <span>Sign In</span>
@@ -232,7 +237,11 @@ export default function DynamicNavbar({
                 {/* Solid Primary Button for Create Account */}
                 <Link
                   href="/register"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold text-[#fcfbf9] bg-[#4a3b32] hover:bg-[#3d3028] rounded-xl shadow-md shadow-[#4a3b32]/25 hover:shadow-lg hover:shadow-[#4a3b32]/30 transition-all active:scale-[0.98]"
+                  className={`inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-xl shadow-md transition-all active:scale-[0.98] ${
+                    pathname === "/register"
+                      ? "text-[#fcfbf9] bg-[#382b24] ring-2 ring-[#7c6a5e] shadow-lg"
+                      : "text-[#fcfbf9] bg-[#4a3b32] hover:bg-[#3d3028] shadow-[#4a3b32]/25 hover:shadow-lg hover:shadow-[#4a3b32]/30"
+                  }`}
                 >
                   <UserPlus className="w-4 h-4 text-[#fcfbf9]" />
                   <span>Create Account</span>
@@ -378,7 +387,11 @@ export default function DynamicNavbar({
                     <Link
                       href="/login"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-2 py-3 px-4 text-sm font-bold text-[#4a3b32] bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition shadow-2xs"
+                      className={`flex items-center justify-center gap-2 py-3 px-4 text-sm font-bold border rounded-xl transition shadow-2xs ${
+                        pathname === "/login"
+                          ? "text-[#4a3b32] bg-[#ebe5da] border-[#7c6a5e] ring-2 ring-[#4a3b32]/25 font-extrabold"
+                          : "text-[#4a3b32] bg-[#ebe5da] hover:bg-[#e4ddd2] border-[#d4ccc0]"
+                      }`}
                     >
                       <LogIn className="w-4 h-4 text-[#4a3b32]" />
                       <span>Sign In</span>
@@ -386,7 +399,11 @@ export default function DynamicNavbar({
                     <Link
                       href="/register"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-2 py-3 px-4 text-sm font-bold text-[#fcfbf9] bg-[#4a3b32] hover:bg-[#3d3028] rounded-xl shadow-md transition"
+                      className={`flex items-center justify-center gap-2 py-3 px-4 text-sm font-bold rounded-xl shadow-md transition ${
+                        pathname === "/register"
+                          ? "text-[#fcfbf9] bg-[#382b24] ring-2 ring-[#7c6a5e]"
+                          : "text-[#fcfbf9] bg-[#4a3b32] hover:bg-[#3d3028]"
+                      }`}
                     >
                       <UserPlus className="w-4 h-4 text-[#fcfbf9]" />
                       <span>Register</span>
