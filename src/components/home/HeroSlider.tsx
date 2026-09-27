@@ -3,7 +3,14 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ArrowRight, Sparkles } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+  ArrowUpRight,
+  Phone,
+  Sparkles,
+} from "lucide-react";
 import { HeroSlide } from "@/types/homepage";
 
 export interface HeroSliderProps {
