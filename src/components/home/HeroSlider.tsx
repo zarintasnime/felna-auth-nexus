@@ -136,17 +136,37 @@ export default function HeroSlider({
                 </p>
               )}
 
-              {single.linkUrl && (
-                <div className="pt-2">
-                  <Link
-                    href={single.linkUrl}
-                    className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#f4f0e6] hover:bg-[#ebe5da] text-[#4a3b32] font-bold text-sm rounded-xl shadow-md transition hover:scale-[1.01]"
-                  >
-                    <span>Get Started</span>
-                    <ArrowRight className="w-4 h-4 text-[#4a3b32]" />
-                  </Link>
-                </div>
-              )}
+              {/* Slider CTA Block: Explore Services + Hotline */}
+              <div className="pt-3 flex flex-wrap items-center gap-4 sm:gap-6">
+                <Link
+                  href={single.linkUrl && single.linkUrl !== "/register" ? single.linkUrl : "#services"}
+                  className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 bg-[#f4f0e6] hover:bg-[#382b24] text-[#4a3b32] hover:text-[#fcfbf9] font-bold text-sm sm:text-base rounded-xl border border-[#d4ccc0] hover:border-[#7c6a5e] shadow-md shadow-[#201915]/30 hover:shadow-xl transition-all duration-300 active:scale-[0.98]"
+                >
+                  <span>Explore Services</span>
+                  <span className="relative w-4 h-4 flex items-center justify-center overflow-hidden">
+                    <ArrowRight className="w-4 h-4 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-0" />
+                    <ArrowUpRight className="w-4 h-4 absolute transition-all duration-300 -translate-x-1 translate-y-1 opacity-0 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
+                  </span>
+                </Link>
+
+                <a
+                  href="tel:+8801958666951"
+                  className="group inline-flex items-center gap-3 px-3 py-2 text-stone-200 hover:text-[#fcfbf9] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-xl"
+                  aria-label="Call Felna Hotline +880-1958-666951"
+                >
+                  <div className="w-10 h-10 rounded-full bg-[#4a3b32]/90 border border-[#7c6a5e] text-amber-400 flex items-center justify-center shadow-sm group-hover:bg-amber-400 group-hover:text-[#201915] group-hover:border-amber-400 group-hover:scale-105 transition-all duration-200">
+                    <Phone className="w-4 h-4" />
+                  </div>
+                  <div className="flex flex-col text-left">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-stone-400 group-hover:text-stone-300 transition-colors">
+                      24/7 Helpline
+                    </span>
+                    <span className="text-sm sm:text-base font-extrabold text-[#fcfbf9] tracking-tight group-hover:text-amber-300 transition-colors">
+                      +880-1958-666951
+                    </span>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -226,21 +246,36 @@ export default function HeroSlider({
                     </p>
                   )}
 
-                  <div className="pt-2 flex flex-wrap items-center gap-3">
+                  {/* Slider CTA Block: Explore Services + Hotline */}
+                  <div className="pt-3 flex flex-wrap items-center gap-4 sm:gap-6">
                     <Link
-                      href={slide.linkUrl || "/register"}
-                      className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#f4f0e6] hover:bg-[#ebe5da] text-[#4a3b32] font-bold text-sm rounded-xl shadow-md transition hover:scale-[1.01]"
+                      href={slide.linkUrl && slide.linkUrl !== "/register" ? slide.linkUrl : "#services"}
+                      className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 bg-[#f4f0e6] hover:bg-[#382b24] text-[#4a3b32] hover:text-[#fcfbf9] font-bold text-sm sm:text-base rounded-xl border border-[#d4ccc0] hover:border-[#7c6a5e] shadow-md shadow-[#201915]/30 hover:shadow-xl transition-all duration-300 active:scale-[0.98]"
                     >
-                      <span>Get Started</span>
-                      <ArrowRight className="w-4 h-4 text-[#4a3b32]" />
+                      <span>Explore Services</span>
+                      <span className="relative w-4 h-4 flex items-center justify-center overflow-hidden">
+                        <ArrowRight className="w-4 h-4 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:opacity-0" />
+                        <ArrowUpRight className="w-4 h-4 absolute transition-all duration-300 -translate-x-1 translate-y-1 opacity-0 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100" />
+                      </span>
                     </Link>
 
-                    <Link
-                      href="/login"
-                      className="inline-flex items-center gap-2 px-5 py-3.5 bg-[#4a3b32]/60 hover:bg-[#4a3b32] text-[#fcfbf9] font-semibold text-sm rounded-xl border border-[#7c6a5e] backdrop-blur-xs transition hover:scale-[1.01]"
+                    <a
+                      href="tel:+8801958666951"
+                      className="group inline-flex items-center gap-3 px-3 py-2 text-stone-200 hover:text-[#fcfbf9] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 rounded-xl"
+                      aria-label="Call Felna Hotline +880-1958-666951"
                     >
-                      <span>Sign In</span>
-                    </Link>
+                      <div className="w-10 h-10 rounded-full bg-[#4a3b32]/90 border border-[#7c6a5e] text-amber-400 flex items-center justify-center shadow-sm group-hover:bg-amber-400 group-hover:text-[#201915] group-hover:border-amber-400 group-hover:scale-105 transition-all duration-200">
+                        <Phone className="w-4 h-4" />
+                      </div>
+                      <div className="flex flex-col text-left">
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-stone-400 group-hover:text-stone-300 transition-colors">
+                          24/7 Helpline
+                        </span>
+                        <span className="text-sm sm:text-base font-extrabold text-[#fcfbf9] tracking-tight group-hover:text-amber-300 transition-colors">
+                          +880-1958-666951
+                        </span>
+                      </div>
+                    </a>
                   </div>
                 </div>
               </div>
