@@ -50,7 +50,7 @@ export const FELNA_MOCK_RAW_PAYLOAD: RawHomePagePayload = {
     Description:
       "Supercharge your business promotional campaigns with Bangladesh's most reliable high-throughput SMS route. Enjoy instant sender-ID approval, automated phone normalization (+880), real-time operator DLR, and dedicated 24/7 technical support.",
     Image:
-      "https://images.unsplash.com/photo-1556742049-0a67c5574f73?auto=format&fit=crop&w=1000&q=80",
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1000&q=80",
     badge: "Special Promotional Offer",
     ctaText: "Claim 23 Paisa Rate",
     ctaUrl: "/register",
