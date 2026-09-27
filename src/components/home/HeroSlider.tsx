@@ -116,7 +116,7 @@ export default function HeroSlider({
           <div className="absolute inset-0 bg-gradient-to-r from-[#201915]/95 via-[#2d221c]/80 to-[#201915]/50" />
 
           {/* Banner Content Container */}
-          <div className="relative h-full w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-start">
+          <div className="relative h-full w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 flex flex-col justify-center items-start">
             <div className="max-w-2xl space-y-4">
               {single.badge && (
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#4a3b32]/90 text-[#fcfbf9] border border-[#7c6a5e] shadow-sm backdrop-blur-xs">
@@ -229,7 +229,7 @@ export default function HeroSlider({
               <div className="absolute inset-0 bg-gradient-to-r from-[#201915]/95 via-[#2d221c]/80 to-[#201915]/40" />
 
               {/* Text & Content Overlay */}
-              <div className="relative h-full w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-start">
+              <div className="relative h-full w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 flex flex-col justify-center items-start">
                 <div className="max-w-2xl space-y-4">
                   {slide.badge && (
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#4a3b32]/90 text-[#fcfbf9] border border-[#7c6a5e] shadow-sm backdrop-blur-xs">

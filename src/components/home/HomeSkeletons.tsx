@@ -9,7 +9,7 @@ export function HeroSliderSkeleton() {
       aria-hidden="true"
       className="relative w-full h-[460px] sm:h-[520px] lg:h-[560px] overflow-hidden bg-[#2a221d] animate-pulse flex flex-col justify-center"
     >
-      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
+      <div className="w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 space-y-5">
         {/* Badge Skeleton */}
         <div className="w-36 h-7 rounded-full bg-[#4a3b32]/80 border border-[#7c6a5e]/40" />
 

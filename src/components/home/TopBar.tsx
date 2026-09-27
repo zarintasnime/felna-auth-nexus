@@ -60,7 +60,7 @@ export default function TopBar({
       aria-label="Utility Announcement and Quick Actions"
       className="w-full bg-[#201915] text-[#e5ded4] border-b border-[#382b24] text-sm select-none"
     >
-      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="flex min-h-[42px] py-2 sm:py-2.5 items-center justify-between gap-4">
           {/* =============================================================== */}
           {/* Left Side: Announcement Text with Lightning/Zap Icon            */}

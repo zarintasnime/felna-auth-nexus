@@ -141,7 +141,7 @@ export default function DynamicNavbar({
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[#d4ccc0] bg-[#f4f0e6]/95 backdrop-blur-md shadow-xs transition-all">
-      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="flex h-20 items-center justify-between gap-4">
           {/* =============================================================== */}
           {/* 1. Brand Logo & Title                                           */}
