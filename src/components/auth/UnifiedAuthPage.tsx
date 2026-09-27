@@ -37,8 +37,8 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f0e6] text-stone-800 flex flex-col justify-between py-10 px-4 sm:px-6 selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
-      {/* Top Bar with Return to Home */}
+    <div className="w-full text-stone-800 flex flex-col items-center justify-center py-2 sm:py-6 selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
+      {/* Return to Home / Portal Badge */}
       <div
         className={`w-full mx-auto flex items-center justify-between mb-4 transition-all duration-300 ${
           activeTab === "register" ? "max-w-2xl" : "max-w-lg"
@@ -46,17 +46,17 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
       >
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-600 hover:text-[#4a3b32] transition"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-400 hover:text-amber-300 transition"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Home</span>
         </Link>
-        <span className="text-[11px] text-stone-500 font-medium">Felna Portal</span>
+        <span className="text-[11px] text-stone-400 font-medium">Felna Identity Portal</span>
       </div>
 
       {/* Main Unified Credentials Card - Vintage Parchment Styling */}
       <div
-        className={`w-full mx-auto bg-[#fcfbf9] rounded-2xl shadow-[0_10px_35px_rgba(74,59,50,0.08)] border border-[#d4ccc0] overflow-hidden transition-all duration-300 ${
+        className={`w-full mx-auto bg-[#fcfbf9] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#382b24] overflow-hidden transition-all duration-300 ${
           activeTab === "register" ? "max-w-2xl" : "max-w-lg"
         }`}
       >
@@ -110,15 +110,15 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
       </div>
 
       {/* Footer info */}
-      <footer
+      <div
         className={`w-full mx-auto text-center mt-6 transition-all duration-300 ${
           activeTab === "register" ? "max-w-2xl" : "max-w-lg"
         }`}
       >
-        <p className="text-[11px] text-stone-500">
-          Felna Secure Authentication &copy; {new Date().getFullYear()}. All rights reserved.
+        <p className="text-[11px] text-stone-400">
+          Felna Secure Identity &bull; Encrypted & BTRC Approved Gateway
         </p>
-      </footer>
+      </div>
     </div>
   );
 }
