@@ -282,7 +282,7 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Tariqul Islam"
+                  placeholder="e.g. Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl text-xs sm:text-sm text-stone-800 placeholder:text-stone-500/70 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32] focus:bg-[#fcfbf9] transition"
@@ -322,7 +322,7 @@ export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
                   <input
                     type="email"
                     required
-                    placeholder="name@example.com"
+                    placeholder="name@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full pl-10 pr-4 py-2.5 sm:py-3 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl text-xs sm:text-sm text-stone-800 placeholder:text-stone-500/70 focus:outline-none focus:ring-2 focus:ring-[#4a3b32]/15 focus:border-[#4a3b32] focus:bg-[#fcfbf9] transition"
