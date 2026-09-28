@@ -78,6 +78,13 @@ export default async function HomePage() {
           </Suspense>
         </SectionErrorBoundary>
 
+        {/* SMS Benefits / Accordion Section (Mounted directly below BulkSmsOffer) */}
+        <SectionErrorBoundary sectionName="SMS Benefits">
+          <Suspense fallback={<SmsBenefitsSkeleton />}>
+            <SmsBenefits benefits={homeData.benefits} />
+          </Suspense>
+        </SectionErrorBoundary>
+
         {/* Why Choose Us Enterprise Features Grid */}
         <SectionErrorBoundary sectionName="Why Choose Us">
           <Suspense fallback={<WhyChooseUsSkeleton />}>
@@ -89,13 +96,6 @@ export default async function HomePage() {
         <SectionErrorBoundary sectionName="Marketing Section">
           <Suspense fallback={<MarketingSectionSkeleton />}>
             <MarketingSection marketing={homeData.marketing} />
-          </Suspense>
-        </SectionErrorBoundary>
-
-        {/* Section 5: Carrier-Grade SMS Marketing Benefits */}
-        <SectionErrorBoundary sectionName="SMS Benefits">
-          <Suspense fallback={<SmsBenefitsSkeleton />}>
-            <SmsBenefits benefits={homeData.benefits} />
           </Suspense>
         </SectionErrorBoundary>
 

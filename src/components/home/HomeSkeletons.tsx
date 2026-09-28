@@ -112,28 +112,23 @@ export function SmsBenefitsSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#d4ccc0] bg-[#f4f0e6]"
+      className="w-full my-8 md:my-14 px-4 sm:px-6"
     >
-      <div className="max-w-7xl mx-auto space-y-10 animate-pulse">
-        <div className="text-center space-y-3 max-w-xl mx-auto flex flex-col items-center">
-          <div className="w-36 h-6 rounded-full bg-[#ebe5da]" />
-          <div className="h-8 w-4/5 rounded-xl bg-[#ebe5da]" />
-          <div className="h-4 w-full rounded bg-[#ebe5da]" />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              className="p-8 rounded-3xl bg-[#fcfbf9] border border-[#d4ccc0] space-y-4"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-[#ebe5da]" />
-              <div className="h-6 w-1/2 rounded bg-[#ebe5da]" />
-              <div className="space-y-2">
-                <div className="h-4 w-full rounded bg-[#ebe5da]" />
-                <div className="h-4 w-3/4 rounded bg-[#ebe5da]" />
-              </div>
+      <div className="w-full max-w-[1280px] mx-auto p-6 md:p-12 animate-pulse">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+          <div className="w-full aspect-square rounded-3xl bg-neutral-900/50 border border-neutral-800" />
+          <div className="space-y-4">
+            <div className="space-y-2 mb-6">
+              <div className="w-28 h-4 rounded bg-neutral-800" />
+              <div className="h-8 w-3/4 rounded bg-neutral-800" />
             </div>
-          ))}
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div
+                key={i}
+                className="h-20 rounded-2xl bg-neutral-900/40 border border-neutral-800"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

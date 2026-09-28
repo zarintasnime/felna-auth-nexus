@@ -70,31 +70,38 @@ export const FELNA_MOCK_RAW_PAYLOAD: RawHomePagePayload = {
   benefits: [
     {
       Id: "benefit-1",
-      Title: "Instant 2-Second Delivery",
+      Title: "You Can Increase Customer Engagement By Bulk SMS Services",
       Description:
-        "Tier-1 direct telecom connections guarantee OTPs, password resets, and critical alerts land immediately in customer inboxes without delays.",
-      icon: "Zap",
+        "Think of bulk SMS service solution as a way to enhance how your brand engages with your all customers across the entire customer life cycle. Businesses should remember to vary the type of content they send out by bulk SMS promotion - while customers may value updates and news on forthcoming developments within the brand by bulk SMS, business promotional information is best delivered way via sms marketing services where longer, more creative messaging is more appropriate.",
+      icon: "Users",
     },
     {
       Id: "benefit-2",
-      Title: "Live Real-Time DLR Reports",
+      Title: "Speed Up Your Sale By Bulk SMS Marketing",
       Description:
-        "Monitor delivery receipts (Delivered, Undelivered, Expired) live with detailed operator timestamps and status codes.",
-      icon: "BarChart3",
+        "Speed up your sale by bulk SMS marketing way, this is only way to connect with your customer directly phone to phone instantly. there is no any others way to connect/reach your target customer. You can try once to better understand. Bulk SMS service is the only way to create brand first in the corporate market.",
+      icon: "TrendingUp",
     },
     {
       Id: "benefit-3",
-      Title: "High-Throughput Concurrency",
+      Title: "Cost Effective SMS Marketing Solution",
       Description:
-        "Easily dispatch up to 10,000 SMS per second without queue bottlenecking, packet drops, or delayed delivery schedules.",
-      icon: "Cpu",
+        "SMS marketing service is only way to make cost effective marketing solution in any time, this way is too strong then any others marketing solution way, like news paper, TV, radio etc. you can send bulk SMS for promotion to customer so customer seen instant from his mobile phone with cheap cost way.",
+      icon: "DollarSign",
     },
     {
       Id: "benefit-4",
-      Title: "Native Unicode & Bengali Support",
+      Title: "Bulk SMS Is A Direct Immediate Channel With Customer Engagement",
       Description:
-        "Full Bengali (বাংলা) text support without font corruption, allowing personalized regional messaging for higher conversion.",
-      icon: "Languages",
+        "Bulk SMS service is one of the most popular way to connect with your customer; with a read rate of 90% within 30 minutes from delivery, you can be reassured that your time critical messages will be read almost instantly. A significant 45% of bulk SMS campaigns generate a successful ROI (Return on Investment), reaching over 50% when combined with other popular channels such as email and social media. so bulk SMS promotion is a one of the best way for your brand popularity",
+      icon: "Send",
+    },
+    {
+      Id: "benefit-5",
+      Title: "Bulk SMS Is A Simple Way But Feedback Is Too Large",
+      Description:
+        "SMS marketing cost is very cheap but feedback better then any others marketing system. and customer satisfaction is too much showing able. If you don't believe so you can try once with bulk SMS marketing for test.",
+      icon: "MessageCircle",
     },
   ],
   whyChooseUs: [
