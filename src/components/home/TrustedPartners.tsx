@@ -30,15 +30,11 @@ export default function TrustedPartners({
       className="w-full my-8 md:my-14 overflow-hidden"
     >
       {/* =================================================================== */}
-      {/* Premium Header with Styled 1000+ Pill                              */}
+      {/* Header: Center-aligned Social Proof Title                          */}
       {/* =================================================================== */}
       <div className="text-center mb-8 sm:mb-10 px-4">
-        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white inline-flex items-center justify-center flex-wrap gap-2">
-          <span>Join Over</span>
-          <span className="inline-flex items-center px-3.5 py-0.5 rounded-full text-sm sm:text-base font-black bg-amber-400/15 text-amber-400 border border-amber-400/30 shadow-xs">
-            1000+
-          </span>
-          <span>Companies with FelnaDMA</span>
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white">
+          Join Over 1000+ Companies with FelnaDMA
         </h3>
       </div>
 
