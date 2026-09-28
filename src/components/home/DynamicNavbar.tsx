@@ -110,22 +110,24 @@ export default function DynamicNavbar({
 
   const isAdmin = user?.role === "ADMIN";
 
-  // Helper to render navigation items cleanly (NO external link icon, prominent styling)
+  // Helper to render navigation items cleanly with interactive hover pill states
   const renderNavLink = (item: NavItem, isMobile = false) => {
     const isAnchor = item.url.startsWith("#");
-    const isActive = !isAnchor && pathname === item.url;
+    const isActive = !isAnchor
+      ? pathname === item.url
+      : pathname === "/" && item.url === "#home";
     const href = isAnchor && pathname !== "/" ? `/${item.url}` : item.url;
 
     const baseClasses = isMobile
-      ? `flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-all ${
+      ? `flex items-center justify-between px-4 py-3 rounded-lg text-base transition-all duration-300 ${
           isActive
-            ? "bg-[#ebe5da] text-[#4a3b32] font-bold border border-[#d4ccc0]"
-            : "text-stone-700 hover:text-[#4a3b32] hover:bg-[#ebe5da]/70"
+            ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/10"
+            : "font-medium text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/10"
         }`
-      : `inline-flex items-center justify-center px-3 2xl:px-3.5 py-2 rounded-xl text-sm font-semibold tracking-tight whitespace-nowrap transition-all duration-150 ${
+      : `inline-flex items-center justify-center text-sm px-3 py-2 rounded-lg transition-all duration-300 whitespace-nowrap ${
           isActive
-            ? "bg-[#ebe5da] text-[#4a3b32] font-bold border border-[#d4ccc0] shadow-2xs"
-            : "text-stone-700 hover:text-[#4a3b32] hover:bg-[#ebe5da]/70"
+            ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/5 hover:bg-[#4a3b32]/10"
+            : "font-medium text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/10"
         }`;
 
     return (

@@ -87,6 +87,7 @@ export default function SmsBenefits({ benefits }: SmsBenefitsProps) {
                   width={840}
                   height={616}
                   priority
+                  unoptimized
                   sizes="(max-width: 1024px) 100vw, 560px"
                   className="w-full h-auto max-h-[480px] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)] transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   onError={() => {
