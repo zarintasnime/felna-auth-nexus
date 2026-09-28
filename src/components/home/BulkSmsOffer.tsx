@@ -78,21 +78,21 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
 
           {/* Buttons: Flex Row (Primary + Secondary) */}
           <div className="flex flex-wrap items-center gap-4">
-            {/* Primary Button: Dark Espresso/Black background with white text */}
+            {/* Primary Button: Pill-shaped, dark espresso with white text */}
             <Link
-              href={offer?.ctaUrl || "/register"}
-              className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-[#201915] hover:bg-[#382b24] text-white font-bold text-sm rounded-xl shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+              href={offer?.ctaUrl || "#packages"}
+              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 sm:px-7 sm:py-3 bg-[#201915] hover:bg-[#382b24] text-white font-bold text-sm rounded-full shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span>Claim 23 Paisa Rate</span>
+              <span>See packages</span>
               <ArrowRight className="w-4 h-4 text-white" />
             </Link>
 
-            {/* Secondary Button: White background with thin border */}
+            {/* Secondary Button: Pill-shaped, transparent outline/ghost with thin border */}
             <Link
-              href="/login"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white hover:bg-neutral-50 text-neutral-800 font-semibold text-sm rounded-xl border border-neutral-300 shadow-xs transition-all hover:border-neutral-400 active:scale-[0.98]"
+              href="#contact"
+              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 sm:px-7 sm:py-3 bg-transparent hover:bg-neutral-200/50 text-neutral-800 font-semibold text-sm rounded-full border border-neutral-300 shadow-xs transition-all hover:border-neutral-400 active:scale-[0.98]"
             >
-              <span>Sign In to Account</span>
+              <span>Request a call</span>
             </Link>
           </div>
         </div>
