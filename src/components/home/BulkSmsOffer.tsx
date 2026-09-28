@@ -1,7 +1,9 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 import { BulkSmsOfferData } from "@/types/homepage";
 
 export interface BulkSmsOfferProps {
@@ -9,88 +11,56 @@ export interface BulkSmsOfferProps {
 }
 
 export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
-  const fallbackImage =
-    "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80";
-
-  const displayImage = offer?.imageUrl || fallbackImage;
+  const [imgSrc, setImgSrc] = useState<string>("/images/Offer_Image.jpg");
 
   return (
     <section
       id="services"
       aria-labelledby="bulk-sms-offer-title"
-      className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-6 md:my-8 px-0"
+      className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-6 md:my-10 px-0"
     >
-      {/* Card Container: Warm Off-White Cream Background that pops against dark canvas */}
-      <div className="rounded-3xl p-8 md:p-12 bg-[#faf9f6] border border-[#d4ccc0] shadow-2xl text-neutral-900 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      {/* =================================================================== */}
+      {/* Main Card Container: Soft off-white/cream with subtle vintage tone  */}
+      {/* =================================================================== */}
+      <div className="rounded-3xl p-8 md:p-12 lg:p-14 bg-[#faf9f6] border border-[#e7e1d7] shadow-2xl shadow-black/25 text-neutral-900 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
         {/* =============================================================== */}
-        {/* Left Column: Text, Feature Grid & Action Buttons (7 Cols)        */}
+        {/* Left Column: Text Content, Typography & Pill Buttons            */}
         {/* =============================================================== */}
-        <div className="lg:col-span-7 flex flex-col justify-center">
-          {/* Top Badge: Sparkle Icon + Special Promotional Offer */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-neutral-200/60 text-neutral-800 border border-neutral-300/60 shadow-2xs w-fit mb-5">
+        <div className="lg:col-span-6 xl:col-span-7 flex flex-col justify-center">
+          {/* Subtle Top Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-neutral-200/70 text-neutral-800 border border-neutral-300/70 shadow-2xs w-fit mb-5">
             <Sparkles className="w-3.5 h-3.5 text-amber-600 fill-amber-600" />
             <span>Special Promotional Offer</span>
           </div>
 
-          {/* Main Heading: Large, Bold in Bengali as specified */}
+          {/* Heading: Large, bold Bengali headline */}
           <h2
             id="bulk-sms-offer-title"
-            className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 mb-4 leading-[1.2]"
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-neutral-900 leading-[1.15] mb-6"
           >
             ২৩ পয়সা প্রতি এসএমএস, আপনার ওটিপি মাত্র ২ সেকেন্ডে আপনার গ্রাহক পাবে।
           </h2>
 
-          {/* Paragraph Description */}
-          <p className="text-neutral-600 text-sm sm:text-base mb-8 leading-relaxed max-w-2xl font-normal">
+          {/* Description: English/Bengali description */}
+          <p className="text-base md:text-lg text-neutral-600 leading-relaxed mb-10 max-w-2xl font-normal">
             FelnaDMA provide reliable bulk SMS service with carrier-grade direct operator interconnects across Bangladesh. Deliver OTPs and transactional notifications in 2 seconds with 99.98% delivery success, automated recharge, and developer-friendly REST APIs.
           </p>
 
-          {/* Features Grid (2x2) with checkmark icons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-            <div className="flex items-center gap-3 text-sm font-semibold text-neutral-800">
-              <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              </div>
-              <span>BTRC Approved Routes</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-sm font-semibold text-neutral-800">
-              <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              </div>
-              <span>Fastest OTP Delivery</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-sm font-semibold text-neutral-800">
-              <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              </div>
-              <span>Masking & Non-masking</span>
-            </div>
-
-            <div className="flex items-center gap-3 text-sm font-semibold text-neutral-800">
-              <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              </div>
-              <span>Real-Time DLR Status</span>
-            </div>
-          </div>
-
-          {/* Buttons: Flex Row (Primary + Secondary) */}
+          {/* Buttons: Pill-Shaped Flex Row */}
           <div className="flex flex-wrap items-center gap-4">
-            {/* Primary Button: Pill-shaped, dark espresso with white text */}
+            {/* Primary Button: Solid dark espresso, pill-shaped with subtle hover lift */}
             <Link
               href={offer?.ctaUrl || "#packages"}
-              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 sm:px-7 sm:py-3 bg-[#201915] hover:bg-[#382b24] text-white font-bold text-sm rounded-full shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#201915] hover:bg-[#382b24] text-white font-bold text-sm sm:text-base rounded-full shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
             >
               <span>See packages</span>
               <ArrowRight className="w-4 h-4 text-white" />
             </Link>
 
-            {/* Secondary Button: Pill-shaped, transparent outline/ghost with thin border */}
+            {/* Secondary Button: Transparent background, dark text, thin border, pill-shaped */}
             <Link
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 sm:px-7 sm:py-3 bg-transparent hover:bg-neutral-200/50 text-neutral-800 font-semibold text-sm rounded-full border border-neutral-300 shadow-xs transition-all hover:border-neutral-400 active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-transparent hover:bg-neutral-100 text-neutral-900 font-semibold text-sm sm:text-base rounded-full border border-neutral-300 shadow-xs hover:border-neutral-400 active:scale-[0.98] transition-all duration-200"
             >
               <span>Request a call</span>
             </Link>
@@ -98,37 +68,26 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
         </div>
 
         {/* =============================================================== */}
-        {/* Right Column: Visual Showcase & Floating Glassmorphism Card (5 Cols) */}
+        {/* Right Column: Promotional Banner Asset Integration              */}
         {/* =============================================================== */}
-        <div className="lg:col-span-5 relative w-full flex items-center justify-center">
-          <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-neutral-200/80 bg-neutral-100">
-            {/* Main Background Image */}
+        <div className="lg:col-span-6 xl:col-span-5 relative w-full flex items-center justify-center">
+          <div className="relative w-full aspect-[2952/1408] rounded-2xl shadow-2xl overflow-hidden ring-1 ring-black/5 bg-[#f0eae1] transition-all duration-300 hover:shadow-black/25">
+            {/* Local Next.js Image with fallback */}
             <Image
-              src={displayImage}
-              alt={offer?.title || "Bulk SMS Promotional Offer"}
+              src={imgSrc}
+              alt="২৩ পয়সা প্রতি এসএমএস - FelnaDMA Special Promotional Offer"
               fill
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="object-cover object-center transition-transform duration-500 hover:scale-105"
+              priority
+              sizes="(max-width: 1024px) 100vw, 45vw"
+              className="object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.02]"
+              onError={() => {
+                // Fallback to high-res standard promotional banner if needed
+                setImgSrc(
+                  offer?.imageUrl ||
+                    "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1400&q=80"
+                );
+              }}
             />
-
-            {/* Gradient Overlay for visual polish */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
-
-            {/* Floating Glassmorphism Card at bottom */}
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/60 shadow-xl flex items-center justify-between gap-3">
-              <div className="space-y-0.5">
-                <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-neutral-500">
-                  GUARANTEED PRICING
-                </div>
-                <div className="text-sm sm:text-base font-extrabold text-neutral-900">
-                  Starting at ৳0.23 / SMS
-                </div>
-              </div>
-
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] sm:text-xs font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs whitespace-nowrap">
-                NO HIDDEN FEES
-              </span>
-            </div>
           </div>
         </div>
       </div>
