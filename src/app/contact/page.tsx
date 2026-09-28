@@ -44,7 +44,7 @@ export default async function ContactPage() {
       {/* 1. Header Card Wrapper (TopBar + DynamicNavbar)                     */}
       {/* =================================================================== */}
       <header className="w-full relative z-20">
-        <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl overflow-hidden border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative">
+        <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative z-30">
           <TopBar />
           <DynamicNavbar
             items={homeData.navItems}

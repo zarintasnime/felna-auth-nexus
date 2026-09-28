@@ -40,8 +40,11 @@ export default function Footer() {
           <Link href="/about" className="hover:text-[#F5B83D] transition-colors">
             About Us
           </Link>
-          <Link href="/contact" className="hover:text-[#F5B83D] transition-colors">
-            Contact Us
+          <Link href="/address" className="hover:text-[#F5B83D] transition-colors">
+            Address
+          </Link>
+          <Link href="/feedback" className="hover:text-[#F5B83D] transition-colors">
+            Feedback
           </Link>
           <Link href="/login" className="hover:text-[#F5B83D] transition-colors">
             Sign In

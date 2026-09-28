@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -11,6 +11,10 @@ import {
   UserPlus,
   Menu,
   X,
+  ChevronDown,
+  Mail,
+  MapPin,
+  MessageSquare,
 } from "lucide-react";
 import LogoutButton from "@/components/common/LogoutButton";
 import { NavItem } from "@/types/homepage";
@@ -46,6 +50,10 @@ export default function DynamicNavbar({
   const [user, setUser] = useState<SessionUser | null>(initialSession ?? null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoadingSession, setIsLoadingSession] = useState(initialSession === undefined);
+
+  const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
+  const [isMobileContactExpanded, setIsMobileContactExpanded] = useState(false);
+  const contactDropdownRef = useRef<HTMLDivElement>(null);
 
   const rawNavLinks = items && items.length > 0 ? items : DEFAULT_NAV_ITEMS;
   const navLinks = rawNavLinks.map((item) => {
@@ -95,15 +103,33 @@ export default function DynamicNavbar({
     }
   }, [initialSession]);
 
-  // Close mobile drawer on route change
+  // Close menus on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsContactDropdownOpen(false);
   }, [pathname]);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        contactDropdownRef.current &&
+        !contactDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsContactDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Close on ESC key
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") {
       setIsMobileMenuOpen(false);
+      setIsContactDropdownOpen(false);
     }
   }, []);
 
@@ -124,6 +150,171 @@ export default function DynamicNavbar({
 
   // Helper to render navigation items cleanly with interactive hover pill states
   const renderNavLink = (item: NavItem, isMobile = false) => {
+    const isContactItem = item.label === "Contact Us" || item.url === "/contact";
+    const isAddressActive = pathname === "/address";
+    const isFeedbackActive = pathname === "/feedback" || pathname === "/contact";
+    const isParentActive = isAddressActive || isFeedbackActive;
+
+    // Mobile Contact Us Accordion
+    if (isContactItem && isMobile) {
+      return (
+        <div key={item.id} className="space-y-1">
+          <button
+            type="button"
+            onClick={() => setIsMobileContactExpanded((prev) => !prev)}
+            className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-base transition-all duration-300 ${
+              isParentActive
+                ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/10"
+                : "font-medium text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/10"
+            }`}
+            aria-label="Toggle contact options"
+            aria-expanded={isMobileContactExpanded}
+          >
+            <span>{item.label}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                isMobileContactExpanded ? "rotate-180 text-[#F5B83D]" : "text-stone-600"
+              }`}
+            />
+          </button>
+
+          {/* Submenu for mobile */}
+          <div
+            className={`pl-4 pr-2 space-y-1 border-l-2 border-[#d4ccc0] ml-4 transition-all duration-200 ${
+              isMobileContactExpanded || isParentActive ? "block" : "hidden"
+            }`}
+          >
+            <Link
+              href="/address"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-all ${
+                isAddressActive
+                  ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/10"
+                  : "text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/5"
+              }`}
+            >
+              <MapPin className="w-4 h-4 text-[#F5B83D]" />
+              <div className="flex flex-col text-left">
+                <span className="font-semibold leading-tight">Address</span>
+                <span className="text-[10px] text-neutral-500">Dhaka &amp; Chittagong offices</span>
+              </div>
+            </Link>
+            <Link
+              href="/feedback"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-all ${
+                isFeedbackActive
+                  ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/10"
+                  : "text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/5"
+              }`}
+            >
+              <MessageSquare className="w-4 h-4 text-[#F5B83D]" />
+              <div className="flex flex-col text-left">
+                <span className="font-semibold leading-tight">Feedback</span>
+                <span className="text-[10px] text-neutral-500">Send an inquiry or message</span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      );
+    }
+
+    // Desktop Contact Us Dropdown
+    if (isContactItem && !isMobile) {
+      return (
+        <div
+          key={item.id}
+          ref={contactDropdownRef}
+          className="relative group"
+          onMouseEnter={() => setIsContactDropdownOpen(true)}
+          onMouseLeave={() => setIsContactDropdownOpen(false)}
+        >
+          <div className="inline-flex items-center">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsContactDropdownOpen((prev) => !prev);
+              }}
+              className={`inline-flex items-center justify-center gap-1.5 text-sm px-3 py-2 rounded-lg transition-all duration-300 whitespace-nowrap cursor-pointer select-none ${
+                isParentActive
+                  ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/5 hover:bg-[#4a3b32]/10"
+                  : "font-medium text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/10"
+              }`}
+              aria-haspopup="true"
+              aria-expanded={isContactDropdownOpen}
+            >
+              <span>{item.label}</span>
+              <ChevronDown
+                className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                  isContactDropdownOpen
+                    ? "rotate-180 text-[#F5B83D]"
+                    : "text-neutral-500 group-hover:text-[#4a3b32]"
+                }`}
+              />
+            </button>
+          </div>
+
+          {/* Desktop Floating Dropdown Menu */}
+          <div
+            className={`absolute top-full left-0 mt-2 w-56 bg-[#1B1815] border border-white/10 rounded-2xl p-2 shadow-2xl z-50 transition-all duration-200 before:absolute before:-top-3 before:left-0 before:w-full before:h-3 before:content-[''] ${
+              isContactDropdownOpen
+                ? "opacity-100 visible translate-y-0 pointer-events-auto"
+                : "opacity-0 invisible pointer-events-none -translate-y-1"
+            }`}
+            role="menu"
+          >
+            <Link
+              href="/address"
+              role="menuitem"
+              onClick={() => setIsContactDropdownOpen(false)}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group/item ${
+                isAddressActive
+                  ? "bg-white/10 text-[#F5B83D] font-semibold"
+                  : "text-neutral-300 hover:bg-white/5 hover:text-[#F5B83D]"
+              }`}
+            >
+              <div className="w-8 h-8 rounded-lg bg-[#24201C] border border-white/10 flex items-center justify-center text-[#F5B83D] shrink-0 group-hover/item:border-[#F5B83D]/40 transition-colors">
+                <MapPin className="w-4 h-4 text-[#F5B83D]" />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-sm font-semibold text-white group-hover/item:text-[#F5B83D] transition-colors leading-tight">
+                  Address
+                </span>
+                <span className="text-[11px] text-neutral-400 group-hover/item:text-neutral-300 transition-colors">
+                  Dhaka &amp; Chittagong offices
+                </span>
+              </div>
+            </Link>
+
+            <Link
+              href="/feedback"
+              role="menuitem"
+              onClick={() => setIsContactDropdownOpen(false)}
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group/item mt-1 ${
+                isFeedbackActive
+                  ? "bg-white/10 text-[#F5B83D] font-semibold"
+                  : "text-neutral-300 hover:bg-white/5 hover:text-[#F5B83D]"
+              }`}
+            >
+              <div className="w-8 h-8 rounded-lg bg-[#24201C] border border-white/10 flex items-center justify-center text-[#F5B83D] shrink-0 group-hover/item:border-[#F5B83D]/40 transition-colors">
+                <MessageSquare className="w-4 h-4 text-[#F5B83D]" />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-sm font-semibold text-white group-hover/item:text-[#F5B83D] transition-colors leading-tight">
+                  Feedback
+                </span>
+                <span className="text-[11px] text-neutral-400 group-hover/item:text-neutral-300 transition-colors">
+                  Send an inquiry or message
+                </span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      );
+    }
+
     const isAnchor = item.url.startsWith("#");
     const isActive = !isAnchor
       ? pathname === item.url
@@ -155,7 +346,11 @@ export default function DynamicNavbar({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#d4ccc0] bg-[#f4f0e6]/95 backdrop-blur-md shadow-xs transition-all">
+    <header
+      className={`sticky top-0 z-40 w-full border-b border-[#d4ccc0] bg-[#f4f0e6]/95 backdrop-blur-md shadow-xs transition-all ${
+        pathname !== "/" ? "rounded-b-2xl md:rounded-b-3xl" : ""
+      }`}
+    >
       <div className="w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="flex h-20 items-center justify-between gap-4">
           {/* =============================================================== */}

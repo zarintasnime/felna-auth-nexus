@@ -20,8 +20,8 @@ export default async function AuthLayout({
       {/* =================================================================== */}
       {/* 1. Boxed Header Card Wrapper (TopBar + DynamicNavbar)               */}
       {/* =================================================================== */}
-      <header className="w-full">
-        <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl overflow-hidden border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative">
+      <header className="w-full relative z-20">
+        <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative z-30">
           {/* Top Utility Bar (Edge-to-Edge) */}
           <TopBar />
 
