@@ -42,29 +42,32 @@ export function BulkSmsOfferSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#d4ccc0] bg-[#f4f0e6]"
+      className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-6 md:my-8"
     >
-      <div className="max-w-7xl mx-auto p-6 sm:p-10 lg:p-12 rounded-3xl bg-[#fcfbf9] border border-[#d4ccc0] animate-pulse grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <div className="lg:col-span-7 space-y-5">
-          <div className="w-40 h-6 rounded-full bg-[#ebe5da]" />
-          <div className="h-9 w-4/5 rounded-2xl bg-[#ebe5da]" />
+      <div className="rounded-3xl p-8 md:p-12 bg-[#faf9f6] border border-[#d4ccc0] animate-pulse grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="lg:col-span-7 space-y-6">
+          <div className="w-44 h-7 rounded-full bg-neutral-200" />
+          <div className="space-y-3">
+            <div className="h-10 w-4/5 rounded-2xl bg-neutral-200" />
+            <div className="h-10 w-3/5 rounded-2xl bg-neutral-200" />
+          </div>
           <div className="space-y-2">
-            <div className="h-4 w-full rounded-lg bg-[#ebe5da]" />
-            <div className="h-4 w-5/6 rounded-lg bg-[#ebe5da]" />
+            <div className="h-4 w-full rounded-lg bg-neutral-200" />
+            <div className="h-4 w-5/6 rounded-lg bg-neutral-200" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            <div className="h-5 w-3/4 rounded bg-[#ebe5da]" />
-            <div className="h-5 w-3/4 rounded bg-[#ebe5da]" />
-            <div className="h-5 w-3/4 rounded bg-[#ebe5da]" />
-            <div className="h-5 w-3/4 rounded bg-[#ebe5da]" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div className="h-6 w-3/4 rounded bg-neutral-200" />
+            <div className="h-6 w-3/4 rounded bg-neutral-200" />
+            <div className="h-6 w-3/4 rounded bg-neutral-200" />
+            <div className="h-6 w-3/4 rounded bg-neutral-200" />
           </div>
-          <div className="pt-2 flex gap-3">
-            <div className="w-44 h-12 rounded-xl bg-[#ebe5da]" />
-            <div className="w-32 h-12 rounded-xl bg-[#ebe5da]" />
+          <div className="flex gap-4 pt-2">
+            <div className="w-48 h-12 rounded-xl bg-neutral-300" />
+            <div className="w-40 h-12 rounded-xl bg-neutral-200" />
           </div>
         </div>
         <div className="lg:col-span-5">
-          <div className="aspect-[4/3] w-full rounded-2xl bg-[#ebe5da] border border-[#d4ccc0]" />
+          <div className="aspect-[4/3] rounded-2xl bg-neutral-200" />
         </div>
       </div>
     </div>
