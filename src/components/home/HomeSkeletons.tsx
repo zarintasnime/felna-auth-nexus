@@ -44,8 +44,8 @@ export function BulkSmsOfferSkeleton() {
       aria-hidden="true"
       className="w-full my-6 md:my-10 px-4 sm:px-6"
     >
-      <div className="w-full max-w-[1280px] mx-auto rounded-3xl bg-[#faf9f6] border border-[#e7e1d7] p-6 md:p-10 lg:p-12 animate-pulse">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="w-full max-w-[1280px] mx-auto bg-[#faf9f6] rounded-3xl overflow-hidden p-6 md:p-10 lg:p-12 border border-[#e7e1d7] animate-pulse">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           <div className="space-y-4">
             <div className="w-40 h-6 rounded-full bg-neutral-200" />
             <div className="space-y-2.5 max-w-lg">

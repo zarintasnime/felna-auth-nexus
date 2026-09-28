@@ -20,16 +20,16 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
       className="w-full my-6 md:my-10 px-4 sm:px-6"
     >
       {/* =================================================================== */}
-      {/* Main Card Container: Constrained, elegant max-w-[1280px]            */}
+      {/* Main Card Wrapper: Blueprint Specified Classes & Padding            */}
       {/* =================================================================== */}
-      <div className="w-full max-w-[1280px] mx-auto rounded-3xl bg-[#faf9f6] border border-[#e7e1d7] shadow-2xl shadow-black/15 text-neutral-900 p-6 md:p-10 lg:p-12">
+      <div className="w-full max-w-[1280px] mx-auto bg-[#faf9f6] rounded-3xl overflow-hidden p-6 md:p-10 lg:p-12 border border-[#e7e1d7] shadow-2xl shadow-black/15">
         {/* ================================================================= */}
-        {/* 2-Column Responsive Grid with tight, connected gap                */}
+        {/* Grid Layout: Blueprint Specified 2-Column Grid (gap-10 lg:gap-12) */}
         {/* ================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           
           {/* =============================================================== */}
-          {/* Left Column (Text Content, Features & Actions)                  */}
+          {/* Left Column (Text & Buttons - flex flex-col justify-center)     */}
           {/* =============================================================== */}
           <div className="flex flex-col justify-center">
             {/* Top Badge: Sparkle Icon + Pill Label */}
@@ -38,7 +38,7 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
               <span>Special Promotional Offer</span>
             </div>
 
-            {/* Heading: High-impact typography with natural Bengali line-wrap */}
+            {/* Main Heading: text-neutral-900 */}
             <h2
               id="bulk-sms-offer-title"
               className="text-2xl sm:text-3xl lg:text-[32px] font-extrabold tracking-tight text-neutral-900 leading-snug mb-3.5"
@@ -46,45 +46,45 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
               ২৩ পয়সা প্রতি এসএমএস, আপনার ওটিপি মাত্র ২ সেকেন্ডে আপনার গ্রাহক পাবে।
             </h2>
 
-            {/* Description */}
+            {/* Paragraph: text-neutral-600 */}
             <p className="text-sm sm:text-base text-neutral-600 leading-relaxed mb-6 font-normal">
               FelnaDMA provide reliable bulk SMS service with carrier-grade direct operator interconnects across Bangladesh. Deliver OTPs and transactional notifications in 2 seconds with 99.98% delivery success, automated recharge, and developer-friendly REST APIs.
             </p>
 
-            {/* 2x2 Checkmark Features Grid with Vibrant Emerald Pop */}
+            {/* 2x2 Feature Grid: Solid circular background with white checkmark */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-7">
               <div className="flex items-center gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25">
+                <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-600/20">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
-                <span className="text-xs sm:text-sm font-semibold text-neutral-800">BTRC Approved</span>
+                <span className="text-xs sm:text-sm font-medium text-neutral-800">BTRC Approved</span>
               </div>
 
               <div className="flex items-center gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25">
+                <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-600/20">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
-                <span className="text-xs sm:text-sm font-semibold text-neutral-800">Fastest OTP</span>
+                <span className="text-xs sm:text-sm font-medium text-neutral-800">Fastest OTP</span>
               </div>
 
               <div className="flex items-center gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25">
+                <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-600/20">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
-                <span className="text-xs sm:text-sm font-semibold text-neutral-800">Masking Route</span>
+                <span className="text-xs sm:text-sm font-medium text-neutral-800">Masking Route</span>
               </div>
 
               <div className="flex items-center gap-2.5">
-                <div className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/25">
+                <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-600/20">
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
-                <span className="text-xs sm:text-sm font-semibold text-neutral-800">API Support</span>
+                <span className="text-xs sm:text-sm font-medium text-neutral-800">API Support</span>
               </div>
             </div>
 
-            {/* Buttons: Fully rounded pill-shaped actions */}
+            {/* Buttons: Primary (Solid dark) & Secondary (White background, thin border) */}
             <div className="flex flex-wrap items-center gap-4">
-              {/* Primary Button */}
+              {/* Primary: Solid dark background, white text, fully rounded */}
               <Link
                 href={offer?.ctaUrl || "#packages"}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#201915] hover:bg-[#382b24] text-white font-bold text-xs sm:text-sm rounded-full shadow-md hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
@@ -93,10 +93,10 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
                 <ArrowRight className="w-4 h-4 text-white" />
               </Link>
 
-              {/* Secondary Button */}
+              {/* Secondary: White background, thin border, fully rounded */}
               <Link
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-transparent hover:bg-neutral-100 text-neutral-900 font-semibold text-xs sm:text-sm rounded-full border border-neutral-300 shadow-xs hover:border-neutral-400 active:scale-[0.98] transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white hover:bg-neutral-50 text-neutral-900 font-semibold text-xs sm:text-sm rounded-full border border-neutral-300 shadow-xs hover:border-neutral-400 active:scale-[0.98] transition-all duration-200"
               >
                 <span>Request a call</span>
               </Link>
@@ -104,10 +104,10 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
           </div>
 
           {/* =============================================================== */}
-          {/* Right Column: Heroic Scale Image (Prominent & Uncropped)        */}
+          {/* Right Column (Image Wrapper): Blueprint Exact Classes           */}
           {/* =============================================================== */}
           <div className="relative w-full flex items-center justify-center">
-            <div className="w-full overflow-hidden rounded-2xl shadow-2xl shadow-black/15 ring-1 ring-black/5 transform transition hover:scale-[1.01] duration-300">
+            <div className="rounded-2xl shadow-2xl shadow-black/15 ring-1 ring-black/5 transform transition hover:scale-[1.01] duration-300 overflow-hidden w-full">
               <Image
                 src={imgSrc}
                 alt="২৩ পয়সা প্রতি এসএমএস - FelnaDMA Special Promotional Offer"
