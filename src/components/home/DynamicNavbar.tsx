@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
-  ShieldCheck,
   LayoutDashboard,
   Shield,
   LogIn,
@@ -24,11 +24,11 @@ export interface SessionUser {
 
 export const DEFAULT_NAV_ITEMS: NavItem[] = [
   { id: "nav-1", label: "Home", url: "#home", isExternal: false },
-  { id: "nav-2", label: "SMS Services", url: "#services", isExternal: false },
-  { id: "nav-3", label: "Facebook Marketing", url: "#marketing", isExternal: false },
+  { id: "nav-2", label: "About Us", url: "/about", isExternal: false },
+  { id: "nav-3", label: "Contact Us", url: "/contact", isExternal: false },
   { id: "nav-4", label: "Mobile Bill Solution", url: "#benefits", isExternal: false },
   { id: "nav-5", label: "SEO", url: "#why-choose-us", isExternal: false },
-  { id: "nav-6", label: "Contact Us", url: "#contact", isExternal: false },
+  { id: "nav-6", label: "Support", url: "#contact", isExternal: false },
   { id: "nav-7", label: "Content Creator", url: "#services", isExternal: false },
   { id: "nav-8", label: "Payment", url: "#services", isExternal: false },
 ];
@@ -47,7 +47,19 @@ export default function DynamicNavbar({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoadingSession, setIsLoadingSession] = useState(initialSession === undefined);
 
-  const navLinks = items && items.length > 0 ? items : DEFAULT_NAV_ITEMS;
+  const rawNavLinks = items && items.length > 0 ? items : DEFAULT_NAV_ITEMS;
+  const navLinks = rawNavLinks.map((item) => {
+    if (item.label === "SMS Services") {
+      return { ...item, label: "About Us", url: "/about", isExternal: false };
+    }
+    if (item.label === "Facebook Marketing" || item.url === "#marketing") {
+      return { ...item, label: "Contact Us", url: "/contact", isExternal: false };
+    }
+    if (item.id === "nav-6" && (item.label === "Contact Us" || item.url === "#contact")) {
+      return { ...item, label: "Support", url: "#contact", isExternal: false };
+    }
+    return item;
+  });
 
   // Sync state if initialSession prop changes
   useEffect(() => {
@@ -154,15 +166,22 @@ export default function DynamicNavbar({
               href="/"
               className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4a3b32]/20 rounded-xl py-1 px-1.5"
             >
-              <div className="w-10 h-10 rounded-xl bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                <ShieldCheck className="w-5 h-5 text-[#fcfbf9]" />
+              <div className="relative h-11 w-11 rounded-xl bg-[#201915] border border-neutral-700/60 p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform shrink-0">
+                <Image
+                  src="/images/igl-logo.png"
+                  alt="IGL Group Logo"
+                  width={120}
+                  height={40}
+                  priority
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="font-extrabold text-[#4a3b32] text-lg tracking-tight leading-none">
-                  Felna<span className="text-stone-500 font-bold">.com</span>
+                  IGL Group<span className="text-[#F5B83D] font-bold">.</span>
                 </span>
                 <span className="text-xs font-semibold text-stone-500 mt-1">
-                  Bulk SMS & OTP Gateway
+                  Felna.com SMS Gateway
                 </span>
               </div>
             </Link>
@@ -291,15 +310,21 @@ export default function DynamicNavbar({
             {/* Header row in mobile drawer */}
             <div className="flex items-center justify-between pb-4 border-b border-[#d4ccc0]">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center">
-                  <ShieldCheck className="w-5 h-5 text-[#fcfbf9]" />
+                <div className="relative w-10 h-10 rounded-xl bg-[#201915] border border-neutral-700/60 p-1 flex items-center justify-center shrink-0">
+                  <Image
+                    src="/images/igl-logo.png"
+                    alt="IGL Group Logo"
+                    width={100}
+                    height={36}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="flex flex-col">
                   <span className="font-extrabold text-[#4a3b32] text-base leading-none">
-                    Felna<span className="text-stone-500 font-bold">.com</span>
+                    IGL Group<span className="text-[#F5B83D] font-bold">.</span>
                   </span>
                   <span className="text-[10px] font-semibold text-stone-500 mt-0.5">
-                    Bulk SMS & OTP Gateway
+                    Felna.com SMS Gateway
                   </span>
                 </div>
               </div>

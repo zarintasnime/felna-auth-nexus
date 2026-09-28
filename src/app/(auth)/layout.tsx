@@ -1,6 +1,5 @@
 import React from "react";
-import Link from "next/link";
-import { ShieldCheck } from "lucide-react";
+import Footer from "@/components/home/Footer";
 import TopBar from "@/components/home/TopBar";
 import DynamicNavbar from "@/components/home/DynamicNavbar";
 import { getSession } from "@/lib/auth";
@@ -53,33 +52,7 @@ export default async function AuthLayout({
       {/* =================================================================== */}
       {/* 3. Universal Footer (Cohesive Dark/Vintage Theme)                   */}
       {/* =================================================================== */}
-      <footer id="contact" className="border-t border-[#382b24] py-8 px-4 bg-[#201915] text-center text-xs text-stone-400 mt-auto">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#fcfbf9]" />
-            </div>
-            <span className="font-bold text-[#fcfbf9]">Felna.com</span>
-            <span className="text-stone-400">&mdash; Secure Role-Based Authentication & Bulk SMS Platform</span>
-          </div>
-
-          <div className="flex items-center gap-5 text-xs font-medium text-stone-400">
-            <Link href="/login" className="hover:text-amber-300 transition">
-              Sign In
-            </Link>
-            <Link href="/register" className="hover:text-amber-300 transition">
-              Register
-            </Link>
-            <Link href="/dashboard" className="hover:text-amber-300 transition">
-              Dashboard
-            </Link>
-            <span className="text-stone-600">|</span>
-            <span className="text-stone-500">
-              &copy; {new Date().getFullYear()} Felna Inc. All rights reserved.
-            </span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ShieldCheck,
   User,
@@ -198,11 +199,17 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
       {/* Top Header - Clean, modern light backdrop with crisp typography and brand identity */}
       <header className="bg-white/90 backdrop-blur-md border-b border-slate-300/80 sticky top-0 z-30 shadow-xs">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg text-slate-900 hover:text-blue-600 transition">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center shadow-md shadow-sky-500/20">
-              <ShieldCheck className="w-5 h-5" />
+          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg text-slate-900 hover:text-blue-600 transition group">
+            <div className="relative w-9 h-9 rounded-xl bg-[#201915] border border-neutral-700/60 p-1 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform shrink-0">
+              <Image
+                src="/images/igl-logo.png"
+                alt="IGL Group Logo"
+                width={36}
+                height={36}
+                className="w-full h-full object-contain"
+              />
             </div>
-            <span>Felna<span className="text-sky-600">.com</span></span>
+            <span>IGL Group <span className="text-slate-500 font-normal text-sm">| Felna.com</span></span>
           </Link>
 
           <div className="flex items-center gap-3">

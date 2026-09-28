@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ShieldCheck, ArrowLeft, LogIn, UserPlus } from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, LogIn, UserPlus } from "lucide-react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
@@ -62,10 +63,18 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
       >
         {/* Brand Card Header */}
         <div className="bg-[#fcfbf9] px-6 pt-7 pb-4 text-center border-b border-[#e5ded4]">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-[#ebe5da] text-[#4a3b32] rounded-2xl mb-2.5 border border-[#d4ccc0] shadow-xs">
-            <ShieldCheck className="w-6 h-6 text-[#4a3b32]" />
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-[#201915] rounded-2xl mb-2.5 border border-neutral-700/60 p-1.5 shadow-xs">
+            <Image
+              src="/images/igl-logo.png"
+              alt="IGL Group Logo"
+              width={40}
+              height={40}
+              className="w-full h-full object-contain"
+            />
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-stone-800">Felna Portal</h1>
+          <h1 className="text-xl font-bold tracking-tight text-stone-800">
+            IGL Group <span className="text-stone-500 font-normal">| Felna Portal</span>
+          </h1>
           <p className="text-stone-600 text-xs mt-0.5">
             Role-Based Authentication & Verification System
           </p>

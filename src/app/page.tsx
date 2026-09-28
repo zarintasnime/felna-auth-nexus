@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
-import Link from "next/link";
-import { ShieldCheck, Lock, CheckCircle2 } from "lucide-react";
+import { Lock, CheckCircle2 } from "lucide-react";
 import TopBar from "@/components/home/TopBar";
 import DynamicNavbar from "@/components/home/DynamicNavbar";
 import HeroSlider from "@/components/home/HeroSlider";
@@ -10,6 +9,7 @@ import SmsBenefits from "@/components/home/SmsBenefits";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import TrustedPartners from "@/components/home/TrustedPartners";
 import MobileBottomBar from "@/components/home/MobileBottomBar";
+import Footer from "@/components/home/Footer";
 import SectionErrorBoundary from "@/components/common/SectionErrorBoundary";
 import {
   HeroSliderSkeleton,
@@ -156,33 +156,7 @@ export default async function HomePage() {
       {/* =================================================================== */}
       {/* Universal Footer                                                    */}
       {/* =================================================================== */}
-      <footer id="contact" className="border-t border-[#d4ccc0] py-8 px-4 pb-20 sm:pb-8 bg-[#f4f0e6] text-center text-xs text-stone-600">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#fcfbf9]" />
-            </div>
-            <span className="font-bold text-[#4a3b32]">Felna.com</span>
-            <span>&mdash; Secure Role-Based Authentication & Bulk SMS Platform</span>
-          </div>
-
-          <div className="flex items-center gap-5 text-xs font-medium">
-            <Link href="/login" className="hover:text-[#4a3b32] transition">
-              Sign In
-            </Link>
-            <Link href="/register" className="hover:text-[#4a3b32] transition">
-              Register
-            </Link>
-            <Link href="/dashboard" className="hover:text-[#4a3b32] transition">
-              Dashboard
-            </Link>
-            <span className="text-stone-400">|</span>
-            <span className="text-stone-500">
-              &copy; {new Date().getFullYear()} Felna Inc. All rights reserved.
-            </span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* Sticky Mobile Quick Action Bar (<640px) */}
       <MobileBottomBar />
