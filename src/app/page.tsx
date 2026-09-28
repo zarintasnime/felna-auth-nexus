@@ -9,6 +9,7 @@ import MarketingSection from "@/components/home/MarketingSection";
 import SmsBenefits from "@/components/home/SmsBenefits";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import TrustedPartners from "@/components/home/TrustedPartners";
+import MobileBottomBar from "@/components/home/MobileBottomBar";
 import SectionErrorBoundary from "@/components/common/SectionErrorBoundary";
 import {
   HeroSliderSkeleton,
@@ -101,48 +102,48 @@ export default async function HomePage() {
 
         {/* Standards & Security Overview Banner */}
         <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#e5ded4] pb-4">
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#1B1815] border border-white/10 shadow-2xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
               <div>
-                <h3 className="font-bold text-base text-[#4a3b32]">
+                <h3 className="font-bold text-base text-white">
                   Security Specifications & Standards
                 </h3>
-                <p className="text-xs text-stone-600 mt-0.5">
-                  Multi-layered defense architecture protecting identities and credentials.
+                <p className="text-xs text-neutral-400 mt-0.5">
+                  Multi-layered defense architecture protecting identities and credentials on Felna.com.
                 </p>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#ebe5da] text-[#4a3b32] text-xs font-semibold border border-[#d4ccc0] self-start sm:self-auto">
-                <Lock className="w-3.5 h-3.5 text-[#4a3b32]" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#24201C] text-[#F5B83D] text-xs font-semibold border border-white/10 self-start sm:self-auto">
+                <Lock className="w-3.5 h-3.5 text-[#F5B83D]" />
                 <span>SSL & Hashing Enforced</span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
               <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#4a3b32] shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-[#F5B83D] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-stone-800">Neon PostgreSQL:</span>
-                  <p className="text-stone-600 mt-0.5">
+                  <span className="font-semibold text-neutral-200">Neon PostgreSQL:</span>
+                  <p className="text-neutral-400 mt-0.5">
                     Serverless pooled database with SSL connection verification.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#4a3b32] shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-[#F5B83D] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-stone-800">Cryptographic OTP:</span>
-                  <p className="text-stone-600 mt-0.5">
+                  <span className="font-semibold text-neutral-200">Cryptographic OTP:</span>
+                  <p className="text-neutral-400 mt-0.5">
                     SHA-256 OTP hashing with timingSafeEqual and lockout defenses.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#4a3b32] shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-[#F5B83D] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-stone-800">Stateless JWT Cookies:</span>
-                  <p className="text-stone-600 mt-0.5">
+                  <span className="font-semibold text-neutral-200">Stateless JWT Cookies:</span>
+                  <p className="text-neutral-400 mt-0.5">
                     HTTP-only signed cookies verified through Edge Middleware.
                   </p>
                 </div>
@@ -155,7 +156,7 @@ export default async function HomePage() {
       {/* =================================================================== */}
       {/* Universal Footer                                                    */}
       {/* =================================================================== */}
-      <footer id="contact" className="border-t border-[#d4ccc0] py-8 px-4 bg-[#f4f0e6] text-center text-xs text-stone-600">
+      <footer id="contact" className="border-t border-[#d4ccc0] py-8 px-4 pb-20 sm:pb-8 bg-[#f4f0e6] text-center text-xs text-stone-600">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-lg bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center">
@@ -182,6 +183,9 @@ export default async function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Sticky Mobile Quick Action Bar (<640px) */}
+      <MobileBottomBar />
     </div>
   );
 }

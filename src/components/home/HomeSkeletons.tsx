@@ -42,33 +42,33 @@ export function BulkSmsOfferSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className="w-full my-6 md:my-10 px-4 sm:px-6"
+      className="w-full py-24 md:py-32 px-4 sm:px-6"
     >
-      <div className="w-full max-w-[1280px] mx-auto bg-[#faf9f6] rounded-3xl overflow-hidden p-6 md:p-10 lg:p-12 border border-[#e7e1d7] animate-pulse">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-          <div className="space-y-4">
-            <div className="w-40 h-6 rounded-full bg-neutral-200" />
-            <div className="space-y-2.5 max-w-lg">
-              <div className="h-8 w-4/5 rounded-xl bg-neutral-200" />
-              <div className="h-8 w-3/5 rounded-xl bg-neutral-200" />
+      <div className="w-full max-w-[1200px] mx-auto bg-[#1B1815] rounded-[24px] overflow-hidden p-8 md:p-12 lg:p-[48px] border border-[#F5B83D]/30 animate-pulse">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="space-y-5 lg:col-span-7">
+            <div className="w-44 h-7 rounded-full bg-[#24201C]" />
+            <div className="space-y-3">
+              <div className="h-10 w-3/5 rounded-xl bg-[#24201C]" />
+              <div className="h-8 w-4/5 rounded-xl bg-[#24201C]" />
             </div>
-            <div className="space-y-2 pt-1 max-w-lg">
-              <div className="h-4 w-full rounded-lg bg-neutral-200" />
-              <div className="h-4 w-5/6 rounded-lg bg-neutral-200" />
+            <div className="space-y-2 pt-2">
+              <div className="h-4 w-full rounded bg-[#24201C]" />
+              <div className="h-4 w-5/6 rounded bg-[#24201C]" />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg pt-1">
-              <div className="h-5 w-3/4 rounded bg-neutral-200" />
-              <div className="h-5 w-3/4 rounded bg-neutral-200" />
-              <div className="h-5 w-3/4 rounded bg-neutral-200" />
-              <div className="h-5 w-3/4 rounded bg-neutral-200" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+              <div className="h-10 rounded-full bg-[#24201C]" />
+              <div className="h-10 rounded-full bg-[#24201C]" />
+              <div className="h-10 rounded-full bg-[#24201C]" />
+              <div className="h-10 rounded-full bg-[#24201C]" />
             </div>
-            <div className="flex gap-4 pt-2">
-              <div className="w-36 h-11 rounded-full bg-neutral-300" />
-              <div className="w-36 h-11 rounded-full bg-neutral-200" />
+            <div className="flex gap-4 pt-3">
+              <div className="w-36 h-[52px] rounded-full bg-[#24201C]" />
+              <div className="w-36 h-[52px] rounded-full bg-[#24201C]" />
             </div>
           </div>
-          <div>
-            <div className="w-full aspect-[2952/1408] rounded-2xl bg-neutral-200" />
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="w-[280px] h-[520px] rounded-[2.5rem] bg-[#24201C] border-[6px] border-neutral-800" />
           </div>
         </div>
       </div>
@@ -114,18 +114,21 @@ export function SmsBenefitsSkeleton() {
       aria-hidden="true"
       className="w-full my-8 md:my-14 px-4 sm:px-6"
     >
-      <div className="w-full max-w-[1280px] mx-auto p-6 md:p-12 animate-pulse">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-          <div className="w-full min-h-[380px] lg:min-h-[460px] aspect-[840/616] rounded-3xl bg-neutral-900/50 border border-neutral-800" />
-          <div className="space-y-4">
-            <div className="space-y-2 mb-6">
-              <div className="w-28 h-4 rounded bg-neutral-800" />
-              <div className="h-8 w-3/4 rounded bg-neutral-800" />
+      <div className="w-full max-w-[1200px] mx-auto p-6 md:p-8 lg:p-10 animate-pulse">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          <div className="w-full lg:col-span-5 space-y-5">
+            <div className="space-y-3">
+              <div className="w-28 h-4 rounded bg-[#24201C]" />
+              <div className="h-8 w-4/5 rounded-xl bg-[#24201C]" />
+              <div className="h-4 w-full rounded bg-[#24201C]" />
             </div>
+            <div className="h-56 rounded-2xl bg-[#1B1815] border border-white/10" />
+          </div>
+          <div className="w-full lg:col-span-7 space-y-4">
             {[1, 2, 3, 4, 5].map((i) => (
               <div
                 key={i}
-                className="h-20 rounded-2xl bg-neutral-900/40 border border-neutral-800"
+                className="h-20 rounded-2xl bg-[#1B1815] border border-white/10"
               />
             ))}
           </div>
@@ -142,30 +145,30 @@ export function WhyChooseUsSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className="w-full my-6 md:my-10 px-4 sm:px-6"
+      className="w-full my-8 md:my-14 px-4 sm:px-6"
     >
-      <div className="w-full max-w-[1280px] mx-auto p-6 md:p-10 lg:p-12 animate-pulse">
+      <div className="w-full max-w-[1200px] mx-auto p-6 md:p-8 lg:p-10 animate-pulse">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="space-y-3 max-w-xl">
-            <div className="w-32 h-4 rounded bg-neutral-800" />
-            <div className="h-10 w-4/5 rounded-xl bg-neutral-800" />
+            <div className="w-32 h-4 rounded bg-[#24201C]" />
+            <div className="h-10 w-4/5 rounded-xl bg-[#24201C]" />
           </div>
           <div className="space-y-3 max-w-md w-full">
-            <div className="h-4 w-full rounded bg-neutral-800" />
-            <div className="h-4 w-3/4 rounded bg-neutral-800" />
+            <div className="h-4 w-full rounded bg-[#24201C]" />
+            <div className="h-4 w-3/4 rounded bg-[#24201C]" />
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10 md:mt-12 items-stretch">
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="rounded-2xl bg-neutral-900/50 border border-neutral-800 p-6 space-y-4"
+              className="rounded-2xl bg-[#1B1815] border border-white/10 p-6 md:p-8 space-y-4 h-full"
             >
-              <div className="w-14 h-14 rounded-full border border-neutral-700 bg-neutral-800" />
-              <div className="h-5 w-3/4 rounded bg-neutral-800" />
+              <div className="w-14 h-14 rounded-2xl bg-[#24201C] border border-white/10" />
+              <div className="h-5 w-3/4 rounded bg-[#24201C]" />
               <div className="space-y-2">
-                <div className="h-3.5 w-full rounded bg-neutral-800" />
-                <div className="h-3.5 w-4/5 rounded bg-neutral-800" />
+                <div className="h-3.5 w-full rounded bg-[#24201C]" />
+                <div className="h-3.5 w-4/5 rounded bg-[#24201C]" />
               </div>
             </div>
           ))}

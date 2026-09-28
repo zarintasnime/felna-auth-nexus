@@ -62,123 +62,119 @@ export default function SmsBenefits({ benefits }: SmsBenefitsProps) {
       className="w-full my-8 md:my-14 px-4 sm:px-6"
     >
       {/* =================================================================== */}
-      {/* Standard Boxed Wrapper Container: max-w-[1280px]                    */}
+      {/* Boxed Wrapper Container: max-w-[1200px] on 8px grid                 */}
       {/* =================================================================== */}
-      <div className="w-full max-w-[1280px] mx-auto p-6 md:p-12">
+      <div className="w-full max-w-[1200px] mx-auto p-6 md:p-8 lg:p-10">
         {/* ================================================================= */}
-        {/* Responsive 2-Column Grid (Left: Visual, Right: Accordion)         */}
+        {/* 2-Column Layout: Sticky Left Header/Intro & Right Accordion       */}
         {/* ================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* =============================================================== */}
-          {/* Left Column: Visual Illustration Frame (sms-benefits.png)       */}
+          {/* Left Column (Sticky): Title, Short Intro & Visual Frame         */}
           {/* =============================================================== */}
-          <div className="w-full flex items-center justify-center lg:sticky lg:top-24">
-            <div className="relative w-full rounded-3xl overflow-hidden border border-neutral-800/80 bg-neutral-900/50 backdrop-blur-sm p-6 sm:p-8 lg:p-10 flex flex-col items-center justify-center shadow-2xl shadow-black/40 group min-h-[380px] lg:min-h-[460px]">
-              {/* Ambient radial lighting for high-contrast presentation */}
-              <div className="absolute inset-0 bg-radial from-emerald-500/10 via-amber-500/5 to-transparent blur-2xl pointer-events-none" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="w-full lg:col-span-5 lg:sticky lg:top-24 space-y-5 self-start">
+            <div className="space-y-3">
+              <span className="text-[#F5B83D] font-bold tracking-wider text-xs uppercase inline-block">
+                [ SMS BENEFITS & FAQ ]
+              </span>
+              <h2
+                id="sms-benefits-title"
+                className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight"
+              >
+                Drive Real Growth With Direct Messaging
+              </h2>
+              <p className="text-[15px] sm:text-base text-neutral-400 leading-relaxed font-normal pt-1">
+                Connect directly with your customers across Bangladesh. Experience over 90% read rates within 30 minutes, instantaneous OTP delivery, and unmatched conversion rates compared to traditional channels.
+              </p>
+            </div>
 
-              {/* Graphic Container with Natural Aspect Ratio & Zero Cropping */}
-              <div className="relative w-full flex items-center justify-center z-10">
+            {/* Visual Graphic Illustration Card */}
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#1B1815] p-5 shadow-xl shadow-black/40 group">
+              <div className="absolute inset-0 bg-radial from-[#F5B83D]/10 via-transparent to-transparent blur-2xl pointer-events-none" />
+              <div className="relative w-full flex items-center justify-center">
                 <Image
                   src={imgSrc}
                   alt="SMS Marketing & Multi-Channel Communication Benefits"
-                  width={840}
-                  height={616}
+                  width={600}
+                  height={400}
                   priority
                   unoptimized
-                  sizes="(max-width: 1024px) 100vw, 560px"
-                  className="w-full h-auto max-h-[480px] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)] transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  onError={() => {
-                    setImgSrc("/images/sms-benefits.png");
-                  }}
+                  sizes="(max-width: 1024px) 100vw, 480px"
+                  className="w-full h-auto max-h-[260px] object-contain drop-shadow-md transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                  onError={() => setImgSrc("/images/sms-benefits.png")}
                 />
               </div>
-
-              {/* Inner ring border for refined SaaS polish */}
-              <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10 pointer-events-none" />
             </div>
           </div>
 
           {/* =============================================================== */}
           {/* Right Column: Interactive Accordion List                         */}
           {/* =============================================================== */}
-          <div className="w-full flex flex-col">
-            <div className="mb-6">
-              <span className="text-amber-400 font-bold tracking-wider text-xs uppercase inline-block mb-2">
-                [ SMS BENEFITS ]
-              </span>
-              <h2
-                id="sms-benefits-title"
-                className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-snug"
-              >
-                Drive Real Growth With Direct Messaging
-              </h2>
-            </div>
+          <div className="w-full lg:col-span-7 space-y-4">
+            {items.map((item, index) => {
+              const isOpen = openIndex === index;
 
-            <div className="space-y-4">
-              {items.map((item, index) => {
-                const isOpen = openIndex === index;
-
-                return (
-                  <div
-                    key={index}
-                    className={`rounded-2xl transition-all duration-300 border ${
-                      isOpen
-                        ? "bg-neutral-800/60 border-emerald-500/50 shadow-lg shadow-emerald-500/5"
-                        : "bg-neutral-900/40 border-neutral-800 hover:border-neutral-600"
-                    }`}
+              return (
+                <div
+                  key={index}
+                  className={`rounded-2xl transition-all duration-300 border ${
+                    isOpen
+                      ? "bg-[#1B1815] border-[#F5B83D]/60 shadow-[0_0_20px_rgba(245,184,61,0.08)]"
+                      : "bg-[#1B1815] border-white/10 hover:border-white/20"
+                  }`}
+                >
+                  {/* Accordion Header / Trigger Button */}
+                  <button
+                    type="button"
+                    onClick={() => toggleAccordion(index)}
+                    className="w-full p-5 sm:p-6 flex items-center justify-between gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5B83D] rounded-2xl cursor-pointer group"
+                    aria-expanded={isOpen}
                   >
-                    {/* Accordion Header / Trigger Button */}
-                    <button
-                      type="button"
-                      onClick={() => toggleAccordion(index)}
-                      className="w-full p-5 flex items-center justify-between gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-2xl cursor-pointer"
-                      aria-expanded={isOpen}
-                    >
-                      <span
-                        className={`text-base sm:text-lg font-semibold transition-colors duration-200 ${
-                          isOpen ? "text-white" : "text-neutral-300 hover:text-white"
-                        }`}
-                      >
-                        {item.title}
-                      </span>
-
-                      {/* Icon Circle (Green background + dark/black icon when active) */}
-                      <div
-                        className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 border ${
-                          isOpen
-                            ? "bg-emerald-500 border-emerald-500 text-black shadow-sm shadow-emerald-500/30"
-                            : "bg-neutral-800/50 border-neutral-700 text-neutral-400"
-                        }`}
-                      >
-                        <ChevronDown
-                          className={`w-4 h-4 stroke-[2.5] transition-transform duration-300 ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
-                        />
-                      </div>
-                    </button>
-
-                    {/* Smooth Collapsible Content */}
-                    <div
-                      className={`grid transition-all duration-300 ease-in-out ${
+                    <span
+                      className={`text-base sm:text-lg font-semibold transition-colors duration-200 leading-snug ${
                         isOpen
-                          ? "grid-rows-[1fr] opacity-100"
-                          : "grid-rows-[0fr] opacity-0"
+                          ? "text-[#F5B83D]"
+                          : "text-white group-hover:text-[#F5B83D]/90"
                       }`}
                     >
-                      <div className="overflow-hidden">
-                        <p className="px-5 pb-5 text-xs sm:text-sm text-neutral-400 leading-relaxed font-normal border-t border-neutral-800/60 pt-3">
-                          {item.description}
-                        </p>
-                      </div>
+                      {item.title}
+                    </span>
+
+                    {/* Icon Container: Solid Amber (#F5B83D) when open, neutral when closed */}
+                    <div
+                      className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 border ${
+                        isOpen
+                          ? "bg-[#F5B83D] border-[#F5B83D] text-black shadow-sm shadow-[#F5B83D]/30"
+                          : "bg-[#24201C] border-white/10 text-neutral-400 group-hover:text-white"
+                      }`}
+                    >
+                      <ChevronDown
+                        className={`w-4 h-4 stroke-[2.5] transition-transform duration-250 ease-in-out ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
+                  </button>
+
+                  {/* Smooth 250ms Collapsible Content with Readable Line Lengths */}
+                  <div
+                    className={`grid transition-[grid-template-rows,opacity] ease-in-out ${
+                      isOpen
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                    }`}
+                    style={{ transitionDuration: "250ms" }}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="px-5 sm:px-6 pb-5 sm:pb-6 text-[15px] sm:text-base text-neutral-400 leading-relaxed font-normal border-t border-white/5 pt-4 max-w-prose">
+                        {item.description}
+                      </p>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
 
         </div>

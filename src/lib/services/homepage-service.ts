@@ -123,7 +123,7 @@ export const FELNA_MOCK_RAW_PAYLOAD: RawHomePagePayload = {
       Id: "why-3",
       Title: "24/7 Support Instantly",
       Description:
-        "We are ensure Support and service 24/7 hours. by mail/phone",
+        "We ensure 24/7 support by mail and phone.",
       Icon: "Headset",
     },
     {
