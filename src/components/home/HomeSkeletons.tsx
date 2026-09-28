@@ -115,8 +115,8 @@ export function SmsBenefitsSkeleton() {
       className="w-full my-8 md:my-14 px-4 sm:px-6"
     >
       <div className="w-full max-w-[1280px] mx-auto p-6 md:p-12 animate-pulse">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
-          <div className="w-full aspect-square rounded-3xl bg-neutral-900/50 border border-neutral-800" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+          <div className="w-full min-h-[380px] lg:min-h-[460px] aspect-[840/616] rounded-3xl bg-neutral-900/50 border border-neutral-800" />
           <div className="space-y-4">
             <div className="space-y-2 mb-6">
               <div className="w-28 h-4 rounded bg-neutral-800" />

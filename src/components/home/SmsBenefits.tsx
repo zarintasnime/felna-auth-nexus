@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown, ImageIcon } from "lucide-react";
+import Image from "next/image";
+import { ChevronDown } from "lucide-react";
 import { BenefitItem } from "@/types/homepage";
 
 export interface AccordionBenefit {
@@ -43,6 +44,7 @@ export const DEFAULT_BENEFITS: AccordionBenefit[] = [
 
 export default function SmsBenefits({ benefits }: SmsBenefitsProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [imgSrc, setImgSrc] = useState<string>("/images/sms-benefits.png");
 
   const toggleAccordion = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
@@ -66,29 +68,35 @@ export default function SmsBenefits({ benefits }: SmsBenefitsProps) {
         {/* ================================================================= */}
         {/* Responsive 2-Column Grid (Left: Visual, Right: Accordion)         */}
         {/* ================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           
           {/* =============================================================== */}
-          {/* Left Column: Visual Illustration Placeholder Card               */}
+          {/* Left Column: Visual Illustration Frame (sms-benefits.png)       */}
           {/* =============================================================== */}
           <div className="w-full flex items-center justify-center lg:sticky lg:top-24">
-            <div className="w-full aspect-square rounded-3xl bg-neutral-900/50 border border-neutral-800 flex flex-col items-center justify-center p-8 relative overflow-hidden group shadow-2xl">
-              {/* Subtle radial ambient glow */}
-              <div className="absolute inset-0 bg-radial from-emerald-500/10 via-amber-500/5 to-transparent pointer-events-none" />
+            <div className="relative w-full rounded-3xl overflow-hidden border border-neutral-800/80 bg-neutral-900/50 backdrop-blur-sm p-6 sm:p-8 lg:p-10 flex flex-col items-center justify-center shadow-2xl shadow-black/40 group min-h-[380px] lg:min-h-[460px]">
+              {/* Ambient radial lighting for high-contrast presentation */}
+              <div className="absolute inset-0 bg-radial from-emerald-500/10 via-amber-500/5 to-transparent blur-2xl pointer-events-none" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
-              <div className="relative flex flex-col items-center text-center space-y-4">
-                <div className="w-20 h-20 rounded-3xl bg-neutral-800/80 border border-neutral-700/80 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform duration-500">
-                  <ImageIcon className="w-10 h-10 text-neutral-400 group-hover:text-emerald-400 transition-colors" />
-                </div>
-                <div className="space-y-1">
-                  <p className="text-base sm:text-lg font-bold text-neutral-200">
-                    Illustration Placeholder
-                  </p>
-                  <p className="text-xs sm:text-sm text-neutral-500 max-w-xs">
-                    Visual representation of bulk SMS analytics and multi-channel campaign ROI
-                  </p>
-                </div>
+              {/* Graphic Container with Natural Aspect Ratio & Zero Cropping */}
+              <div className="relative w-full flex items-center justify-center z-10">
+                <Image
+                  src={imgSrc}
+                  alt="SMS Marketing & Multi-Channel Communication Benefits"
+                  width={840}
+                  height={616}
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 560px"
+                  className="w-full h-auto max-h-[480px] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)] transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  onError={() => {
+                    setImgSrc("/images/sms-benefits.png");
+                  }}
+                />
               </div>
+
+              {/* Inner ring border for refined SaaS polish */}
+              <div className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10 pointer-events-none" />
             </div>
           </div>
 
