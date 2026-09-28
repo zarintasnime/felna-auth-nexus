@@ -100,45 +100,31 @@ export const FELNA_MOCK_RAW_PAYLOAD: RawHomePagePayload = {
   whyChooseUs: [
     {
       Id: "why-1",
-      Title: "99.98% Delivery Rate",
+      Title: "Mobile Payment Solution",
       Description:
-        "Zero packet loss with dynamic failover channels across Grameenphone, Banglalink, Robi, and Teletalk.",
-      Icon: "CheckCircle2",
+        "You Can Pay Your Corporate Mobile Bill From Same Panel.",
+      Icon: "Wallet",
     },
     {
       Id: "why-2",
-      Title: "Fast Brand Masking Approval",
+      Title: "Cheap SMS Rate Better Support",
       Description:
-        "Get your official alphanumeric Brand Sender ID registered quickly adhering to national BTRC compliance rules.",
-      Icon: "ShieldCheck",
+        "We Provide You Lowest Rate of SMS Masking or non-Masking.",
+      Icon: "MessageSquareText",
     },
     {
       Id: "why-3",
-      Title: "Instant Gateway Recharge",
+      Title: "24/7 Support Instantly",
       Description:
-        "Top up your SMS credit balance instantly 24/7 using automated bKash, Nagad, Rocket, or corporate bank transfer.",
-      Icon: "CreditCard",
+        "We are ensure Support and service 24/7 hours. by mail/phone",
+      Icon: "Headset",
     },
     {
       Id: "why-4",
-      Title: "Developer-First REST API",
+      Title: "Masking SMS Configuration",
       Description:
-        "Clean JSON documentation, SDK code samples, and Postman collections for PHP, Node.js, Python, and cURL.",
-      Icon: "Code2",
-    },
-    {
-      Id: "why-5",
-      Title: "Enterprise Security & SLA",
-      Description:
-        "End-to-end TLS 1.3 encryption, IP whitelisting, role-based sub-accounts, and a contractual 99.9% uptime SLA.",
-      Icon: "Lock",
-    },
-    {
-      Id: "why-6",
-      Title: "Dynamic Operator Routing",
-      Description:
-        "Automated routing algorithms bypass mobile operator downtime or network congestion seamlessly in real-time.",
-      Icon: "GitFork",
+        "We Can Provide Your Masking With in a Day for Business promotion",
+      Icon: "ShieldCheck",
     },
   ],
 };

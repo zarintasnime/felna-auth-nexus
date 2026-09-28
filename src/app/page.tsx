@@ -8,6 +8,7 @@ import BulkSmsOffer from "@/components/home/BulkSmsOffer";
 import MarketingSection from "@/components/home/MarketingSection";
 import SmsBenefits from "@/components/home/SmsBenefits";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
+import TrustedPartners from "@/components/home/TrustedPartners";
 import SectionErrorBoundary from "@/components/common/SectionErrorBoundary";
 import {
   HeroSliderSkeleton,
@@ -65,10 +66,22 @@ export default async function HomePage() {
       {/* Main Content Area: Sections 3 to 6 + Security Overview              */}
       {/* =================================================================== */}
       <main className="flex-1">
+        {/* Trusted Partners / Client Logo Carousel (Immediately after HeroSlider, before BulkSmsOffer) */}
+        <SectionErrorBoundary sectionName="Trusted Partners">
+          <TrustedPartners />
+        </SectionErrorBoundary>
+
         {/* Section 3: Bulk SMS Promotional Offer Block */}
         <SectionErrorBoundary sectionName="Bulk SMS Offer">
           <Suspense fallback={<BulkSmsOfferSkeleton />}>
             <BulkSmsOffer offer={homeData.offer} />
+          </Suspense>
+        </SectionErrorBoundary>
+
+        {/* Why Choose Us Enterprise Features Grid */}
+        <SectionErrorBoundary sectionName="Why Choose Us">
+          <Suspense fallback={<WhyChooseUsSkeleton />}>
+            <WhyChooseUs features={homeData.features} />
           </Suspense>
         </SectionErrorBoundary>
 
@@ -83,13 +96,6 @@ export default async function HomePage() {
         <SectionErrorBoundary sectionName="SMS Benefits">
           <Suspense fallback={<SmsBenefitsSkeleton />}>
             <SmsBenefits benefits={homeData.benefits} />
-          </Suspense>
-        </SectionErrorBoundary>
-
-        {/* Section 6: Why Choose Us Enterprise Features Grid */}
-        <SectionErrorBoundary sectionName="Why Choose Us">
-          <Suspense fallback={<WhyChooseUsSkeleton />}>
-            <WhyChooseUs features={homeData.features} />
           </Suspense>
         </SectionErrorBoundary>
 

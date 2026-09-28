@@ -147,25 +147,30 @@ export function WhyChooseUsSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#d4ccc0] bg-[#f5efe6]"
+      className="w-full my-6 md:my-10 px-4 sm:px-6"
     >
-      <div className="max-w-7xl mx-auto space-y-12 animate-pulse">
-        <div className="text-center space-y-3 max-w-xl mx-auto flex flex-col items-center">
-          <div className="w-40 h-6 rounded-full bg-[#ebe5da]" />
-          <div className="h-8 w-4/5 rounded-xl bg-[#ebe5da]" />
-          <div className="h-4 w-full rounded bg-[#ebe5da]" />
+      <div className="w-full max-w-[1280px] mx-auto p-6 md:p-10 lg:p-12 animate-pulse">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="space-y-3 max-w-xl">
+            <div className="w-32 h-4 rounded bg-neutral-800" />
+            <div className="h-10 w-4/5 rounded-xl bg-neutral-800" />
+          </div>
+          <div className="space-y-3 max-w-md w-full">
+            <div className="h-4 w-full rounded bg-neutral-800" />
+            <div className="h-4 w-3/4 rounded bg-neutral-800" />
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+          {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="p-7 rounded-3xl bg-[#fcfbf9] border border-[#d4ccc0] space-y-4"
+              className="rounded-2xl bg-neutral-900/50 border border-neutral-800 p-6 space-y-4"
             >
-              <div className="w-12 h-12 rounded-2xl bg-[#ebe5da]" />
-              <div className="h-5 w-2/3 rounded bg-[#ebe5da]" />
+              <div className="w-14 h-14 rounded-full border border-neutral-700 bg-neutral-800" />
+              <div className="h-5 w-3/4 rounded bg-neutral-800" />
               <div className="space-y-2">
-                <div className="h-4 w-full rounded bg-[#ebe5da]" />
-                <div className="h-4 w-4/5 rounded bg-[#ebe5da]" />
+                <div className="h-3.5 w-full rounded bg-neutral-800" />
+                <div className="h-3.5 w-4/5 rounded bg-neutral-800" />
               </div>
             </div>
           ))}
