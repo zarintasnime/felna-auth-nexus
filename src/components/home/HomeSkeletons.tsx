@@ -62,8 +62,8 @@ export function BulkSmsOfferSkeleton() {
             <div className="h-6 w-3/4 rounded bg-neutral-200" />
           </div>
           <div className="flex gap-4 pt-2">
-            <div className="w-48 h-12 rounded-xl bg-neutral-300" />
-            <div className="w-40 h-12 rounded-xl bg-neutral-200" />
+            <div className="w-40 h-11 rounded-full bg-neutral-300" />
+            <div className="w-36 h-11 rounded-full bg-neutral-200" />
           </div>
         </div>
         <div className="lg:col-span-5">
