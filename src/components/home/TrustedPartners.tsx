@@ -18,10 +18,12 @@ export const PARTNERS: string[] = [
 ];
 
 export interface TrustedPartnersProps {
+  title?: string;
   partners?: string[];
 }
 
 export default function TrustedPartners({
+  title = "Trusted by Leading Telecom & Corporate Brands",
   partners = PARTNERS,
 }: TrustedPartnersProps) {
   return (
@@ -34,7 +36,7 @@ export default function TrustedPartners({
       {/* =================================================================== */}
       <div className="text-center mb-8 sm:mb-10 px-4">
         <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white">
-          Join Over 1000+ Companies with FelnaDMA
+          {title}
         </h3>
       </div>
 
