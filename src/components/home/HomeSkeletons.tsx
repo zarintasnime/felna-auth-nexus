@@ -42,11 +42,11 @@ export function BulkSmsOfferSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className="w-full px-4 sm:px-6 my-8 md:my-14"
+      className="w-full my-6 md:my-12 px-0"
     >
-      <div className="max-w-6xl mx-auto rounded-3xl bg-[#faf9f6] border border-[#e7e1d7] px-6 md:px-12 py-10 animate-pulse">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <div className="lg:col-span-6 space-y-4">
+      <div className="w-[96%] xl:max-w-[1400px] mx-auto rounded-3xl bg-[#faf9f6] border border-[#e7e1d7] p-8 md:p-12 lg:p-14 animate-pulse">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="space-y-4">
             <div className="w-40 h-6 rounded-full bg-neutral-200" />
             <div className="space-y-2.5 max-w-lg">
               <div className="h-8 w-4/5 rounded-xl bg-neutral-200" />
@@ -62,13 +62,13 @@ export function BulkSmsOfferSkeleton() {
               <div className="h-5 w-3/4 rounded bg-neutral-200" />
               <div className="h-5 w-3/4 rounded bg-neutral-200" />
             </div>
-            <div className="flex gap-3.5 pt-2">
+            <div className="flex gap-4 pt-2">
               <div className="w-36 h-11 rounded-full bg-neutral-300" />
               <div className="w-36 h-11 rounded-full bg-neutral-200" />
             </div>
           </div>
-          <div className="lg:col-span-6">
-            <div className="w-full aspect-[16/9] lg:aspect-[4/3] rounded-2xl bg-neutral-200" />
+          <div>
+            <div className="w-full aspect-[2952/1408] rounded-2xl bg-neutral-200" />
           </div>
         </div>
       </div>
