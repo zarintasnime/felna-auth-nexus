@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ShieldCheck, ArrowLeft, LogIn, UserPlus } from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, LogIn, UserPlus } from "lucide-react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
@@ -37,8 +38,8 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f0e6] text-stone-800 flex flex-col justify-between py-10 px-4 sm:px-6 selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
-      {/* Top Bar with Return to Home */}
+    <div className="w-full text-stone-800 flex flex-col items-center justify-center py-2 sm:py-6 selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
+      {/* Return to Home / Portal Badge */}
       <div
         className={`w-full mx-auto flex items-center justify-between mb-4 transition-all duration-300 ${
           activeTab === "register" ? "max-w-2xl" : "max-w-lg"
@@ -46,26 +47,34 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
       >
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-600 hover:text-[#4a3b32] transition"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-400 hover:text-amber-300 transition"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Home</span>
         </Link>
-        <span className="text-[11px] text-stone-500 font-medium">Felna Portal</span>
+        <span className="text-[11px] text-stone-400 font-medium">Felna Identity Portal</span>
       </div>
 
       {/* Main Unified Credentials Card - Vintage Parchment Styling */}
       <div
-        className={`w-full mx-auto bg-[#fcfbf9] rounded-2xl shadow-[0_10px_35px_rgba(74,59,50,0.08)] border border-[#d4ccc0] overflow-hidden transition-all duration-300 ${
+        className={`w-full mx-auto bg-[#fcfbf9] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#382b24] overflow-hidden transition-all duration-300 ${
           activeTab === "register" ? "max-w-2xl" : "max-w-lg"
         }`}
       >
         {/* Brand Card Header */}
         <div className="bg-[#fcfbf9] px-6 pt-7 pb-4 text-center border-b border-[#e5ded4]">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-[#ebe5da] text-[#4a3b32] rounded-2xl mb-2.5 border border-[#d4ccc0] shadow-xs">
-            <ShieldCheck className="w-6 h-6 text-[#4a3b32]" />
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-[#201915] rounded-2xl mb-2.5 border border-neutral-700/60 p-1.5 shadow-xs">
+            <Image
+              src="/images/igl-logo.png"
+              alt="IGL Group Logo"
+              width={40}
+              height={40}
+              className="w-full h-full object-contain"
+            />
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-stone-800">Felna Portal</h1>
+          <h1 className="text-xl font-bold tracking-tight text-stone-800">
+            IGL Group <span className="text-stone-500 font-normal">| Felna Portal</span>
+          </h1>
           <p className="text-stone-600 text-xs mt-0.5">
             Role-Based Authentication & Verification System
           </p>
@@ -110,15 +119,15 @@ export default function UnifiedAuthPage({ initialTab = "login" }: UnifiedAuthPag
       </div>
 
       {/* Footer info */}
-      <footer
+      <div
         className={`w-full mx-auto text-center mt-6 transition-all duration-300 ${
           activeTab === "register" ? "max-w-2xl" : "max-w-lg"
         }`}
       >
-        <p className="text-[11px] text-stone-500">
-          Felna Secure Authentication &copy; {new Date().getFullYear()}. All rights reserved.
+        <p className="text-[11px] text-stone-400">
+          Felna Secure Identity &bull; Encrypted & BTRC Approved Gateway
         </p>
-      </footer>
+      </div>
     </div>
   );
 }

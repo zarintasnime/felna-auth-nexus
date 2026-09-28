@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
-  ShieldCheck,
   LayoutDashboard,
   Shield,
   LogIn,
@@ -76,15 +76,21 @@ export default function Navbar({ initialSession = null }: NavbarProps) {
               href="/"
               className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4a3b32]/20 rounded-xl py-1 px-1.5"
             >
-              <div className="w-9 h-9 rounded-xl bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                <ShieldCheck className="w-5 h-5 text-[#fcfbf9]" />
+              <div className="relative w-9 h-9 rounded-xl bg-[#201915] border border-neutral-700/60 p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform shrink-0">
+                <Image
+                  src="/images/igl-logo.png"
+                  alt="IGL Group Logo"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-[#4a3b32] text-base tracking-tight leading-none">
-                  Felna<span className="text-stone-500 font-semibold">.com</span>
+                  IGL Group<span className="text-[#F5B83D] font-bold">.</span>
                 </span>
                 <span className="text-[10px] font-medium text-stone-500 mt-0.5">
-                  Secure Access System
+                  Felna.com SMS Gateway
                 </span>
               </div>
             </Link>

@@ -1,243 +1,151 @@
-import React from "react";
-import Link from "next/link";
+import React, { Suspense } from "react";
+import { Lock, CheckCircle2 } from "lucide-react";
+import TopBar from "@/components/home/TopBar";
+import DynamicNavbar from "@/components/home/DynamicNavbar";
+import HeroSlider from "@/components/home/HeroSlider";
+import BulkSmsOffer from "@/components/home/BulkSmsOffer";
+import MarketingSection from "@/components/home/MarketingSection";
+import SmsBenefits from "@/components/home/SmsBenefits";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
+import TrustedPartners from "@/components/home/TrustedPartners";
+import MobileBottomBar from "@/components/home/MobileBottomBar";
+import Footer from "@/components/home/Footer";
+import SectionErrorBoundary from "@/components/common/SectionErrorBoundary";
 import {
-  ShieldCheck,
-  ArrowRight,
-  Shield,
-  LayoutDashboard,
-  Users,
-  MapPin,
-  KeyRound,
-  Sparkles,
-  Lock,
-  ChevronRight,
-  CheckCircle2,
-} from "lucide-react";
-import Navbar from "@/components/common/Navbar";
+  HeroSliderSkeleton,
+  BulkSmsOfferSkeleton,
+  MarketingSectionSkeleton,
+  SmsBenefitsSkeleton,
+  WhyChooseUsSkeleton,
+} from "@/components/home/HomeSkeletons";
 import { getSession } from "@/lib/auth";
+import { getHomePageData } from "@/lib/services/homepage-service";
 
 export default async function HomePage() {
-  const session = await getSession();
+  const [session, homeData] = await Promise.all([
+    getSession(),
+    getHomePageData(),
+  ]);
 
   return (
-    <div className="min-h-screen bg-[#f4f0e6] text-stone-800 flex flex-col justify-between selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
-      {/* Universal Frosted Cream Header */}
-      <Navbar
-        initialSession={
-          session
-            ? {
-                userId: session.userId,
-                name: session.name || "Member",
-                phone: session.phone,
-                role: session.role,
-              }
-            : null
-        }
-      />
+    <div className="min-h-screen bg-[#181310] text-[#fcfbf9] flex flex-col justify-between selection:bg-[#4a3b32] selection:text-[#fcfbf9]">
+      {/* =================================================================== */}
+      {/* 1. Boxed Header Card Wrapper (TopBar + DynamicNavbar + HeroSlider)  */}
+      {/* =================================================================== */}
+      <header className="w-full relative z-20">
+        <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative z-30">
+          {/* Top Utility Bar (Edge-to-Edge) */}
+          <TopBar />
 
-      {/* Main Content Area */}
+          {/* Dynamic Frosted Navbar (Edge-to-Edge) */}
+          <DynamicNavbar
+            items={homeData.navItems}
+            initialSession={
+              session
+                ? {
+                    userId: session.userId,
+                    name: session.name || "Member",
+                    phone: session.phone,
+                    role: session.role,
+                  }
+                : null
+            }
+          />
+
+          {/* Hero Slider Island (Seamless bottom of the card) */}
+          <div id="home" className="rounded-b-2xl md:rounded-b-3xl overflow-hidden">
+            <SectionErrorBoundary sectionName="Hero Slider" fallback={<HeroSliderSkeleton />}>
+              <Suspense fallback={<HeroSliderSkeleton />}>
+                <HeroSlider slides={homeData.heroSlides} />
+              </Suspense>
+            </SectionErrorBoundary>
+          </div>
+        </div>
+      </header>
+
+      {/* =================================================================== */}
+      {/* Main Content Area: Sections 3 to 6 + Security Overview              */}
+      {/* =================================================================== */}
       <main className="flex-1">
-        {/* ================================================================= */}
-        {/* Hero Section - Clean, Centered, Spacious & Minimalist */}
-        {/* ================================================================= */}
-        <section className="relative overflow-hidden py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#d4ccc0]">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            {/* Pill Tag / Kicker Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0] shadow-2xs">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#4a3b32]" />
-              <span>Felna Identity & Role-Based Access</span>
-            </div>
+        {/* Trusted Partners / Client Logo Carousel (Immediately after HeroSlider, before BulkSmsOffer) */}
+        <SectionErrorBoundary sectionName="Trusted Partners">
+          <TrustedPartners />
+        </SectionErrorBoundary>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#4a3b32] max-w-3xl mx-auto leading-[1.16]">
-              Felna Portal: Secure Role-Based Authentication
-            </h1>
+        {/* Section 3: Bulk SMS Promotional Offer Block */}
+        <SectionErrorBoundary sectionName="Bulk SMS Offer">
+          <Suspense fallback={<BulkSmsOfferSkeleton />}>
+            <BulkSmsOffer offer={homeData.offer} />
+          </Suspense>
+        </SectionErrorBoundary>
 
-            {/* Subtitle */}
-            <p className="text-base sm:text-lg text-stone-600 max-w-2xl mx-auto leading-relaxed font-normal">
-              A refined credentials platform offering seamless dual-mode password and mobile OTP login,
-              cascading Bangladesh geographic profiling, and enterprise-grade administrative controls.
-            </p>
+        {/* SMS Benefits / Accordion Section (Mounted directly below BulkSmsOffer) */}
+        <SectionErrorBoundary sectionName="SMS Benefits">
+          <Suspense fallback={<SmsBenefitsSkeleton />}>
+            <SmsBenefits benefits={homeData.benefits} />
+          </Suspense>
+        </SectionErrorBoundary>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-3">
-              {session ? (
-                <>
-                  <Link
-                    href="/dashboard"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#4a3b32] hover:bg-[#3d3028] text-[#fcfbf9] font-semibold text-sm rounded-xl shadow-sm shadow-[#4a3b32]/25 transition hover:scale-[1.01]"
-                  >
-                    <LayoutDashboard className="w-4 h-4 text-[#fcfbf9]" />
-                    <span>Go to Member Dashboard</span>
-                    <ArrowRight className="w-4 h-4 text-[#fcfbf9]" />
-                  </Link>
+        {/* Why Choose Us Enterprise Features Grid */}
+        <SectionErrorBoundary sectionName="Why Choose Us">
+          <Suspense fallback={<WhyChooseUsSkeleton />}>
+            <WhyChooseUs features={homeData.features} />
+          </Suspense>
+        </SectionErrorBoundary>
 
-                  {session.role === "ADMIN" && (
-                    <Link
-                      href="/admin/dashboard"
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-transparent hover:bg-[#ebe5da]/60 text-[#4a3b32] border-2 border-[#4a3b32] font-semibold text-sm rounded-xl transition hover:scale-[1.01]"
-                    >
-                      <Shield className="w-4 h-4 text-[#4a3b32]" />
-                      <span>Open Admin Console</span>
-                    </Link>
-                  )}
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/login"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#4a3b32] hover:bg-[#3d3028] text-[#fcfbf9] font-semibold text-sm rounded-xl shadow-sm shadow-[#4a3b32]/25 transition hover:scale-[1.01]"
-                  >
-                    <KeyRound className="w-4 h-4 text-[#fcfbf9]" />
-                    <span>Go to Portal</span>
-                    <ArrowRight className="w-4 h-4 text-[#fcfbf9]" />
-                  </Link>
+        {/* Section 4: Marketing Strategy Highlight Section */}
+        <SectionErrorBoundary sectionName="Marketing Section">
+          <Suspense fallback={<MarketingSectionSkeleton />}>
+            <MarketingSection marketing={homeData.marketing} />
+          </Suspense>
+        </SectionErrorBoundary>
 
-                  <a
-                    href="#features"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-transparent hover:bg-[#ebe5da]/60 text-[#4a3b32] border-2 border-[#4a3b32] font-semibold text-sm rounded-xl transition hover:scale-[1.01]"
-                  >
-                    <span>Learn More</span>
-                    <ChevronRight className="w-4 h-4 text-[#4a3b32]" />
-                  </a>
-                </>
-              )}
-            </div>
-
-            {/* Quick Vintage Highlight Badges */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-8 max-w-3xl mx-auto text-left">
-              <div className="p-4 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-xs flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0] flex items-center justify-center shrink-0">
-                  <Sparkles className="w-4 h-4 text-[#4a3b32]" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-[#4a3b32] leading-tight">Instant OTP Auth</div>
-                  <div className="text-[11px] text-stone-500 mt-0.5">Password & 6-Digit SMS</div>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-xs flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0] flex items-center justify-center shrink-0">
-                  <MapPin className="w-4 h-4 text-[#4a3b32]" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-[#4a3b32] leading-tight">Cascading BD Geo</div>
-                  <div className="text-[11px] text-stone-500 mt-0.5">Divisions, Districts & Thanas</div>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-xs flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0] flex items-center justify-center shrink-0">
-                  <Shield className="w-4 h-4 text-[#4a3b32]" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-[#4a3b32] leading-tight">Role-Based Access</div>
-                  <div className="text-[11px] text-stone-500 mt-0.5">Admin & User RBAC</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ================================================================= */}
-        {/* Feature Cards Section */}
-        {/* ================================================================= */}
-        <section id="features" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto scroll-mt-16">
-          <div className="text-center space-y-2 mb-12">
-            <span className="text-[11px] font-bold text-[#4a3b32] uppercase tracking-widest px-3 py-1 bg-[#ebe5da] rounded-full border border-[#d4ccc0]">
-              Architecture & Capabilities
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#4a3b32]">
-              Engineered for Security, Precision & Trust
-            </h2>
-            <p className="text-sm text-stone-600 max-w-xl mx-auto">
-              Built on Next.js, Neon Serverless PostgreSQL, and Cryptographic JWT Sessions.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Feature 1 */}
-            <div className="p-6 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-sm hover:shadow-md transition-all space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-[#ebe5da] text-[#4a3b32] flex items-center justify-center border border-[#d4ccc0] shadow-2xs">
-                <ShieldCheck className="w-5 h-5 text-[#4a3b32]" />
-              </div>
-              <h3 className="font-bold text-base text-[#4a3b32]">
-                Unified Credential Hub
-              </h3>
-              <p className="text-xs text-stone-600 leading-relaxed">
-                Single-page authentication with instant tab-switching between Sign In and Registration.
-                Supports credential hashing, tamper-safe sessions, and 6-digit phone verification.
-              </p>
-            </div>
-
-            {/* Feature 2 */}
-            <div className="p-6 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-sm hover:shadow-md transition-all space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-[#ebe5da] text-[#4a3b32] flex items-center justify-center border border-[#d4ccc0] shadow-2xs">
-                <MapPin className="w-5 h-5 text-[#4a3b32]" />
-              </div>
-              <h3 className="font-bold text-base text-[#4a3b32]">
-                Bangladesh Geographic Engine
-              </h3>
-              <p className="text-xs text-stone-600 leading-relaxed">
-                Real-time cascading dropdowns for 8 Divisions, 64 Districts, and Upazilas/Thanas
-                with automated relational querying and localized address validation.
-              </p>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="p-6 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-sm hover:shadow-md transition-all space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-[#ebe5da] text-[#4a3b32] flex items-center justify-center border border-[#d4ccc0] shadow-2xs">
-                <Users className="w-5 h-5 text-[#4a3b32]" />
-              </div>
-              <h3 className="font-bold text-base text-[#4a3b32]">
-                Admin Console & RBAC
-              </h3>
-              <p className="text-xs text-stone-600 leading-relaxed">
-                Real-time role-based access control with live user search, role toggling (USER / ADMIN),
-                account suspension, and metric analytics counters.
-              </p>
-            </div>
-          </div>
-
-          {/* Standards & Security Overview Banner */}
-          <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-[#fcfbf9] border border-[#d4ccc0] shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#e5ded4] pb-4">
+        {/* Standards & Security Overview Banner */}
+        <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#1B1815] border border-white/10 shadow-2xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
               <div>
-                <h3 className="font-bold text-base text-[#4a3b32]">
+                <h3 className="font-bold text-base text-white">
                   Security Specifications & Standards
                 </h3>
-                <p className="text-xs text-stone-600 mt-0.5">
-                  Multi-layered defense architecture protecting identities and credentials.
+                <p className="text-xs text-neutral-400 mt-0.5">
+                  Multi-layered defense architecture protecting identities and credentials on Felna.com.
                 </p>
               </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#ebe5da] text-[#4a3b32] text-xs font-semibold border border-[#d4ccc0] self-start sm:self-auto">
-                <Lock className="w-3.5 h-3.5 text-[#4a3b32]" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#24201C] text-[#F5B83D] text-xs font-semibold border border-white/10 self-start sm:self-auto">
+                <Lock className="w-3.5 h-3.5 text-[#F5B83D]" />
                 <span>SSL & Hashing Enforced</span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
               <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#4a3b32] shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-[#F5B83D] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-stone-800">Neon PostgreSQL:</span>
-                  <p className="text-stone-600 mt-0.5">Serverless pooled database with SSL connection verification.</p>
+                  <span className="font-semibold text-neutral-200">Neon PostgreSQL:</span>
+                  <p className="text-neutral-400 mt-0.5">
+                    Serverless pooled database with SSL connection verification.
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#4a3b32] shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-[#F5B83D] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-stone-800">Cryptographic OTP:</span>
-                  <p className="text-stone-600 mt-0.5">SHA-256 OTP hashing with timingSafeEqual and lockout defenses.</p>
+                  <span className="font-semibold text-neutral-200">Cryptographic OTP:</span>
+                  <p className="text-neutral-400 mt-0.5">
+                    SHA-256 OTP hashing with timingSafeEqual and lockout defenses.
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#4a3b32] shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 text-[#F5B83D] shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-semibold text-stone-800">Stateless JWT Cookies:</span>
-                  <p className="text-stone-600 mt-0.5">HTTP-only signed cookies verified through Edge Middleware.</p>
+                  <span className="font-semibold text-neutral-200">Stateless JWT Cookies:</span>
+                  <p className="text-neutral-400 mt-0.5">
+                    HTTP-only signed cookies verified through Edge Middleware.
+                  </p>
                 </div>
               </div>
             </div>
@@ -245,36 +153,13 @@ export default async function HomePage() {
         </section>
       </main>
 
-      {/* ================================================================= */}
-      {/* Footer */}
-      {/* ================================================================= */}
-      <footer className="border-t border-[#d4ccc0] py-8 px-4 bg-[#f4f0e6] text-center text-xs text-stone-600">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#fcfbf9]" />
-            </div>
-            <span className="font-bold text-[#4a3b32]">Felna.com</span>
-            <span>&mdash; Secure Role-Based Authentication System</span>
-          </div>
+      {/* =================================================================== */}
+      {/* Universal Footer                                                    */}
+      {/* =================================================================== */}
+      <Footer />
 
-          <div className="flex items-center gap-5 text-xs font-medium">
-            <Link href="/login" className="hover:text-[#4a3b32] transition">
-              Sign In
-            </Link>
-            <Link href="/register" className="hover:text-[#4a3b32] transition">
-              Register
-            </Link>
-            <Link href="/dashboard" className="hover:text-[#4a3b32] transition">
-              Dashboard
-            </Link>
-            <span className="text-stone-400">|</span>
-            <span className="text-stone-500">
-              &copy; {new Date().getFullYear()} Felna Inc.
-            </span>
-          </div>
-        </div>
-      </footer>
+      {/* Sticky Mobile Quick Action Bar (<640px) */}
+      <MobileBottomBar />
     </div>
   );
 }
