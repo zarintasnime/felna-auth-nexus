@@ -1,8 +1,38 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
+
 :root {
-  --background: #f4f0e6; /* Warm parchment cream */
-  --foreground: #4a3b32; /* Deep espresso brown */
+  /* Light Mode Palette: Creamy background (#F4F1EA / #F9F6EE), deep charcoal typography (#2C2520), warm grey surfaces (#E8E4DD) */
+  /* STRICT RULE: Absolutely NO plain white (#FFFFFF), NO pure black (#000000), NO blue */
+  --bg-main: #F4F1EA;
+  --bg-subtle: #F9F6EE;
+  --surface-card: #E8E4DD;
+  --surface-card-subtle: #E5E2DC;
+  --text-main: #2C2520;
+  --text-sub: #3D3630;
+  --text-muted: #6E665E;
+  --border-color: rgba(44, 37, 32, 0.12);
+  --accent-gold: #D49624;
+
+  --background: #F4F1EA;
+  --foreground: #2C2520;
+}
+
+.dark {
+  /* Dark Mode Palette: Preserved default dark theme (#12100E / #181310), amber (#F5B83D), warm white (#FCFBF9) */
+  --bg-main: #12100E;
+  --bg-subtle: #181310;
+  --surface-card: #1B1815;
+  --surface-card-subtle: #201915;
+  --text-main: #FCFBF9;
+  --text-sub: #E8E3DC;
+  --text-muted: #A39B92;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --accent-gold: #F5B83D;
+
+  --background: #181310;
+  --foreground: #FCFBF9;
 }
 
 @theme inline {
@@ -20,6 +50,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 @keyframes shake {

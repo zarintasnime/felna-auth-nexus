@@ -146,12 +146,12 @@ export default function WhyChooseUs({ features }: WhyChooseUsProps) {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           {/* Left Side: Accent Tag + Large Main Heading */}
           <div className="space-y-3 max-w-xl">
-            <span className="text-[#F5B83D] font-bold tracking-wider text-xs uppercase inline-block">
+            <span className="text-[#D49624] dark:text-[#F5B83D] font-bold tracking-wider text-xs uppercase inline-block">
               [ WHY CHOOSE US ]
             </span>
             <h2
               id="why-choose-us-heading"
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-extrabold tracking-tight text-white leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-extrabold tracking-tight text-[#2C2520] dark:text-white leading-tight"
             >
               Reliable IT Solution, for Best Results.
             </h2>
@@ -159,15 +159,15 @@ export default function WhyChooseUs({ features }: WhyChooseUsProps) {
 
           {/* Right Side: Short Description + Pill-shaped Learn More Button */}
           <div className="flex flex-col items-start md:items-end justify-between gap-4 max-w-md">
-            <p className="text-[15px] sm:text-base text-neutral-400 leading-relaxed md:text-right">
+            <p className="text-[15px] sm:text-base text-[#6E665E] dark:text-neutral-400 leading-relaxed md:text-right">
               We deliver enterprise-grade SMS routing, real-time analytics, and round-the-clock technical assistance designed to scale your business effortlessly.
             </p>
             <Link
               href="#services"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#24201C] border border-white/10 hover:border-[#F5B83D] text-white hover:text-[#F5B83D] font-semibold text-xs sm:text-sm transition-all duration-300 shadow-sm group/btn"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#E5E2DC] dark:bg-[#24201C] border border-[#2C2520]/15 dark:border-white/10 hover:border-[#D49624] dark:hover:border-[#F5B83D] text-[#2C2520] dark:text-white hover:text-[#D49624] dark:hover:text-[#F5B83D] font-semibold text-xs sm:text-sm transition-all duration-300 shadow-sm group/btn"
             >
               <span>Learn More</span>
-              <ArrowRight className="w-4 h-4 text-white group-hover/btn:text-[#F5B83D] transition-transform group-hover/btn:translate-x-1" />
+              <ArrowRight className="w-4 h-4 text-[#2C2520] dark:text-white group-hover/btn:text-[#D49624] dark:group-hover/btn:text-[#F5B83D] transition-transform group-hover/btn:translate-x-1" />
             </Link>
           </div>
         </div>
@@ -181,21 +181,21 @@ export default function WhyChooseUs({ features }: WhyChooseUsProps) {
             return (
               <div
                 key={index}
-                className="group relative rounded-2xl bg-[#1B1815] border border-white/10 p-6 md:p-8 hover:-translate-y-1 hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-between"
+                className="group relative rounded-2xl bg-[#E8E4DD] dark:bg-[#1B1815] border border-[#2C2520]/12 dark:border-white/10 p-6 md:p-8 hover:-translate-y-1 hover:border-[#D49624]/40 dark:hover:border-white/20 transition-all duration-300 h-full flex flex-col justify-between shadow-xs"
               >
                 <div>
                   {/* Icon Tile: Rounded tile with faint amber accent glow & 360-deg rotation on hover */}
-                  <div className="w-14 h-14 rounded-2xl bg-[#24201C] border border-white/10 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(245,184,61,0.15)] group-hover:border-[#F5B83D]/40 transition-all duration-300 shrink-0">
-                    <Icon className="w-6 h-6 text-[#F5B83D] stroke-[1.75] transition-transform duration-500 ease-in-out group-hover:rotate-[360deg] group-hover:scale-110" />
+                  <div className="w-14 h-14 rounded-2xl bg-[#DEDAD3] dark:bg-[#24201C] border border-[#2C2520]/15 dark:border-white/10 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(212,150,36,0.12)] dark:shadow-[0_0_15px_rgba(245,184,61,0.15)] group-hover:border-[#D49624]/40 dark:group-hover:border-[#F5B83D]/40 transition-all duration-300 shrink-0">
+                    <Icon className="w-6 h-6 text-[#D49624] dark:text-[#F5B83D] stroke-[1.75] transition-transform duration-500 ease-in-out group-hover:rotate-[360deg] group-hover:scale-110" />
                   </div>
 
                   {/* Card Title */}
-                  <h3 className="text-lg md:text-xl font-bold text-white mb-2.5 group-hover:text-amber-100 transition-colors">
+                  <h3 className="text-lg md:text-xl font-bold text-[#2C2520] dark:text-white mb-2.5 group-hover:text-[#D49624] dark:group-hover:text-amber-100 transition-colors">
                     {card.title}
                   </h3>
 
                   {/* Card Description */}
-                  <p className="text-[15px] text-neutral-400 leading-relaxed font-normal">
+                  <p className="text-[15px] text-[#6E665E] dark:text-neutral-400 leading-relaxed font-normal">
                     {card.description}
                   </p>
                 </div>

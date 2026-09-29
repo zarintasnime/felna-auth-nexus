@@ -45,7 +45,7 @@ export default function TrustedPartners({
       {/* Header: Center-aligned Social Proof Title                          */}
       {/* =================================================================== */}
       <div className="text-center mb-8 sm:mb-10 px-4">
-        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white">
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-[#2C2520] dark:text-white transition-colors duration-300">
           {title}
         </h3>
       </div>
@@ -57,13 +57,13 @@ export default function TrustedPartners({
         {/* Left Edge Gradient Fade Mask */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-36 bg-gradient-to-r from-[#181310] to-transparent z-10"
+          className="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-36 bg-gradient-to-r from-[#F4F1EA] dark:from-[#181310] to-transparent z-10 transition-colors duration-300"
         />
 
         {/* Right Edge Gradient Fade Mask */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-36 bg-gradient-to-l from-[#181310] to-transparent z-10"
+          className="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-36 bg-gradient-to-l from-[#F4F1EA] dark:from-[#181310] to-transparent z-10 transition-colors duration-300"
         />
 
         {/* Marquee Track Container */}
@@ -78,7 +78,7 @@ export default function TrustedPartners({
               return (
                 <div
                   key={`partner-track1-${index}`}
-                  className="group flex items-center justify-center min-w-[200px] h-20 mx-4 rounded-2xl bg-neutral-900/40 border border-neutral-800/80 backdrop-blur-sm transition-all duration-300 hover:bg-neutral-800 hover:border-neutral-600 hover:shadow-lg cursor-pointer px-6 gap-3"
+                  className="group flex items-center justify-center min-w-[200px] h-20 mx-4 rounded-2xl bg-[#E5E2DC]/80 dark:bg-neutral-900/40 border border-[#2C2520]/15 dark:border-neutral-800/80 backdrop-blur-sm transition-all duration-300 hover:bg-[#DDD8D0] dark:hover:bg-neutral-800 hover:border-[#D49624]/40 dark:hover:border-neutral-600 hover:shadow-lg cursor-pointer px-6 gap-3"
                   onClick={() => {
                     if (websiteUrl) window.open(websiteUrl, "_blank");
                   }}
@@ -90,7 +90,7 @@ export default function TrustedPartners({
                       className="h-8 max-w-[120px] object-contain opacity-75 group-hover:opacity-100 transition-opacity"
                     />
                   ) : null}
-                  <span className="text-xl md:text-2xl font-black tracking-tight text-neutral-500 group-hover:text-white transition-colors duration-300 uppercase whitespace-nowrap">
+                  <span className="text-xl md:text-2xl font-black tracking-tight text-[#6E665E] dark:text-neutral-500 group-hover:text-[#2C2520] dark:group-hover:text-white transition-colors duration-300 uppercase whitespace-nowrap">
                     {name}
                   </span>
                 </div>
@@ -111,7 +111,7 @@ export default function TrustedPartners({
               return (
                 <div
                   key={`partner-track2-${index}`}
-                  className="group flex items-center justify-center min-w-[200px] h-20 mx-4 rounded-2xl bg-neutral-900/40 border border-neutral-800/80 backdrop-blur-sm transition-all duration-300 hover:bg-neutral-800 hover:border-neutral-600 hover:shadow-lg cursor-pointer px-6 gap-3"
+                  className="group flex items-center justify-center min-w-[200px] h-20 mx-4 rounded-2xl bg-[#E5E2DC]/80 dark:bg-neutral-900/40 border border-[#2C2520]/15 dark:border-neutral-800/80 backdrop-blur-sm transition-all duration-300 hover:bg-[#DDD8D0] dark:hover:bg-neutral-800 hover:border-[#D49624]/40 dark:hover:border-neutral-600 hover:shadow-lg cursor-pointer px-6 gap-3"
                   onClick={() => {
                     if (websiteUrl) window.open(websiteUrl, "_blank");
                   }}
@@ -123,7 +123,7 @@ export default function TrustedPartners({
                       className="h-8 max-w-[120px] object-contain opacity-75 group-hover:opacity-100 transition-opacity"
                     />
                   ) : null}
-                  <span className="text-xl md:text-2xl font-black tracking-tight text-neutral-500 group-hover:text-white transition-colors duration-300 uppercase whitespace-nowrap">
+                  <span className="text-xl md:text-2xl font-black tracking-tight text-[#6E665E] dark:text-neutral-500 group-hover:text-[#2C2520] dark:group-hover:text-white transition-colors duration-300 uppercase whitespace-nowrap">
                     {name}
                   </span>
                 </div>

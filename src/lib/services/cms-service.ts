@@ -370,26 +370,27 @@ export async function getPublicCmsData(): Promise<PublicCmsPayload> {
  */
 export function revalidateCmsCache(tag?: string) {
   try {
+    const expireImmediate = { expire: 0 };
     if (tag) {
-      revalidateTag(tag, "max");
-    } else {
-      revalidateTag("cms-all", "max");
-      revalidateTag("cms-settings", "max");
-      revalidateTag("cms-slides", "max");
-      revalidateTag("cms-partners", "max");
-      revalidateTag("cms-promos", "max");
-      revalidateTag("cms-features", "max");
-      revalidateTag("cms-social", "max");
+      revalidateTag(tag, expireImmediate);
     }
+    revalidateTag("cms-all", expireImmediate);
+    revalidateTag("cms-settings", expireImmediate);
+    revalidateTag("cms-slides", expireImmediate);
+    revalidateTag("cms-partners", expireImmediate);
+    revalidateTag("cms-promos", expireImmediate);
+    revalidateTag("cms-features", expireImmediate);
+    revalidateTag("cms-social", expireImmediate);
 
-    // Revalidate primary pages
+    // Revalidate primary pages and root layout
+    revalidatePath("/", "layout");
     revalidatePath("/", "page");
     revalidatePath("/about", "page");
     revalidatePath("/contact", "page");
     revalidatePath("/address", "page");
     revalidatePath("/feedback", "page");
   } catch (error) {
-    // Silently continue if invoked outside Next.js request lifecycle
+    console.warn("[REVALIDATE_CMS_CACHE_WARNING]", error);
   }
 }
 

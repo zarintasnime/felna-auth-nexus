@@ -34,20 +34,20 @@ export default async function AddressPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#12100E] text-[#fcfbf9] flex flex-col justify-between selection:bg-[#4a3b32] selection:text-[#fcfbf9] relative overflow-hidden">
+    <div className="min-h-screen bg-[#F4F1EA] dark:bg-[#12100E] text-[#2C2520] dark:text-[#fcfbf9] flex flex-col justify-between selection:bg-[#D49624]/20 dark:selection:bg-[#4a3b32] selection:text-[#2C2520] dark:selection:text-[#fcfbf9] relative overflow-hidden transition-colors">
       {/* Background Ambient Radial Amber Glows */}
       <div
-        className="absolute top-0 right-0 w-[550px] h-[550px] bg-[#F5B83D]/5 blur-[140px] rounded-full pointer-events-none"
+        className="absolute top-0 right-0 w-[550px] h-[550px] bg-[#D49624]/5 dark:bg-[#F5B83D]/5 blur-[140px] rounded-full pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute top-1/2 left-0 w-[450px] h-[450px] bg-[#F5B83D]/5 blur-[140px] rounded-full pointer-events-none"
+        className="absolute top-1/2 left-0 w-[450px] h-[450px] bg-[#D49624]/5 dark:bg-[#F5B83D]/5 blur-[140px] rounded-full pointer-events-none"
         aria-hidden="true"
       />
 
       {/* Subtle Dotted Grid Texture */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"
+        className="absolute inset-0 bg-[radial-gradient(rgba(44,37,32,0.05)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -55,7 +55,7 @@ export default async function AddressPage() {
       {/* 1. Boxed Header Card Wrapper (TopBar + DynamicNavbar)               */}
       {/* =================================================================== */}
       <header className="w-full relative z-20">
-        <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative z-30">
+        <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl border border-[#2C2520]/15 dark:border-neutral-800/60 bg-[#E5E2DC] dark:bg-[#201915] shadow-xl dark:shadow-2xl shadow-[#2C2520]/5 dark:shadow-black/60 relative z-30 transition-colors">
           <TopBar
             announcementText={settings.announcementText}
             announcementLinkText={settings.announcementLinkText}
@@ -65,6 +65,7 @@ export default async function AddressPage() {
           />
           <DynamicNavbar
             items={homeData.navItems}
+            siteSettings={settings}
             initialSession={
               session
                 ? {

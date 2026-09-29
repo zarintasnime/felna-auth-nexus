@@ -98,10 +98,10 @@ export default function HeroSlider({
     return (
       <section
         aria-label="Promotional Showcase Banner"
-        className="relative w-full overflow-hidden bg-[#181310] text-[#fcfbf9]"
+        className="relative w-full overflow-hidden bg-[#E8E4DD] dark:bg-[#181310] text-[#2C2520] dark:text-[#fcfbf9] transition-colors duration-300"
       >
         <div className="relative w-full h-[480px] sm:h-[540px] lg:h-[580px]">
-          {/* LCP-Optimized Static Image */}
+          {/* 100% Crystal Clear LCP-Optimized Static Image */}
           <Image
             src={single.imageUrl}
             alt={single.title}
@@ -109,34 +109,25 @@ export default function HeroSlider({
             priority={true}
             fetchPriority="high"
             sizes="100vw"
-            className="object-cover object-center opacity-35 filter brightness-90"
-          />
-
-          {/* Deep Dark Vignette & Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#12100E]/95 via-[#12100E]/80 to-transparent" />
-
-          {/* Ambient Radial Amber Glow */}
-          <div
-            className="absolute top-1/4 -left-20 w-96 h-96 bg-[#F5B83D]/10 rounded-full blur-[100px] pointer-events-none"
-            aria-hidden="true"
+            className="object-cover object-center"
           />
 
           {/* Banner Content Container (Left-aligned) */}
           <div className="relative h-full w-full max-w-[1880px] mx-auto px-6 sm:px-12 md:px-16 lg:px-20 xl:px-24 flex flex-col justify-center items-start z-10 pb-16">
-            <div className="max-w-2xl space-y-4">
+            <div className="max-w-2xl space-y-4 p-6 sm:p-8 rounded-3xl bg-[#F4F1EA]/80 dark:bg-[#12100E]/75 border border-[#2C2520]/10 dark:border-white/10 shadow-xl dark:shadow-2xl shadow-[#2C2520]/5 dark:shadow-black/50 backdrop-blur-xs transition-colors duration-300">
               {single.badge && (
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#F5B83D]/10 text-[#F5B83D] border border-[#F5B83D]/30 shadow-sm backdrop-blur-xs">
-                  <Sparkles className="w-3.5 h-3.5 text-[#F5B83D]" />
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D49624]/15 dark:bg-[#F5B83D]/15 text-[#D49624] dark:text-[#F5B83D] border border-[#D49624]/30 dark:border-[#F5B83D]/30 shadow-sm">
+                  <Sparkles className="w-3.5 h-3.5 text-[#D49624] dark:text-[#F5B83D]" />
                   <span>{single.badge}</span>
                 </div>
               )}
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-extrabold tracking-tight text-white leading-[1.15]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-extrabold tracking-tight text-[#2C2520] dark:text-[#E8E3DC] leading-[1.15]">
                 {single.title}
               </h1>
 
               {single.subtitle && (
-                <p className="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-xl font-normal">
+                <p className="text-sm sm:text-base md:text-lg text-[#3D3630] dark:text-[#B9B0A5] leading-relaxed max-w-xl font-medium dark:font-normal">
                   {single.subtitle}
                 </p>
               )}
@@ -145,31 +136,31 @@ export default function HeroSlider({
               <div className="pt-3 flex flex-wrap items-center gap-4 sm:gap-6">
                 <Link
                   href={single.linkUrl && single.linkUrl !== "/register" ? single.linkUrl : "#services"}
-                  className="group inline-flex items-center justify-center gap-3 px-8 py-3.5 sm:py-4 bg-[#F5B83D] hover:bg-[#e5aa32] text-black font-bold text-sm sm:text-base rounded-full shadow-lg shadow-[#F5B83D]/25 transition-all duration-300 active:scale-[0.98]"
+                  className="group inline-flex items-center justify-center gap-3 px-8 py-3.5 sm:py-4 bg-[#D49624] hover:bg-[#c3861c] text-[#1B1815] dark:bg-[#F5B83D] dark:hover:bg-[#e5aa32] dark:text-black font-bold text-sm sm:text-base rounded-full shadow-lg shadow-[#D49624]/20 dark:shadow-[#F5B83D]/25 transition-all duration-300 active:scale-[0.98]"
                 >
                   <span>Explore Services</span>
                   <span className="flex items-center justify-center w-6 h-6 rounded-full bg-black/10 group-hover:bg-black/20 transition-colors duration-300">
-                    <ArrowRight className="w-4 h-4 text-black transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
+                    <ArrowRight className="w-4 h-4 text-[#1B1815] dark:text-black transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
                   </span>
                 </Link>
 
                 <a
                   href="tel:+8801958666951"
-                  className="group inline-flex items-center gap-3 px-3 py-2 text-stone-200 hover:text-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5B83D] rounded-2xl"
+                  className="group inline-flex items-center gap-3 px-3 py-2 text-[#2C2520] hover:text-[#D49624] dark:text-[#E8E3DC] dark:hover:text-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D49624] dark:focus-visible:ring-[#F5B83D] rounded-2xl"
                   aria-label="Call Felna Hotline +880-1958-666951"
                 >
-                  <div className="w-10 h-10 rounded-full bg-[#24201C] border border-white/10 text-[#F5B83D] flex items-center justify-center shadow-sm group-hover:bg-[#F5B83D] group-hover:text-black group-hover:border-[#F5B83D] group-hover:scale-105 transition-all duration-200 shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-[#DDD8D0] dark:bg-[#24201C] border border-[#2C2520]/15 dark:border-white/10 text-[#D49624] dark:text-[#F5B83D] flex items-center justify-center shadow-sm group-hover:bg-[#D49624] dark:group-hover:bg-[#F5B83D] group-hover:text-[#1B1815] dark:group-hover:text-black group-hover:border-[#D49624] dark:group-hover:border-[#F5B83D] group-hover:scale-105 transition-all duration-200 shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
                   <div className="flex flex-col text-left">
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-stone-400 group-hover:text-stone-300 transition-colors">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-[#6E665E] dark:text-[#8E867E] group-hover:text-[#2C2520] dark:group-hover:text-stone-300 transition-colors">
                       24/7 Helpline
                     </span>
-                    <span className="relative inline-block text-sm sm:text-base font-extrabold text-white tracking-tight group-hover:text-[#F5B83D] transition-colors pb-0.5">
+                    <span className="relative inline-block text-sm sm:text-base font-extrabold text-[#2C2520] dark:text-[#E8E3DC] tracking-tight group-hover:text-[#D49624] dark:group-hover:text-[#F5B83D] transition-colors pb-0.5">
                       <span>+880-1958-666951</span>
                       <span
                         aria-hidden="true"
-                        className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#F5B83D] transition-all duration-300 ease-out group-hover:w-full"
+                        className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#D49624] dark:bg-[#F5B83D] transition-all duration-300 ease-out group-hover:w-full"
                       />
                     </span>
                   </div>
@@ -179,7 +170,7 @@ export default function HeroSlider({
           </div>
 
           {/* =============================================================== */}
-          {/* Dynamic Animated Wave (Bottom Divider - Seamless #12100E)       */}
+          {/* Dynamic Animated Wave (Bottom Divider - Seamless)               */}
           {/* =============================================================== */}
           <div
             className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none select-none"
@@ -196,7 +187,7 @@ export default function HeroSlider({
                 >
                   <path
                     d="M0,45 C360,85 720,10 1080,65 C1260,90 1350,30 1440,45 C1800,85 2160,10 2520,65 C2700,90 2790,30 2880,45 L2880,120 L0,120 Z"
-                    fill="#12100E"
+                    className="fill-[#F4F1EA] dark:fill-[#12100E] transition-colors duration-300"
                   />
                 </svg>
               </div>
@@ -211,7 +202,7 @@ export default function HeroSlider({
                 >
                   <path
                     d="M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 C1680,100 1920,20 2160,60 C2400,100 2640,20 2880,60 L2880,120 L0,120 Z"
-                    fill="#12100E"
+                    className="fill-[#F4F1EA] dark:fill-[#12100E] transition-colors duration-300"
                   />
                 </svg>
               </div>
@@ -259,7 +250,7 @@ export default function HeroSlider({
                   : "opacity-0 z-0 pointer-events-none"
               }`}
             >
-              {/* Slide Background Image */}
+              {/* Slide Background Image - 100% Crystal Clear */}
               <Image
                 src={slide.imageUrl}
                 alt={slide.title}
@@ -268,40 +259,31 @@ export default function HeroSlider({
                 fetchPriority={isLcpCandidate ? "high" : "auto"}
                 loading={isLcpCandidate ? "eager" : "lazy"}
                 sizes="100vw"
-                className="object-cover object-center opacity-35 filter brightness-90"
-              />
-
-              {/* Deep Dark Multi-Layer Overlay for Text Readability */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#12100E]/95 via-[#12100E]/80 to-transparent" />
-
-              {/* Ambient Radial Amber Glow */}
-              <div
-                className="absolute top-1/4 -left-20 w-96 h-96 bg-[#F5B83D]/10 rounded-full blur-[100px] pointer-events-none"
-                aria-hidden="true"
+                className="object-cover object-center"
               />
 
               {/* Text & Content Overlay (Left-aligned with smooth slide-up transition) */}
               <div className="relative h-full w-full max-w-[1880px] mx-auto px-6 sm:px-12 md:px-16 lg:px-20 xl:px-24 flex flex-col justify-center items-start z-10 pb-16">
                 <div
-                  className={`max-w-2xl space-y-4 transition-all duration-700 ease-out transform ${
+                  className={`max-w-2xl space-y-4 p-6 sm:p-8 rounded-3xl bg-[#F4F1EA]/80 dark:bg-[#12100E]/75 border border-[#2C2520]/10 dark:border-white/10 shadow-xl dark:shadow-2xl shadow-[#2C2520]/5 dark:shadow-black/50 backdrop-blur-xs transition-all duration-700 ease-out transform ${
                     isActive
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-5 pointer-events-none"
                   }`}
                 >
                   {slide.badge && (
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#F5B83D]/10 text-[#F5B83D] border border-[#F5B83D]/30 shadow-sm backdrop-blur-xs">
-                      <Sparkles className="w-3.5 h-3.5 text-[#F5B83D]" />
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-[#D49624]/15 dark:bg-[#F5B83D]/15 text-[#D49624] dark:text-[#F5B83D] border border-[#D49624]/30 dark:border-[#F5B83D]/30 shadow-sm">
+                      <Sparkles className="w-3.5 h-3.5 text-[#D49624] dark:text-[#F5B83D]" />
                       <span>{slide.badge}</span>
                     </div>
                   )}
 
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-extrabold tracking-tight text-white leading-[1.15]">
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-extrabold tracking-tight text-[#2C2520] dark:text-[#E8E3DC] leading-[1.15]">
                     {slide.title}
                   </h2>
 
                   {slide.subtitle && (
-                    <p className="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-xl font-normal">
+                    <p className="text-sm sm:text-base md:text-lg text-[#3D3630] dark:text-[#B9B0A5] leading-relaxed max-w-xl font-medium dark:font-normal">
                       {slide.subtitle}
                     </p>
                   )}
@@ -310,31 +292,31 @@ export default function HeroSlider({
                   <div className="pt-3 flex flex-wrap items-center gap-4 sm:gap-6">
                     <Link
                       href={slide.linkUrl && slide.linkUrl !== "/register" ? slide.linkUrl : "#services"}
-                      className="group inline-flex items-center justify-center gap-3 px-8 py-3.5 sm:py-4 bg-[#F5B83D] hover:bg-[#e5aa32] text-black font-bold text-sm sm:text-base rounded-full shadow-lg shadow-[#F5B83D]/25 transition-all duration-300 active:scale-[0.98]"
+                      className="group inline-flex items-center justify-center gap-3 px-8 py-3.5 sm:py-4 bg-[#D49624] hover:bg-[#c3861c] text-[#1B1815] dark:bg-[#F5B83D] dark:hover:bg-[#e5aa32] dark:text-black font-bold text-sm sm:text-base rounded-full shadow-lg shadow-[#D49624]/20 dark:shadow-[#F5B83D]/25 transition-all duration-300 active:scale-[0.98]"
                     >
                       <span>Explore Services</span>
                       <span className="flex items-center justify-center w-6 h-6 rounded-full bg-black/10 group-hover:bg-black/20 transition-colors duration-300">
-                        <ArrowRight className="w-4 h-4 text-black transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
+                        <ArrowRight className="w-4 h-4 text-[#1B1815] dark:text-black transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
                       </span>
                     </Link>
 
                     <a
                       href="tel:+8801958666951"
-                      className="group inline-flex items-center gap-3 px-3 py-2 text-stone-200 hover:text-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5B83D] rounded-2xl"
+                      className="group inline-flex items-center gap-3 px-3 py-2 text-[#2C2520] hover:text-[#D49624] dark:text-[#E8E3DC] dark:hover:text-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D49624] dark:focus-visible:ring-[#F5B83D] rounded-2xl"
                       aria-label="Call Felna Hotline +880-1958-666951"
                     >
-                      <div className="w-10 h-10 rounded-full bg-[#24201C] border border-white/10 text-[#F5B83D] flex items-center justify-center shadow-sm group-hover:bg-[#F5B83D] group-hover:text-black group-hover:border-[#F5B83D] group-hover:scale-105 transition-all duration-200 shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-[#DDD8D0] dark:bg-[#24201C] border border-[#2C2520]/15 dark:border-white/10 text-[#D49624] dark:text-[#F5B83D] flex items-center justify-center shadow-sm group-hover:bg-[#D49624] dark:group-hover:bg-[#F5B83D] group-hover:text-[#1B1815] dark:group-hover:text-black group-hover:border-[#D49624] dark:group-hover:border-[#F5B83D] group-hover:scale-105 transition-all duration-200 shrink-0">
                         <Phone className="w-4 h-4" />
                       </div>
                       <div className="flex flex-col text-left">
-                        <span className="text-[10px] uppercase font-bold tracking-wider text-stone-400 group-hover:text-stone-300 transition-colors">
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-[#6E665E] dark:text-[#8E867E] group-hover:text-[#2C2520] dark:group-hover:text-stone-300 transition-colors">
                           24/7 Helpline
                         </span>
-                        <span className="relative inline-block text-sm sm:text-base font-extrabold text-white tracking-tight group-hover:text-[#F5B83D] transition-colors pb-0.5">
+                        <span className="relative inline-block text-sm sm:text-base font-extrabold text-[#2C2520] dark:text-[#E8E3DC] tracking-tight group-hover:text-[#D49624] dark:group-hover:text-[#F5B83D] transition-colors pb-0.5">
                           <span>+880-1958-666951</span>
                           <span
                             aria-hidden="true"
-                            className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#F5B83D] transition-all duration-300 ease-out group-hover:w-full"
+                            className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#D49624] dark:bg-[#F5B83D] transition-all duration-300 ease-out group-hover:w-full"
                           />
                         </span>
                       </div>
@@ -347,7 +329,7 @@ export default function HeroSlider({
         })}
 
         {/* ================================================================= */}
-        {/* Dynamic Animated Wave (Bottom Divider - Seamless #12100E)         */}
+        {/* Dynamic Animated Wave (Bottom Divider - Seamless)                 */}
         {/* ================================================================= */}
         <div
           className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none select-none"
@@ -364,7 +346,7 @@ export default function HeroSlider({
               >
                 <path
                   d="M0,45 C360,85 720,10 1080,65 C1260,90 1350,30 1440,45 C1800,85 2160,10 2520,65 C2700,90 2790,30 2880,45 L2880,120 L0,120 Z"
-                  fill="#12100E"
+                  className="fill-[#F4F1EA] dark:fill-[#12100E] transition-colors duration-300"
                 />
               </svg>
             </div>
@@ -379,7 +361,7 @@ export default function HeroSlider({
               >
                 <path
                   d="M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 C1680,100 1920,20 2160,60 C2400,100 2640,20 2880,60 L2880,120 L0,120 Z"
-                  fill="#12100E"
+                  className="fill-[#F4F1EA] dark:fill-[#12100E] transition-colors duration-300"
                 />
               </svg>
             </div>
@@ -394,18 +376,18 @@ export default function HeroSlider({
             type="button"
             onClick={goToPrev}
             aria-label="Previous slide"
-            className="pointer-events-auto p-2.5 sm:p-3 rounded-2xl bg-[#12100E]/80 hover:bg-[#12100E] text-white border border-white/10 hover:border-[#F5B83D]/40 backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#F5B83D]"
+            className="pointer-events-auto p-2.5 sm:p-3 rounded-2xl bg-[#E5E2DC]/85 hover:bg-[#DDD8D0] text-[#2C2520] border border-[#2C2520]/15 hover:border-[#D49624]/40 dark:bg-[#12100E]/80 dark:hover:bg-[#12100E] dark:text-white dark:border-white/10 dark:hover:border-[#F5B83D]/40 backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#D49624] dark:focus:ring-[#F5B83D]"
           >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
           <button
             type="button"
             onClick={goToNext}
             aria-label="Next slide"
-            className="pointer-events-auto p-2.5 sm:p-3 rounded-2xl bg-[#12100E]/80 hover:bg-[#12100E] text-white border border-white/10 hover:border-[#F5B83D]/40 backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#F5B83D]"
+            className="pointer-events-auto p-2.5 sm:p-3 rounded-2xl bg-[#E5E2DC]/85 hover:bg-[#DDD8D0] text-[#2C2520] border border-[#2C2520]/15 hover:border-[#D49624]/40 dark:bg-[#12100E]/80 dark:hover:bg-[#12100E] dark:text-white dark:border-white/10 dark:hover:border-[#F5B83D]/40 backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#D49624] dark:focus:ring-[#F5B83D]"
           >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
 
@@ -413,7 +395,7 @@ export default function HeroSlider({
         {/* Bottom Dot Indicators                                             */}
         {/* ================================================================= */}
         <div className="absolute bottom-6 sm:bottom-8 inset-x-0 z-30 flex items-center justify-center gap-2 pointer-events-none">
-          <div className="pointer-events-auto inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#12100E]/80 border border-white/10 backdrop-blur-md shadow-sm">
+          <div className="pointer-events-auto inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E5E2DC]/90 border border-[#2C2520]/15 dark:bg-[#12100E]/80 dark:border-white/10 backdrop-blur-md shadow-sm">
             {slides.map((slide, index) => {
               const isActive = index === currentIndex;
               return (
@@ -423,10 +405,10 @@ export default function HeroSlider({
                   onClick={() => goToIndex(index)}
                   aria-label={`Go to slide ${index + 1}`}
                   aria-current={isActive ? "true" : "false"}
-                  className={`h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#F5B83D] ${
+                  className={`h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#D49624] dark:focus:ring-[#F5B83D] ${
                     isActive
-                      ? "w-7 bg-[#F5B83D]"
-                      : "w-2 bg-neutral-600 hover:bg-neutral-400"
+                      ? "w-7 bg-[#D49624] dark:bg-[#F5B83D]"
+                      : "w-2 bg-[#6E665E]/40 hover:bg-[#6E665E]/70 dark:bg-neutral-600 dark:hover:bg-neutral-400"
                   }`}
                 />
               );

@@ -75,23 +75,23 @@ export default function SmsBenefits({ benefits }: SmsBenefitsProps) {
           {/* =============================================================== */}
           <div className="w-full lg:col-span-5 lg:sticky lg:top-24 space-y-5 self-start">
             <div className="space-y-3">
-              <span className="text-[#F5B83D] font-bold tracking-wider text-xs uppercase inline-block">
+              <span className="text-[#D49624] dark:text-[#F5B83D] font-bold tracking-wider text-xs uppercase inline-block">
                 [ SMS BENEFITS & FAQ ]
               </span>
               <h2
                 id="sms-benefits-title"
-                className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight"
+                className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#2C2520] dark:text-white leading-tight"
               >
                 Drive Real Growth With Direct Messaging
               </h2>
-              <p className="text-[15px] sm:text-base text-neutral-400 leading-relaxed font-normal pt-1">
+              <p className="text-[15px] sm:text-base text-[#6E665E] dark:text-neutral-400 leading-relaxed font-normal pt-1">
                 Connect directly with your customers across Bangladesh. Experience over 90% read rates within 30 minutes, instantaneous OTP delivery, and unmatched conversion rates compared to traditional channels.
               </p>
             </div>
 
             {/* Visual Graphic Illustration Card */}
-            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#1B1815] p-5 shadow-xl shadow-black/40 group">
-              <div className="absolute inset-0 bg-radial from-[#F5B83D]/10 via-transparent to-transparent blur-2xl pointer-events-none" />
+            <div className="relative rounded-2xl overflow-hidden border border-[#2C2520]/15 dark:border-white/10 bg-[#E8E4DD] dark:bg-[#1B1815] p-5 shadow-lg dark:shadow-xl shadow-[#2C2520]/5 dark:shadow-black/40 group transition-colors">
+              <div className="absolute inset-0 bg-radial from-[#D49624]/10 dark:from-[#F5B83D]/10 via-transparent to-transparent blur-2xl pointer-events-none" />
               <div className="relative w-full flex items-center justify-center">
                 <Image
                   src={imgSrc}
@@ -120,33 +120,33 @@ export default function SmsBenefits({ benefits }: SmsBenefitsProps) {
                   key={index}
                   className={`rounded-2xl transition-all duration-300 border ${
                     isOpen
-                      ? "bg-[#1B1815] border-[#F5B83D]/60 shadow-[0_0_20px_rgba(245,184,61,0.08)]"
-                      : "bg-[#1B1815] border-white/10 hover:border-white/20"
+                      ? "bg-[#E8E4DD] dark:bg-[#1B1815] border-[#D49624]/60 dark:border-[#F5B83D]/60 shadow-[0_0_20px_rgba(212,150,36,0.12)] dark:shadow-[0_0_20px_rgba(245,184,61,0.08)]"
+                      : "bg-[#E8E4DD] dark:bg-[#1B1815] border-[#2C2520]/12 dark:border-white/10 hover:border-[#D49624]/40 dark:hover:border-white/20"
                   }`}
                 >
                   {/* Accordion Header / Trigger Button */}
                   <button
                     type="button"
                     onClick={() => toggleAccordion(index)}
-                    className="w-full p-5 sm:p-6 flex items-center justify-between gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5B83D] rounded-2xl cursor-pointer group"
+                    className="w-full p-5 sm:p-6 flex items-center justify-between gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D49624] dark:focus-visible:ring-[#F5B83D] rounded-2xl cursor-pointer group"
                     aria-expanded={isOpen}
                   >
                     <span
                       className={`text-base sm:text-lg font-semibold transition-colors duration-200 leading-snug ${
                         isOpen
-                          ? "text-[#F5B83D]"
-                          : "text-white group-hover:text-[#F5B83D]/90"
+                          ? "text-[#D49624] dark:text-[#F5B83D]"
+                          : "text-[#2C2520] dark:text-white group-hover:text-[#D49624] dark:group-hover:text-[#F5B83D]/90"
                       }`}
                     >
                       {item.title}
                     </span>
 
-                    {/* Icon Container: Solid Amber (#F5B83D) when open, neutral when closed */}
+                    {/* Icon Container: Solid Amber when open, neutral when closed */}
                     <div
                       className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 border ${
                         isOpen
-                          ? "bg-[#F5B83D] border-[#F5B83D] text-black shadow-sm shadow-[#F5B83D]/30"
-                          : "bg-[#24201C] border-white/10 text-neutral-400 group-hover:text-white"
+                          ? "bg-[#D49624] dark:bg-[#F5B83D] border-[#D49624] dark:border-[#F5B83D] text-[#1B1815] dark:text-black shadow-sm shadow-[#D49624]/20 dark:shadow-[#F5B83D]/30"
+                          : "bg-[#DEDAD3] dark:bg-[#24201C] border-[#2C2520]/15 dark:border-white/10 text-[#6E665E] dark:text-neutral-400 group-hover:text-[#2C2520] dark:group-hover:text-white"
                       }`}
                     >
                       <ChevronDown
@@ -167,7 +167,7 @@ export default function SmsBenefits({ benefits }: SmsBenefitsProps) {
                     style={{ transitionDuration: "250ms" }}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-5 sm:px-6 pb-5 sm:pb-6 text-[15px] sm:text-base text-neutral-400 leading-relaxed font-normal border-t border-white/5 pt-4 max-w-prose">
+                      <p className="px-5 sm:px-6 pb-5 sm:pb-6 text-[15px] sm:text-base text-[#3D3630] dark:text-neutral-400 leading-relaxed font-normal border-t border-[#2C2520]/10 dark:border-white/5 pt-4 max-w-prose">
                         {item.description}
                       </p>
                     </div>

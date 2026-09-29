@@ -41,17 +41,17 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
       <span id="pricing" className="absolute -top-24 block invisible pointer-events-none" aria-hidden="true" />
       {/* Background Faint Dotted Grid Texture to ground the section */}
       <div
-        className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"
+        className="absolute inset-0 bg-[radial-gradient(rgba(44,37,32,0.06)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"
         aria-hidden="true"
       />
 
       {/* =================================================================== */}
-      {/* Premium Dark Card Wrapper                                           */}
+      {/* Premium Card Wrapper                                                */}
       {/* =================================================================== */}
-      <div className="w-full max-w-[1200px] mx-auto bg-[#1B1815] border border-[#F5B83D]/30 rounded-[24px] overflow-hidden p-8 md:p-12 lg:p-[48px] relative shadow-2xl shadow-black/80">
+      <div className="w-full max-w-[1200px] mx-auto bg-[#E8E4DD] dark:bg-[#1B1815] border border-[#D49624]/40 dark:border-[#F5B83D]/30 rounded-[24px] overflow-hidden p-8 md:p-12 lg:p-[48px] relative shadow-xl dark:shadow-2xl shadow-[#2C2520]/10 dark:shadow-black/80 transition-colors">
         {/* Soft Radial Amber Glow in the Top-Left Corner */}
         <div
-          className="absolute -top-32 -left-32 w-96 h-96 bg-[#F5B83D]/10 rounded-full blur-[80px] pointer-events-none"
+          className="absolute -top-32 -left-32 w-96 h-96 bg-[#D49624]/10 dark:bg-[#F5B83D]/10 rounded-full blur-[80px] pointer-events-none"
           aria-hidden="true"
         />
 
@@ -63,10 +63,10 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
           {/* =============================================================== */}
           <div className="w-full lg:col-span-7 flex flex-col justify-center">
             {/* Badge: Pill shape with pulsing amber dot */}
-            <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full text-sm font-medium bg-[#F5B83D]/10 text-[#F5B83D] border border-[#F5B83D]/20 mb-6 w-fit shadow-xs">
+            <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full text-sm font-medium bg-[#D49624]/10 dark:bg-[#F5B83D]/10 text-[#D49624] dark:text-[#F5B83D] border border-[#D49624]/20 dark:border-[#F5B83D]/20 mb-6 w-fit shadow-xs">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F5B83D] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F5B83D]" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D49624] dark:bg-[#F5B83D] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D49624] dark:bg-[#F5B83D]" />
               </span>
               <span>{badgeText}</span>
             </div>
@@ -76,41 +76,41 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
               id="bulk-sms-offer-title"
               className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight leading-[1.18]"
             >
-              <span className="text-[#F5B83D] block mb-2">
+              <span className="text-[#D49624] dark:text-[#F5B83D] block mb-2">
                 {primaryTitlePart}
               </span>
               {secondaryTitlePart && (
-                <span className="text-white block text-2xl sm:text-3xl lg:text-[32px] font-bold leading-snug">
+                <span className="text-[#2C2520] dark:text-white block text-2xl sm:text-3xl lg:text-[32px] font-bold leading-snug">
                   {secondaryTitlePart}
                 </span>
               )}
             </h2>
 
             {/* Paragraph: Styled & brand standardized */}
-            <p className="text-[16px] md:text-[17px] text-[#B9B0A5] leading-relaxed max-w-[65ch] mt-4 font-normal">
+            <p className="text-[16px] md:text-[17px] text-[#6E665E] dark:text-[#B9B0A5] leading-relaxed max-w-[65ch] mt-4 font-normal">
               {descriptionText}
             </p>
 
             {/* Checklist Chips: 2x2 Grid with Amber Icons and Pill Styling */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 my-8">
-              <div className="rounded-full border border-white/10 px-4 py-2.5 bg-white/5 flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#F5B83D] shrink-0" />
-                <span className="text-sm font-medium text-neutral-200">BTRC Approved</span>
+              <div className="rounded-full border border-[#2C2520]/15 dark:border-white/10 px-4 py-2.5 bg-[#2C2520]/5 dark:bg-white/5 flex items-center gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D] shrink-0" />
+                <span className="text-sm font-medium text-[#2C2520] dark:text-neutral-200">BTRC Approved</span>
               </div>
 
-              <div className="rounded-full border border-white/10 px-4 py-2.5 bg-white/5 flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#F5B83D] shrink-0" />
-                <span className="text-sm font-medium text-neutral-200">2s Instant OTP</span>
+              <div className="rounded-full border border-[#2C2520]/15 dark:border-white/10 px-4 py-2.5 bg-[#2C2520]/5 dark:bg-white/5 flex items-center gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D] shrink-0" />
+                <span className="text-sm font-medium text-[#2C2520] dark:text-neutral-200">2s Instant OTP</span>
               </div>
 
-              <div className="rounded-full border border-white/10 px-4 py-2.5 bg-white/5 flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#F5B83D] shrink-0" />
-                <span className="text-sm font-medium text-neutral-200">Masking & Non-Masking</span>
+              <div className="rounded-full border border-[#2C2520]/15 dark:border-white/10 px-4 py-2.5 bg-[#2C2520]/5 dark:bg-white/5 flex items-center gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D] shrink-0" />
+                <span className="text-sm font-medium text-[#2C2520] dark:text-neutral-200">Masking & Non-Masking</span>
               </div>
 
-              <div className="rounded-full border border-white/10 px-4 py-2.5 bg-white/5 flex items-center gap-2.5">
-                <CheckCircle2 className="w-4 h-4 text-[#F5B83D] shrink-0" />
-                <span className="text-sm font-medium text-neutral-200">Real-time Operator DLR</span>
+              <div className="rounded-full border border-[#2C2520]/15 dark:border-white/10 px-4 py-2.5 bg-[#2C2520]/5 dark:bg-white/5 flex items-center gap-2.5">
+                <CheckCircle2 className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D] shrink-0" />
+                <span className="text-sm font-medium text-[#2C2520] dark:text-neutral-200">Real-time Operator DLR</span>
               </div>
             </div>
 
@@ -119,18 +119,18 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
               {/* Primary: Solid Amber Button */}
               <Link
                 href={ctaDestination}
-                className="bg-[#F5B83D] hover:bg-[#e5aa32] text-black font-semibold h-[52px] px-8 rounded-full inline-flex items-center justify-center gap-2 transition-all duration-200 shadow-lg shadow-[#F5B83D]/20 active:scale-[0.98]"
+                className="bg-[#D49624] dark:bg-[#F5B83D] hover:bg-[#c2861b] dark:hover:bg-[#e5aa32] text-[#1B1815] dark:text-black font-semibold h-[52px] px-8 rounded-full inline-flex items-center justify-center gap-2 transition-all duration-200 shadow-lg shadow-[#D49624]/20 dark:shadow-[#F5B83D]/20 active:scale-[0.98]"
               >
                 <span>{ctaLabel}</span>
-                <ArrowRight className="w-4 h-4 text-black" />
+                <ArrowRight className="w-4 h-4 text-[#1B1815] dark:text-black" />
               </Link>
 
               {/* Secondary: Ghost Button with Phone Icon */}
               <a
                 href="tel:+8801977771234"
-                className="border border-white/20 hover:border-white/40 hover:bg-white/5 text-white h-[52px] px-8 rounded-full inline-flex items-center justify-center gap-2.5 transition-all duration-200 active:scale-[0.98]"
+                className="border border-[#2C2520]/25 dark:border-white/20 hover:border-[#2C2520]/40 dark:hover:border-white/40 hover:bg-[#2C2520]/5 dark:hover:bg-white/5 text-[#2C2520] dark:text-white h-[52px] px-8 rounded-full inline-flex items-center justify-center gap-2.5 transition-all duration-200 active:scale-[0.98]"
               >
-                <Phone className="w-4 h-4 text-[#F5B83D]" />
+                <Phone className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D]" />
                 <span>Request a call</span>
               </a>
             </div>
@@ -142,26 +142,26 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
           <div className="w-full lg:col-span-5 flex items-center justify-center py-6 lg:py-0">
             <div className="relative">
               {/* Floating Glass Chip 1: Top Left */}
-              <div className="absolute top-10 -left-4 sm:-left-8 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-xl text-white text-sm shadow-xl flex items-center gap-2 z-20 whitespace-nowrap">
-                <Zap className="w-4 h-4 text-[#F5B83D]" />
+              <div className="absolute top-10 -left-4 sm:-left-8 bg-[#E5E2DC]/90 dark:bg-white/10 backdrop-blur-md border border-[#2C2520]/15 dark:border-white/20 px-4 py-2 rounded-xl text-[#2C2520] dark:text-white text-sm shadow-xl flex items-center gap-2 z-20 whitespace-nowrap">
+                <Zap className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D]" />
                 <span>Delivered in 2s ✓</span>
               </div>
 
               {/* Floating Glass Chip 2: Center Right */}
-              <div className="absolute top-1/2 -right-4 sm:-right-8 -translate-y-1/2 bg-white/10 backdrop-blur-md border border-[#F5B83D]/40 px-4 py-2 rounded-xl text-white text-sm shadow-xl flex items-center gap-2 z-20 whitespace-nowrap">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#F5B83D] animate-pulse" />
-                <span className="font-bold text-[#F5B83D]">৳0.23</span>
-                <span className="text-neutral-300 text-xs">/ SMS</span>
+              <div className="absolute top-1/2 -right-4 sm:-right-8 -translate-y-1/2 bg-[#E5E2DC]/90 dark:bg-white/10 backdrop-blur-md border border-[#D49624]/40 dark:border-[#F5B83D]/40 px-4 py-2 rounded-xl text-[#2C2520] dark:text-white text-sm shadow-xl flex items-center gap-2 z-20 whitespace-nowrap">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#D49624] dark:bg-[#F5B83D] animate-pulse" />
+                <span className="font-bold text-[#D49624] dark:text-[#F5B83D]">৳0.23</span>
+                <span className="text-[#6E665E] dark:text-neutral-300 text-xs">/ SMS</span>
               </div>
 
               {/* Floating Glass Chip 3: Bottom Left */}
-              <div className="absolute bottom-10 -left-3 sm:-left-6 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-xl text-white text-sm shadow-xl flex items-center gap-2 z-20 whitespace-nowrap">
-                <ShieldCheck className="w-4 h-4 text-[#F5B83D]" />
+              <div className="absolute bottom-10 -left-3 sm:-left-6 bg-[#E5E2DC]/90 dark:bg-white/10 backdrop-blur-md border border-[#2C2520]/15 dark:border-white/20 px-4 py-2 rounded-xl text-[#2C2520] dark:text-white text-sm shadow-xl flex items-center gap-2 z-20 whitespace-nowrap">
+                <ShieldCheck className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D]" />
                 <span>BTRC Approved</span>
               </div>
 
               {/* Smartphone Frame */}
-              <div className="w-[280px] h-[550px] mx-auto bg-[#12100E] border-[6px] border-neutral-800 rounded-[2.5rem] relative overflow-hidden shadow-2xl flex flex-col justify-between p-4">
+              <div className="w-[280px] h-[550px] mx-auto bg-[#12100E] border-[6px] border-[#2C2520]/25 dark:border-neutral-800 rounded-[2.5rem] relative overflow-hidden shadow-2xl flex flex-col justify-between p-4">
                 {/* Notch / Dynamic Island */}
                 <div className="w-24 h-4 bg-neutral-900 rounded-full mx-auto mt-1 mb-2 shrink-0 border border-neutral-800/80" />
 

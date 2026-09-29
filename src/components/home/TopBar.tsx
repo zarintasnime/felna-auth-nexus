@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Zap, Clock, LifeBuoy, Globe, ChevronDown, Check } from "lucide-react";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 
 export interface TopBarProps {
   announcementText?: string;
@@ -58,7 +59,7 @@ export default function TopBar({
   return (
     <aside
       aria-label="Utility Announcement and Quick Actions"
-      className="w-full bg-[#12100E]/95 text-[13px] text-neutral-400 border-b border-white/10 select-none rounded-t-2xl md:rounded-t-3xl transition-colors"
+      className="w-full bg-[#E8E4DD]/95 dark:bg-[#12100E]/95 text-[13px] text-[#3D3630] dark:text-neutral-400 border-b border-[#2C2520]/12 dark:border-white/10 select-none rounded-t-2xl md:rounded-t-3xl transition-colors"
     >
       <div className="w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="flex min-h-[42px] py-2 sm:py-2.5 items-center justify-between gap-4">
@@ -66,15 +67,15 @@ export default function TopBar({
           {/* Left Side: Announcement Text with Lightning/Zap Icon            */}
           {/* =============================================================== */}
           <div className="flex items-center gap-2.5 truncate">
-            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#F5B83D]/10 text-[#F5B83D] shrink-0">
-              <Zap className="w-3 h-3 fill-[#F5B83D] text-[#F5B83D]" />
+            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#D49624]/15 dark:bg-[#F5B83D]/10 text-[#D49624] dark:text-[#F5B83D] shrink-0">
+              <Zap className="w-3 h-3 fill-[#D49624] dark:fill-[#F5B83D] text-[#D49624] dark:text-[#F5B83D]" />
             </span>
-            <p className="text-[13px] text-neutral-400 truncate font-normal leading-none flex items-center gap-1.5">
+            <p className="text-[13px] text-[#3D3630] dark:text-neutral-400 truncate font-normal leading-none flex items-center gap-1.5">
               <span>{announcementText}</span>
               {announcementLinkText && (
                 <Link
                   href={announcementHref}
-                  className="text-[#F5B83D] font-bold hover:underline transition-colors"
+                  className="text-[#D49624] dark:text-[#F5B83D] font-bold hover:underline transition-colors"
                 >
                   {announcementLinkText}
                 </Link>
@@ -83,31 +84,31 @@ export default function TopBar({
           </div>
 
           {/* =============================================================== */}
-          {/* Right Side: 3 Inline Utility Items (Time, Support, Language)    */}
+          {/* Right Side: Inline Utility Items (Time, Support, Lang, Theme)   */}
           {/* =============================================================== */}
-          <div className="flex items-center gap-4 sm:gap-5 md:gap-6 text-[13px] text-neutral-400 shrink-0">
+          <div className="flex items-center gap-3 sm:gap-4 md:gap-5 text-[13px] text-[#3D3630] dark:text-neutral-400 shrink-0">
             {/* Item 1: Clock Icon + Schedule */}
             <div className="hidden sm:flex items-center gap-2 font-medium">
-              <Clock className="w-4 h-4 text-[#F5B83D] shrink-0" />
+              <Clock className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D] shrink-0" />
               <span className="tracking-tight">{scheduleText}</span>
             </div>
 
             {/* Separator on tablet+ */}
-            <span className="hidden sm:inline-block text-white/10" aria-hidden="true">
+            <span className="hidden sm:inline-block text-[#2C2520]/20 dark:text-white/10" aria-hidden="true">
               |
             </span>
 
             {/* Item 2: Support / Lifebuoy Icon + Support */}
             <Link
               href={supportHref}
-              className="flex items-center gap-2 hover:text-white font-medium transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#F5B83D] rounded px-1 py-0.5"
+              className="flex items-center gap-2 hover:text-[#2C2520] dark:hover:text-white font-medium transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#D49624] dark:focus-visible:ring-[#F5B83D] rounded px-1 py-0.5"
             >
-              <LifeBuoy className="w-4 h-4 text-[#F5B83D] shrink-0" />
+              <LifeBuoy className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D] shrink-0" />
               <span>Support</span>
             </Link>
 
             {/* Separator */}
-            <span className="text-white/10" aria-hidden="true">
+            <span className="text-[#2C2520]/20 dark:text-white/10" aria-hidden="true">
               |
             </span>
 
@@ -116,16 +117,16 @@ export default function TopBar({
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen((prev) => !prev)}
-                className="flex items-center gap-2 text-neutral-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#F5B83D] rounded px-1.5 py-0.5"
+                className="flex items-center gap-1.5 sm:gap-2 text-[#3D3630] dark:text-neutral-400 hover:text-[#2C2520] dark:hover:text-white transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#D49624] dark:focus-visible:ring-[#F5B83D] rounded px-1.5 py-0.5"
                 aria-haspopup="listbox"
                 aria-expanded={isDropdownOpen}
                 aria-label="Select display language"
               >
-                <Globe className="w-4 h-4 text-[#F5B83D] shrink-0" />
-                <span className="font-semibold text-neutral-300">{selectedLanguage}</span>
+                <Globe className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D] shrink-0" />
+                <span className="font-semibold text-[#2C2520] dark:text-neutral-300">{selectedLanguage}</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-150 ${
-                    isDropdownOpen ? "rotate-180 text-[#F5B83D]" : ""
+                  className={`w-3.5 h-3.5 text-[#6E665E] dark:text-neutral-400 transition-transform duration-150 ${
+                    isDropdownOpen ? "rotate-180 text-[#D49624] dark:text-[#F5B83D]" : ""
                   }`}
                 />
               </button>
@@ -134,7 +135,7 @@ export default function TopBar({
               {isDropdownOpen && (
                 <div
                   role="listbox"
-                  className="absolute right-0 top-full mt-1.5 w-36 py-1.5 bg-[#1B1815] border border-white/10 rounded-xl shadow-xl z-50 animate-in fade-in-50 zoom-in-95 duration-100"
+                  className="absolute right-0 top-full mt-1.5 w-36 py-1.5 bg-[#E5E2DC] dark:bg-[#1B1815] border border-[#2C2520]/15 dark:border-white/10 rounded-xl shadow-xl z-50 animate-in fade-in-50 zoom-in-95 duration-100"
                 >
                   <button
                     type="button"
@@ -146,13 +147,13 @@ export default function TopBar({
                     }}
                     className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-xs sm:text-sm transition-colors ${
                       selectedLanguage === "English"
-                        ? "bg-white/10 text-[#F5B83D] font-bold"
-                        : "text-neutral-300 hover:bg-white/5 hover:text-white"
+                        ? "bg-[#2C2520]/10 dark:bg-white/10 text-[#D49624] dark:text-[#F5B83D] font-bold"
+                        : "text-[#2C2520] dark:text-neutral-300 hover:bg-[#2C2520]/5 dark:hover:bg-white/5 hover:text-[#2C2520] dark:hover:text-white"
                     }`}
                   >
                     <span>English</span>
                     {selectedLanguage === "English" && (
-                      <Check className="w-4 h-4 text-[#F5B83D]" />
+                      <Check className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D]" />
                     )}
                   </button>
 
@@ -166,18 +167,26 @@ export default function TopBar({
                     }}
                     className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-xs sm:text-sm transition-colors ${
                       selectedLanguage === "Bangla"
-                        ? "bg-white/10 text-[#F5B83D] font-bold"
-                        : "text-neutral-300 hover:bg-white/5 hover:text-white"
+                        ? "bg-[#2C2520]/10 dark:bg-white/10 text-[#D49624] dark:text-[#F5B83D] font-bold"
+                        : "text-[#2C2520] dark:text-neutral-300 hover:bg-[#2C2520]/5 dark:hover:bg-white/5 hover:text-[#2C2520] dark:hover:text-white"
                     }`}
                   >
                     <span>বাংলা (Bangla)</span>
                     {selectedLanguage === "Bangla" && (
-                      <Check className="w-4 h-4 text-[#F5B83D]" />
+                      <Check className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D]" />
                     )}
                   </button>
                 </div>
               )}
             </div>
+
+            {/* Separator */}
+            <span className="text-[#2C2520]/20 dark:text-white/10" aria-hidden="true">
+              |
+            </span>
+
+            {/* Item 4: Dark / Light Mode Switcher */}
+            <ThemeToggle size="sm" />
           </div>
         </div>
       </div>

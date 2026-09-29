@@ -245,7 +245,7 @@ export default function CmsFeaturesTab({ initialFeatures, onShowToast }: CmsFeat
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              All Items ({features.length})
+              All Features ({features.length})
             </button>
             <button
               type="button"
@@ -256,7 +256,7 @@ export default function CmsFeaturesTab({ initialFeatures, onShowToast }: CmsFeat
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              Accordion Benefits ({features.filter((f) => f.section === "BENEFIT").length})
+              SMS Benefits (Accordion) ({features.filter((f) => f.section === "BENEFIT").length})
             </button>
             <button
               type="button"
@@ -267,7 +267,7 @@ export default function CmsFeaturesTab({ initialFeatures, onShowToast }: CmsFeat
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              Why Choose Us ({features.filter((f) => f.section === "WHY_CHOOSE_US").length})
+              Why Choose Us &amp; FAQ ({features.filter((f) => f.section === "WHY_CHOOSE_US").length})
             </button>
           </div>
         </div>
@@ -278,7 +278,7 @@ export default function CmsFeaturesTab({ initialFeatures, onShowToast }: CmsFeat
           className="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white flex items-center gap-2 transition shadow-xs cursor-pointer self-start sm:self-auto"
         >
           <Plus className="w-4 h-4 text-[#F5B83D]" />
-          <span>Add Feature Item</span>
+          <span>Add Benefit / FAQ Item</span>
         </button>
       </div>
 

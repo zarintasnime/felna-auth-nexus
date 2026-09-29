@@ -28,10 +28,9 @@ import {
 
 import CmsSettingsTab from "./CmsSettingsTab";
 import CmsHeroTab from "./CmsHeroTab";
-import CmsPartnersTab from "./CmsPartnersTab";
 import CmsPromotionsTab from "./CmsPromotionsTab";
 import CmsFeaturesTab from "./CmsFeaturesTab";
-import CmsSocialTab from "./CmsSocialTab";
+import CmsPartnersSocialTab from "./CmsPartnersSocialTab";
 import CmsAuditTab from "./CmsAuditTab";
 
 export interface CmsManagerClientProps {
@@ -44,7 +43,7 @@ export interface CmsManagerClientProps {
   initialAuditLogs: CmsAuditLog[];
 }
 
-type CmsTab = "settings" | "hero" | "partners" | "promotions" | "features" | "social" | "audit";
+type CmsTab = "brand" | "hero" | "benefits" | "promotions" | "partners" | "audit";
 
 export default function CmsManagerClient({
   initialSettings,
@@ -55,7 +54,7 @@ export default function CmsManagerClient({
   initialSocialLinks,
   initialAuditLogs,
 }: CmsManagerClientProps) {
-  const [activeTab, setActiveTab] = useState<CmsTab>("settings");
+  const [activeTab, setActiveTab] = useState<CmsTab>("brand");
   const [toast, setToast] = useState<{ type: "success" | "error"; message: string } | null>(null);
   const [isRevalidating, setIsRevalidating] = useState(false);
 
@@ -90,10 +89,10 @@ export default function CmsManagerClient({
 
   const TABS = [
     {
-      id: "settings" as CmsTab,
-      label: "Site & TopBar",
-      icon: Globe,
-      badge: "Core",
+      id: "brand" as CmsTab,
+      label: "Navbar & Brand Identity",
+      icon: Sparkles,
+      badge: "Navbar",
     },
     {
       id: "hero" as CmsTab,
@@ -102,28 +101,22 @@ export default function CmsManagerClient({
       count: activeSlidesCount,
     },
     {
-      id: "partners" as CmsTab,
-      label: "Partners & Concerns",
-      icon: Handshake,
-      count: activePartnersCount,
-    },
-    {
-      id: "promotions" as CmsTab,
-      label: "Promotional Blocks",
-      icon: Megaphone,
-      count: initialPromotions.length,
-    },
-    {
-      id: "features" as CmsTab,
-      label: "Features & Benefits",
+      id: "benefits" as CmsTab,
+      label: "SMS Benefits & FAQ",
       icon: Award,
       count: activeFeaturesCount,
     },
     {
-      id: "social" as CmsTab,
-      label: "Social Links",
-      icon: Share2,
-      count: activeSocialCount,
+      id: "promotions" as CmsTab,
+      label: "Special Promotional Offer",
+      icon: Megaphone,
+      count: initialPromotions.length,
+    },
+    {
+      id: "partners" as CmsTab,
+      label: "Partners & Social Links",
+      icon: Handshake,
+      count: activePartnersCount + activeSocialCount,
     },
     {
       id: "audit" as CmsTab,
@@ -315,7 +308,7 @@ export default function CmsManagerClient({
       {/* ACTIVE TAB CONTENT SURFACE                                                */}
       {/* ========================================================================= */}
       <div className="transition-all duration-200">
-        {activeTab === "settings" && (
+        {activeTab === "brand" && (
           <CmsSettingsTab
             initialSettings={initialSettings}
             onShowToast={showToast}
@@ -327,9 +320,9 @@ export default function CmsManagerClient({
             onShowToast={showToast}
           />
         )}
-        {activeTab === "partners" && (
-          <CmsPartnersTab
-            initialPartners={initialPartners}
+        {activeTab === "benefits" && (
+          <CmsFeaturesTab
+            initialFeatures={initialFeatures}
             onShowToast={showToast}
           />
         )}
@@ -339,15 +332,10 @@ export default function CmsManagerClient({
             onShowToast={showToast}
           />
         )}
-        {activeTab === "features" && (
-          <CmsFeaturesTab
-            initialFeatures={initialFeatures}
-            onShowToast={showToast}
-          />
-        )}
-        {activeTab === "social" && (
-          <CmsSocialTab
-            initialLinks={initialSocialLinks}
+        {activeTab === "partners" && (
+          <CmsPartnersSocialTab
+            initialPartners={initialPartners}
+            initialSocialLinks={initialSocialLinks}
             onShowToast={showToast}
           />
         )}

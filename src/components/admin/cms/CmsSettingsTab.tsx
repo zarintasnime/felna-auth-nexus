@@ -122,10 +122,20 @@ export default function CmsSettingsTab({ initialSettings, onShowToast }: CmsSett
 
         {/* Mini Brand preview */}
         <div className="bg-[#12100E] px-6 py-3 flex items-center justify-between border-b border-white/10">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#F5B83D] to-[#d99b26] flex items-center justify-center font-bold text-slate-950 text-base shadow-md">
-              {formData.siteName ? formData.siteName.charAt(0).toUpperCase() : "F"}
-            </div>
+          <div className="flex items-center gap-3">
+            {formData.logoUrl ? (
+              <div className="h-9 max-w-[160px] flex items-center shrink-0 bg-white/5 p-1 rounded-lg border border-white/10">
+                <img
+                  src={formData.logoUrl}
+                  alt={formData.siteName}
+                  className="h-7 w-auto max-h-8 object-contain"
+                />
+              </div>
+            ) : (
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#F5B83D] to-[#d99b26] flex items-center justify-center font-bold text-slate-950 text-base shadow-md">
+                {formData.siteName ? formData.siteName.charAt(0).toUpperCase() : "F"}
+              </div>
+            )}
             <div>
               <div className="font-bold text-white text-sm tracking-tight">
                 {formData.siteName}
@@ -135,7 +145,7 @@ export default function CmsSettingsTab({ initialSettings, onShowToast }: CmsSett
               </div>
             </div>
           </div>
-          <span className="text-[11px] text-neutral-400">Main Navbar Brand Header</span>
+          <span className="text-[11px] text-neutral-400">Live Navbar Brand Header</span>
         </div>
       </div>
 
