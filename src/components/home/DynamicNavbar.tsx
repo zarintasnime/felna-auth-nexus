@@ -14,7 +14,6 @@ import {
   Megaphone,
   TrendingUp,
   Sparkles,
-  Building2,
 } from "lucide-react";
 import LogoutButton from "@/components/common/LogoutButton";
 import { NavItem } from "@/types/homepage";
@@ -70,13 +69,23 @@ const SERVICES_ITEMS: DropdownItem[] = [
     href: "#content-creator",
     icon: Sparkles,
   },
-  {
-    id: "service-sister-concern",
-    label: "Sister Concern",
-    description: "Our corporate network & brands",
-    href: "#sister-concern",
-    icon: Building2,
-  },
+];
+
+export interface SisterConcernItem {
+  id: string;
+  label: string;
+  href: string;
+}
+
+const SISTER_CONCERN_ITEMS: SisterConcernItem[] = [
+  { id: "sc-felna-marketing", label: "Felna Digital Marketing Agency", href: "#" },
+  { id: "sc-felna-online", label: "Felna Online", href: "#" },
+  { id: "sc-felnatech", label: "FelnaTech", href: "#" },
+  { id: "sc-igl-host", label: "IGL Host LLC", href: "#" },
+  { id: "sc-igl-network", label: "IGL Network", href: "#" },
+  { id: "sc-igl-tours", label: "IGL Tours and Travels", href: "#" },
+  { id: "sc-igl-web", label: "IGL Web", href: "#" },
+  { id: "sc-student-visa", label: "Student Visa", href: "#" },
 ];
 
 const CONTACT_ITEMS: DropdownItem[] = [
@@ -105,11 +114,14 @@ export default function DynamicNavbar({
   const [isLoadingSession, setIsLoadingSession] = useState(initialSession === undefined);
 
   // Dropdown states
+  const [isSisterConcernOpen, setIsSisterConcernOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
+  const [isMobileSisterConcernExpanded, setIsMobileSisterConcernExpanded] = useState(false);
   const [isMobileServicesExpanded, setIsMobileServicesExpanded] = useState(false);
   const [isMobileContactExpanded, setIsMobileContactExpanded] = useState(false);
 
+  const sisterConcernDropdownRef = useRef<HTMLDivElement>(null);
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
   const contactDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -150,6 +162,7 @@ export default function DynamicNavbar({
   // Close menus on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsSisterConcernOpen(false);
     setIsServicesDropdownOpen(false);
     setIsContactDropdownOpen(false);
   }, [pathname]);
@@ -157,6 +170,12 @@ export default function DynamicNavbar({
   // Close dropdown on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      if (
+        sisterConcernDropdownRef.current &&
+        !sisterConcernDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsSisterConcernOpen(false);
+      }
       if (
         servicesDropdownRef.current &&
         !servicesDropdownRef.current.contains(event.target as Node)
@@ -180,6 +199,7 @@ export default function DynamicNavbar({
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") {
       setIsMobileMenuOpen(false);
+      setIsSisterConcernOpen(false);
       setIsServicesDropdownOpen(false);
       setIsContactDropdownOpen(false);
     }
@@ -198,7 +218,7 @@ export default function DynamicNavbar({
     };
   }, [isMobileMenuOpen, handleKeyDown]);
 
-  const isAdmin = user?.role === "ADMIN";
+  const isAdmin = user?.role === "ADMIN" || user?.role === "SUPER_ADMIN";
 
   // Resolve cross-page anchor URLs correctly
   const getHref = (url: string) => {
@@ -209,6 +229,7 @@ export default function DynamicNavbar({
   };
 
   const isContactActive = pathname === "/address" || pathname === "/feedback" || pathname === "/contact";
+  const isAboutActive = pathname === "/about";
 
   return (
     <header className="h-[72px] bg-[#12100E]/85 backdrop-blur-[12px] sticky top-0 z-50 transition-all duration-300 border-b border-white/10 w-full">
@@ -242,7 +263,7 @@ export default function DynamicNavbar({
           {/* =============================================================== */}
           <nav
             aria-label="Main Navigation"
-            className="hidden xl:flex items-center gap-1.5 2xl:gap-2"
+            className="hidden xl:flex items-center gap-1 2xl:gap-1.5"
           >
             {/* 1. Home */}
             <Link
@@ -254,7 +275,76 @@ export default function DynamicNavbar({
               Home
             </Link>
 
-            {/* 2. SMS Services */}
+            {/* 2. About Us */}
+            <Link
+              href="/about"
+              className={`text-[15px] px-3 py-2 rounded-lg font-medium transition-colors ${
+                isAboutActive ? "text-[#F5B83D]" : "text-[#E8E3DC] hover:text-[#F5B83D]"
+              }`}
+            >
+              About Us
+            </Link>
+
+            {/* 3. Sister Concern (Top-Level Dropdown) */}
+            <div
+              ref={sisterConcernDropdownRef}
+              className="relative group"
+              onMouseEnter={() => setIsSisterConcernOpen(true)}
+              onMouseLeave={() => setIsSisterConcernOpen(false)}
+            >
+              <button
+                type="button"
+                onClick={() => setIsSisterConcernOpen((prev) => !prev)}
+                className={`inline-flex items-center gap-1.5 text-[15px] px-3 py-2 rounded-lg font-medium transition-colors select-none ${
+                  isSisterConcernOpen
+                    ? "text-[#F5B83D]"
+                    : "text-[#E8E3DC] hover:text-[#F5B83D]"
+                }`}
+                aria-haspopup="true"
+                aria-expanded={isSisterConcernOpen}
+              >
+                <span>Sister Concern</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    isSisterConcernOpen
+                      ? "rotate-180 text-[#F5B83D]"
+                      : "text-neutral-400 group-hover:text-[#F5B83D]"
+                  }`}
+                />
+              </button>
+
+              {/* Sister Concern Floating Dark Dropdown Menu */}
+              <div
+                className={`absolute top-full left-0 mt-2 w-64 bg-[#1B1815] border border-white/10 rounded-2xl p-2 shadow-2xl z-50 backdrop-blur-md transition-all duration-200 before:absolute before:-top-3 before:left-0 before:w-full before:h-3 before:content-[''] ${
+                  isSisterConcernOpen
+                    ? "opacity-100 visible translate-y-0 pointer-events-auto"
+                    : "opacity-0 invisible pointer-events-none -translate-y-1"
+                }`}
+                role="menu"
+              >
+                {SISTER_CONCERN_ITEMS.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    role="menuitem"
+                    onClick={() => setIsSisterConcernOpen(false)}
+                    className="block text-[15px] text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 px-4 py-2.5 rounded-xl transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* 4. Our Team */}
+            <Link
+              href="/about#team"
+              className="text-[15px] text-[#E8E3DC] hover:text-[#F5B83D] font-medium transition-colors px-3 py-2 rounded-lg"
+            >
+              Our Team
+            </Link>
+
+            {/* 5. SMS Services */}
             <Link
               href={getHref("#services")}
               className="text-[15px] text-[#E8E3DC] hover:text-[#F5B83D] font-medium transition-colors px-3 py-2 rounded-lg"
@@ -262,7 +352,7 @@ export default function DynamicNavbar({
               SMS Services
             </Link>
 
-            {/* 3. Mobile Bill Solution */}
+            {/* 6. Mobile Bill Solution */}
             <Link
               href={getHref("#benefits")}
               className="text-[15px] text-[#E8E3DC] hover:text-[#F5B83D] font-medium transition-colors px-3 py-2 rounded-lg"
@@ -270,7 +360,7 @@ export default function DynamicNavbar({
               Mobile Bill Solution
             </Link>
 
-            {/* 4. Services Dropdown */}
+            {/* 7. Services Dropdown (Without Sister Concern) */}
             <div
               ref={servicesDropdownRef}
               className="relative group"
@@ -334,7 +424,7 @@ export default function DynamicNavbar({
               </div>
             </div>
 
-            {/* 5. Pricing */}
+            {/* 8. Pricing */}
             <Link
               href={getHref("#services")}
               className="text-[15px] text-[#E8E3DC] hover:text-[#F5B83D] font-medium transition-colors px-3 py-2 rounded-lg"
@@ -342,7 +432,7 @@ export default function DynamicNavbar({
               Pricing
             </Link>
 
-            {/* 6. Contact Us Dropdown */}
+            {/* 9. Contact Us Dropdown */}
             <div
               ref={contactDropdownRef}
               className="relative group"
@@ -552,7 +642,60 @@ export default function DynamicNavbar({
                   <span>Home</span>
                 </Link>
 
-                {/* 2. SMS Services */}
+                {/* 2. About Us */}
+                <Link
+                  href="/about"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 transition-all"
+                >
+                  <span>About Us</span>
+                </Link>
+
+                {/* 3. Sister Concern Accordion */}
+                <div className="space-y-1">
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileSisterConcernExpanded((prev) => !prev)}
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 transition-all"
+                    aria-label="Toggle sister concern options"
+                    aria-expanded={isMobileSisterConcernExpanded}
+                  >
+                    <span>Sister Concern</span>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        isMobileSisterConcernExpanded ? "rotate-180 text-[#F5B83D]" : "text-neutral-400"
+                      }`}
+                    />
+                  </button>
+
+                  <div
+                    className={`pl-4 pr-2 space-y-1 border-l-2 border-white/10 ml-4 transition-all duration-200 ${
+                      isMobileSisterConcernExpanded ? "block" : "hidden"
+                    }`}
+                  >
+                    {SISTER_CONCERN_ITEMS.map((item) => (
+                      <Link
+                        key={item.id}
+                        href={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block text-[15px] text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 px-4 py-2.5 rounded-xl transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 4. Our Team */}
+                <Link
+                  href="/about#team"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 transition-all"
+                >
+                  <span>Our Team</span>
+                </Link>
+
+                {/* 5. SMS Services */}
                 <Link
                   href={getHref("#services")}
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -561,7 +704,7 @@ export default function DynamicNavbar({
                   <span>SMS Services</span>
                 </Link>
 
-                {/* 3. Mobile Bill Solution */}
+                {/* 6. Mobile Bill Solution */}
                 <Link
                   href={getHref("#benefits")}
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -570,7 +713,7 @@ export default function DynamicNavbar({
                   <span>Mobile Bill Solution</span>
                 </Link>
 
-                {/* 4. Services Accordion */}
+                {/* 7. Services Accordion */}
                 <div className="space-y-1">
                   <button
                     type="button"
@@ -612,7 +755,7 @@ export default function DynamicNavbar({
                   </div>
                 </div>
 
-                {/* 5. Pricing */}
+                {/* 8. Pricing */}
                 <Link
                   href={getHref("#services")}
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -621,7 +764,7 @@ export default function DynamicNavbar({
                   <span>Pricing</span>
                 </Link>
 
-                {/* 6. Contact Us Accordion */}
+                {/* 9. Contact Us Accordion */}
                 <div className="space-y-1">
                   <button
                     type="button"
