@@ -59,11 +59,7 @@ export default function TopBar({
   return (
     <aside
       aria-label="Utility Announcement and Quick Actions"
-<<<<<<< Updated upstream
       className="w-full bg-[#E8E4DD]/95 dark:bg-[#12100E]/95 text-[13px] text-[#3D3630] dark:text-neutral-400 border-b border-[#2C2520]/12 dark:border-white/10 select-none rounded-t-2xl md:rounded-t-3xl transition-colors"
-=======
-      className="w-full bg-[#12100E]/90 text-neutral-400 border-b border-white/10 text-[13px] select-none rounded-t-2xl md:rounded-t-3xl"
->>>>>>> Stashed changes
     >
       <div className="w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="flex min-h-[42px] py-2 sm:py-2.5 items-center justify-between gap-4">
@@ -71,26 +67,15 @@ export default function TopBar({
           {/* Left Side: Announcement Text with Lightning/Zap Icon            */}
           {/* =============================================================== */}
           <div className="flex items-center gap-2.5 truncate">
-<<<<<<< Updated upstream
             <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#D49624]/15 dark:bg-[#F5B83D]/10 text-[#D49624] dark:text-[#F5B83D] shrink-0">
               <Zap className="w-3 h-3 fill-[#D49624] dark:fill-[#F5B83D] text-[#D49624] dark:text-[#F5B83D]" />
             </span>
             <p className="text-[13px] text-[#3D3630] dark:text-neutral-400 truncate font-normal leading-none flex items-center gap-1.5">
-=======
-            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#F5B83D]/15 text-[#F5B83D] shrink-0">
-              <Zap className="w-3 h-3 fill-[#F5B83D] text-[#F5B83D]" />
-            </span>
-            <p className="text-[13px] text-neutral-400 truncate font-normal leading-none flex items-center gap-1.5">
->>>>>>> Stashed changes
               <span>{announcementText}</span>
               {announcementLinkText && (
                 <Link
                   href={announcementHref}
-<<<<<<< Updated upstream
                   className="text-[#D49624] dark:text-[#F5B83D] font-bold hover:underline transition-colors"
-=======
-                  className="text-[#F5B83D] font-bold hover:underline transition-all"
->>>>>>> Stashed changes
                 >
                   {announcementLinkText}
                 </Link>
@@ -101,50 +86,29 @@ export default function TopBar({
           {/* =============================================================== */}
           {/* Right Side: Inline Utility Items (Time, Support, Lang, Theme)   */}
           {/* =============================================================== */}
-<<<<<<< Updated upstream
           <div className="flex items-center gap-3 sm:gap-4 md:gap-5 text-[13px] text-[#3D3630] dark:text-neutral-400 shrink-0">
             {/* Item 1: Clock Icon + Schedule */}
             <div className="hidden sm:flex items-center gap-2 font-medium">
               <Clock className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D] shrink-0" />
-=======
-          <div className="flex items-center gap-4 sm:gap-5 md:gap-6 text-[13px] shrink-0">
-            {/* Item 1: Clock Icon + Schedule */}
-            <div className="hidden sm:flex items-center gap-2 text-neutral-400 font-medium">
-              <Clock className="w-4 h-4 text-[#F5B83D] shrink-0" />
->>>>>>> Stashed changes
               <span className="tracking-tight">{scheduleText}</span>
             </div>
 
             {/* Separator on tablet+ */}
-<<<<<<< Updated upstream
             <span className="hidden sm:inline-block text-[#2C2520]/20 dark:text-white/10" aria-hidden="true">
-=======
-            <span className="hidden sm:inline-block text-white/10" aria-hidden="true">
->>>>>>> Stashed changes
               |
             </span>
 
             {/* Item 2: Support / Lifebuoy Icon + Support */}
             <Link
               href={supportHref}
-<<<<<<< Updated upstream
               className="flex items-center gap-2 hover:text-[#2C2520] dark:hover:text-white font-medium transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#D49624] dark:focus-visible:ring-[#F5B83D] rounded px-1 py-0.5"
             >
               <LifeBuoy className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D] shrink-0" />
-=======
-              className="flex items-center gap-2 text-neutral-400 hover:text-white font-medium transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#F5B83D] rounded px-1 py-0.5"
-            >
-              <LifeBuoy className="w-4 h-4 text-[#F5B83D] shrink-0" />
->>>>>>> Stashed changes
               <span>Support</span>
             </Link>
 
             {/* Separator */}
-<<<<<<< Updated upstream
             <span className="text-[#2C2520]/20 dark:text-white/10" aria-hidden="true">
-=======
-            <span className="text-white/10" aria-hidden="true">
->>>>>>> Stashed changes
               |
             </span>
 
@@ -153,45 +117,25 @@ export default function TopBar({
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen((prev) => !prev)}
-<<<<<<< Updated upstream
                 className="flex items-center gap-1.5 sm:gap-2 text-[#3D3630] dark:text-neutral-400 hover:text-[#2C2520] dark:hover:text-white transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#D49624] dark:focus-visible:ring-[#F5B83D] rounded px-1.5 py-0.5"
-=======
-                className="flex items-center gap-2 text-neutral-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#F5B83D] rounded px-1.5 py-0.5"
->>>>>>> Stashed changes
                 aria-haspopup="listbox"
                 aria-expanded={isDropdownOpen}
                 aria-label="Select display language"
               >
-<<<<<<< Updated upstream
                 <Globe className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D] shrink-0" />
                 <span className="font-semibold text-[#2C2520] dark:text-neutral-300">{selectedLanguage}</span>
                 <ChevronDown
                   className={`w-3.5 h-3.5 text-[#6E665E] dark:text-neutral-400 transition-transform duration-150 ${
                     isDropdownOpen ? "rotate-180 text-[#D49624] dark:text-[#F5B83D]" : ""
-=======
-                <Globe className="w-4 h-4 text-[#F5B83D] shrink-0" />
-                <span className="font-semibold text-neutral-300">{selectedLanguage}</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-150 ${
-                    isDropdownOpen ? "rotate-180 text-[#F5B83D]" : ""
->>>>>>> Stashed changes
                   }`}
                 />
               </button>
 
-<<<<<<< Updated upstream
               {/* Language Selection Popover */}
               {isDropdownOpen && (
                 <div
                   role="listbox"
                   className="absolute right-0 top-full mt-1.5 w-36 py-1.5 bg-[#E5E2DC] dark:bg-[#1B1815] border border-[#2C2520]/15 dark:border-white/10 rounded-xl shadow-xl z-50 animate-in fade-in-50 zoom-in-95 duration-100"
-=======
-              {/* Language Selection Popover (Dark theme) */}
-              {isDropdownOpen && (
-                <div
-                  role="listbox"
-                  className="absolute right-0 top-full mt-1.5 w-36 py-1.5 bg-[#1B1815] border border-white/10 rounded-xl shadow-xl z-50 animate-in fade-in-50 zoom-in-95 duration-100"
->>>>>>> Stashed changes
                 >
                   <button
                     type="button"
@@ -201,26 +145,15 @@ export default function TopBar({
                       setSelectedLanguage("English");
                       setIsDropdownOpen(false);
                     }}
-<<<<<<< Updated upstream
                     className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-xs sm:text-sm transition-colors ${
                       selectedLanguage === "English"
                         ? "bg-[#2C2520]/10 dark:bg-white/10 text-[#D49624] dark:text-[#F5B83D] font-bold"
                         : "text-[#2C2520] dark:text-neutral-300 hover:bg-[#2C2520]/5 dark:hover:bg-white/5 hover:text-[#2C2520] dark:hover:text-white"
-=======
-                    className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-xs transition-colors ${
-                      selectedLanguage === "English"
-                        ? "bg-white/10 text-[#F5B83D] font-bold"
-                        : "text-neutral-300 hover:bg-white/5 hover:text-white"
->>>>>>> Stashed changes
                     }`}
                   >
                     <span>English</span>
                     {selectedLanguage === "English" && (
-<<<<<<< Updated upstream
                       <Check className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D]" />
-=======
-                      <Check className="w-4 h-4 text-[#F5B83D]" />
->>>>>>> Stashed changes
                     )}
                   </button>
 
@@ -232,26 +165,15 @@ export default function TopBar({
                       setSelectedLanguage("Bangla");
                       setIsDropdownOpen(false);
                     }}
-<<<<<<< Updated upstream
                     className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-xs sm:text-sm transition-colors ${
                       selectedLanguage === "Bangla"
                         ? "bg-[#2C2520]/10 dark:bg-white/10 text-[#D49624] dark:text-[#F5B83D] font-bold"
                         : "text-[#2C2520] dark:text-neutral-300 hover:bg-[#2C2520]/5 dark:hover:bg-white/5 hover:text-[#2C2520] dark:hover:text-white"
-=======
-                    className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-xs transition-colors ${
-                      selectedLanguage === "Bangla"
-                        ? "bg-white/10 text-[#F5B83D] font-bold"
-                        : "text-neutral-300 hover:bg-white/5 hover:text-white"
->>>>>>> Stashed changes
                     }`}
                   >
                     <span>বাংলা (Bangla)</span>
                     {selectedLanguage === "Bangla" && (
-<<<<<<< Updated upstream
                       <Check className="w-4 h-4 text-[#D49624] dark:text-[#F5B83D]" />
-=======
-                      <Check className="w-4 h-4 text-[#F5B83D]" />
->>>>>>> Stashed changes
                     )}
                   </button>
                 </div>
