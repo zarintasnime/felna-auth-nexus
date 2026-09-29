@@ -393,18 +393,6 @@ export default function UserDashboardClient({ initialUser }: UserDashboardClient
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-300/80 py-6 px-4 bg-slate-200/90 text-center text-xs text-slate-600">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-blue-600" />
-            <span className="font-bold text-slate-800">Felna.com</span>
-            <span>&mdash; Secure Member Portal</span>
-          </div>
-          <p className="text-slate-500">&copy; {new Date().getFullYear()} Felna. All rights reserved.</p>
-        </div>
-      </footer>
-
       {/* Edit Profile Modal - Clean White Card with Rounded-2xl & Soft Shadow */}
       {isEditModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs">

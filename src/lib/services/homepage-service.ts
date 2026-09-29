@@ -11,7 +11,7 @@ export const FELNA_MOCK_RAW_PAYLOAD: RawHomePagePayload = {
     { Id: "nav-1", nav_nm: "Home", nav_url: "#home" },
     { Id: "nav-2", nav_nm: "About Us", nav_url: "/about" },
     { Id: "nav-3", nav_nm: "Contact Us", nav_url: "/contact" },
-    { Id: "nav-4", nav_nm: "Mobile Bill Solution", nav_url: "#benefits" },
+    { Id: "nav-4", nav_nm: "Sister Concern", nav_url: "#sister-concern" },
     { Id: "nav-5", nav_nm: "SEO", nav_url: "#why-choose-us" },
     { Id: "nav-6", nav_nm: "Support", nav_url: "#contact" },
     { Id: "nav-7", nav_nm: "Content Creator", nav_url: "#services" },

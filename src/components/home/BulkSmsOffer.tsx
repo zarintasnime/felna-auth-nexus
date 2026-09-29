@@ -34,11 +34,15 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
 
   return (
     <section
-      id="services"
+      id="pricing"
       aria-labelledby="bulk-sms-offer-title"
       className="relative w-full py-24 md:py-32 px-4 sm:px-6 overflow-hidden scroll-mt-20"
     >
+<<<<<<< Updated upstream
       <span id="pricing" className="absolute -top-24 block invisible pointer-events-none" aria-hidden="true" />
+=======
+      <div id="services" className="absolute -top-20" />
+>>>>>>> Stashed changes
       {/* Background Faint Dotted Grid Texture to ground the section */}
       <div
         className="absolute inset-0 bg-[radial-gradient(rgba(44,37,32,0.06)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"

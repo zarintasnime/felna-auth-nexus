@@ -43,7 +43,11 @@ export default function LogoutButton({
   // Variant styles
   const variantStyles = {
     navbar:
+<<<<<<< Updated upstream
       "inline-flex items-center gap-2 px-4 h-10 text-sm font-medium text-neutral-300 hover:text-rose-400 bg-white/5 hover:bg-rose-500/10 rounded-full transition-colors border border-white/10 hover:border-rose-500/30",
+=======
+      "inline-flex items-center gap-2 h-10 px-4 text-xs font-semibold text-neutral-300 hover:text-rose-400 bg-white/5 hover:bg-rose-500/10 rounded-full transition-colors border border-white/10 hover:border-rose-500/30",
+>>>>>>> Stashed changes
     compact:
       "inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition",
     destructive:
