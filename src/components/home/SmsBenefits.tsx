@@ -51,7 +51,7 @@ export default function SmsBenefits({ benefits }: SmsBenefitsProps) {
   };
 
   const items: AccordionBenefit[] =
-    benefits && benefits.length >= 5
+    benefits && benefits.length > 0
       ? benefits.map((b) => ({ title: b.title, description: b.description }))
       : DEFAULT_BENEFITS;
 

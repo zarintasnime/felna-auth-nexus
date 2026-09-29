@@ -18,17 +18,20 @@ import MobileBottomBar from "@/components/home/MobileBottomBar";
 import Footer from "@/components/home/Footer";
 import { getSession } from "@/lib/auth";
 import { getHomePageData } from "@/lib/services/homepage-service";
+import { getCmsSiteSettings, getCmsSocialLinks } from "@/lib/services/cms-service";
 
 export const metadata: Metadata = {
-  title: "Office Address & Locations | IGL Group & Felna.com",
+  title: "Office Address & Locations | Felna.com",
   description:
-    "Find our Dhaka and Chittagong office locations. Get in touch with IGL Group for carrier-grade Bulk SMS, OTP gateways, and enterprise IT solutions.",
+    "Find our Dhaka and Chittagong office locations. Get in touch with Felna.com for carrier-grade Bulk SMS, OTP gateways, and enterprise IT solutions.",
 };
 
 export default async function AddressPage() {
-  const [session, homeData] = await Promise.all([
+  const [session, homeData, settings, socialLinks] = await Promise.all([
     getSession(),
     getHomePageData(),
+    getCmsSiteSettings(),
+    getCmsSocialLinks(true),
   ]);
 
   return (
@@ -54,7 +57,13 @@ export default async function AddressPage() {
       {/* =================================================================== */}
       <header className="w-full relative z-20">
         <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative z-30">
-          <TopBar />
+          <TopBar
+            announcementText={settings.announcementText}
+            announcementLinkText={settings.announcementLinkText}
+            announcementHref={settings.announcementLinkUrl}
+            scheduleText={settings.scheduleText}
+            supportHref="/contact"
+          />
           <DynamicNavbar
             items={homeData.navItems}
             initialSession={
@@ -375,9 +384,9 @@ export default async function AddressPage() {
       </main>
 
       {/* =================================================================== */}
-      {/* 5. Universal Footer                                                 */}
+      {/* Universal Footer */}
       {/* =================================================================== */}
-      <Footer />
+      <Footer settings={settings} socialLinks={socialLinks} />
 
       {/* Sticky Mobile Quick Action Bar */}
       <MobileBottomBar />

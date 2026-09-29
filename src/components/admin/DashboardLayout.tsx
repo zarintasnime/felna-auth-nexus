@@ -21,6 +21,7 @@ import {
   ExternalLink,
   ChevronDown,
   Home,
+  Globe,
 } from "lucide-react";
 
 interface AdminUserSession {
@@ -47,6 +48,12 @@ const NAV_ITEMS: NavItem[] = [
     label: "Dashboard",
     href: "/admin/dashboard",
     icon: LayoutDashboard,
+  },
+  {
+    label: "Content & CMS",
+    href: "/admin/cms",
+    icon: Globe,
+    badge: "Live",
   },
   {
     label: "User Management",

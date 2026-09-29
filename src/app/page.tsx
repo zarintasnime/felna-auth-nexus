@@ -20,11 +20,13 @@ import {
 } from "@/components/home/HomeSkeletons";
 import { getSession } from "@/lib/auth";
 import { getHomePageData } from "@/lib/services/homepage-service";
+import { getPublicCmsData } from "@/lib/services/cms-service";
 
 export default async function HomePage() {
-  const [session, homeData] = await Promise.all([
+  const [session, homeData, cmsData] = await Promise.all([
     getSession(),
     getHomePageData(),
+    getPublicCmsData(),
   ]);
 
   return (
@@ -34,8 +36,14 @@ export default async function HomePage() {
       {/* =================================================================== */}
       <header className="w-full relative z-20">
         <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative z-30">
-          {/* Top Utility Bar (Edge-to-Edge) */}
-          <TopBar />
+          {/* Top Utility Bar (Dynamic from CMS Settings) */}
+          <TopBar
+            announcementText={cmsData.settings.announcementText}
+            announcementLinkText={cmsData.settings.announcementLinkText}
+            announcementHref={cmsData.settings.announcementLinkUrl}
+            scheduleText={cmsData.settings.scheduleText}
+            supportHref="/contact"
+          />
 
           {/* Dynamic Frosted Navbar (Edge-to-Edge) */}
           <DynamicNavbar
@@ -67,9 +75,9 @@ export default async function HomePage() {
       {/* Main Content Area: Sections 3 to 6 + Security Overview              */}
       {/* =================================================================== */}
       <main className="flex-1">
-        {/* Trusted Partners / Client Logo Carousel (Immediately after HeroSlider, before BulkSmsOffer) */}
+        {/* Trusted Partners / Client Logo Carousel (Dynamic from CMS) */}
         <SectionErrorBoundary sectionName="Trusted Partners">
-          <TrustedPartners />
+          <TrustedPartners partners={cmsData.partners} />
         </SectionErrorBoundary>
 
         {/* Section 3: Bulk SMS Promotional Offer Block */}
@@ -154,9 +162,9 @@ export default async function HomePage() {
       </main>
 
       {/* =================================================================== */}
-      {/* Universal Footer                                                    */}
+      {/* Universal Footer (Dynamic from CMS Settings & Social Links)         */}
       {/* =================================================================== */}
-      <Footer />
+      <Footer settings={cmsData.settings} socialLinks={cmsData.socialLinks} />
 
       {/* Sticky Mobile Quick Action Bar (<640px) */}
       <MobileBottomBar />

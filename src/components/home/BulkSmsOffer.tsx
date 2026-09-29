@@ -19,6 +19,19 @@ export interface BulkSmsOfferProps {
 }
 
 export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
+  const badgeText = offer?.badge || "Special Promotional Offer";
+  const rawTitle =
+    offer?.title ||
+    "২৩ পয়সা প্রতি এসএমএস — আপনার ওটিপি মাত্র ২ সেকেন্ডে আপনার গ্রাহক পাবে।";
+  const titleParts = rawTitle.includes("—") ? rawTitle.split("—") : [rawTitle];
+  const primaryTitlePart = titleParts[0]?.trim() || rawTitle;
+  const secondaryTitlePart = titleParts[1]?.trim();
+  const descriptionText =
+    offer?.description ||
+    "Felna.com provides reliable bulk SMS services with carrier-grade direct operator interconnects across Bangladesh. Deliver OTPs and transactional notifications in 2 seconds with ২৩ পয়সা lowest rates, 99.98% delivery success, automated recharge, and developer-friendly REST APIs.";
+  const ctaLabel = offer?.ctaText || "See packages";
+  const ctaDestination = offer?.ctaUrl || "/register";
+
   return (
     <section
       id="services"
@@ -55,7 +68,7 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F5B83D] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F5B83D]" />
               </span>
-              <span>Special Promotional Offer</span>
+              <span>{badgeText}</span>
             </div>
 
             {/* Headline: Price as Hero (Two distinct lines) */}
@@ -64,16 +77,18 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
               className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight leading-[1.18]"
             >
               <span className="text-[#F5B83D] block mb-2">
-                ২৩ পয়সা প্রতি এসএমএস
+                {primaryTitlePart}
               </span>
-              <span className="text-white block text-2xl sm:text-3xl lg:text-[32px] font-bold leading-snug">
-                আপনার ওটিপি মাত্র ২ সেকেন্ডে আপনার গ্রাহক পাবে।
-              </span>
+              {secondaryTitlePart && (
+                <span className="text-white block text-2xl sm:text-3xl lg:text-[32px] font-bold leading-snug">
+                  {secondaryTitlePart}
+                </span>
+              )}
             </h2>
 
             {/* Paragraph: Styled & brand standardized */}
             <p className="text-[16px] md:text-[17px] text-[#B9B0A5] leading-relaxed max-w-[65ch] mt-4 font-normal">
-              Felna.com provides reliable bulk SMS services with carrier-grade direct operator interconnects across Bangladesh. Deliver OTPs and transactional notifications in 2 seconds with ২৩ পয়সা lowest rates, 99.98% delivery success, automated recharge, and developer-friendly REST APIs.
+              {descriptionText}
             </p>
 
             {/* Checklist Chips: 2x2 Grid with Amber Icons and Pill Styling */}
@@ -103,10 +118,10 @@ export default function BulkSmsOffer({ offer }: BulkSmsOfferProps) {
             <div className="flex flex-wrap items-center gap-4 pt-1">
               {/* Primary: Solid Amber Button */}
               <Link
-                href={offer?.ctaUrl || "/register"}
+                href={ctaDestination}
                 className="bg-[#F5B83D] hover:bg-[#e5aa32] text-black font-semibold h-[52px] px-8 rounded-full inline-flex items-center justify-center gap-2 transition-all duration-200 shadow-lg shadow-[#F5B83D]/20 active:scale-[0.98]"
               >
-                <span>See packages</span>
+                <span>{ctaLabel}</span>
                 <ArrowRight className="w-4 h-4 text-black" />
               </Link>
 

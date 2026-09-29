@@ -1,8 +1,9 @@
-import { RawHomePagePayload, HomePagePayload } from "@/types/homepage";
+import { RawHomePagePayload, HomePagePayload, HeroSlide, BulkSmsOfferData, MarketingSectionData, BenefitItem, ServiceFeatureItem } from "@/types/homepage";
 import { normalizeHomePageData } from "@/lib/adapters/homepage-adapter";
+import { getPublicCmsData } from "@/lib/services/cms-service";
 
 // =============================================================================
-// Realistic Mock Payload Tailored for "Felna SMS"
+// Realistic Fallback Mock Payload
 // =============================================================================
 
 export const FELNA_MOCK_RAW_PAYLOAD: RawHomePagePayload = {
@@ -49,13 +50,13 @@ export const FELNA_MOCK_RAW_PAYLOAD: RawHomePagePayload = {
     },
   ],
   bulkSmsOffer: {
-    Title: "Mega Ramadan & Eid Special Bulk SMS Package — Starting at 23 Paisa",
+    Title: "২৩ পয়সা প্রতি এসএমএস — আপনার ওটিপি মাত্র ২ সেকেন্ডে আপনার গ্রাহক পাবে।",
     Description:
-      "Supercharge your business promotional campaigns with Bangladesh's most reliable high-throughput SMS route. Enjoy instant sender-ID approval, automated phone normalization (+880), real-time operator DLR, and dedicated 24/7 technical support.",
+      "Felna.com provides reliable bulk SMS services with carrier-grade direct operator interconnects across Bangladesh. Deliver OTPs and transactional notifications in 2 seconds with ২৩ পয়সা lowest rates, 99.98% delivery success, automated recharge, and developer-friendly REST APIs.",
     Image:
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1000&q=80",
     badge: "Special Promotional Offer",
-    ctaText: "Claim 23 Paisa Rate",
+    ctaText: "See packages",
     ctaUrl: "/register",
   },
   marketingSection: {
@@ -142,37 +143,73 @@ export const FELNA_MOCK_RAW_PAYLOAD: RawHomePagePayload = {
 
 /**
  * Fetches dynamic homepage content.
- * Simulates Next.js ISR via { next: { revalidate: 60 } } and guards against network latency.
- * Falls back gracefully to realistic Felna SMS mock data when backend API is not yet active.
+ * Prioritizes live Neon PostgreSQL CMS database with on-demand ISR caching.
+ * Gracefully falls back to resilient dataset if database is unreachable.
  */
 export async function getHomePageData(): Promise<HomePagePayload> {
-  const apiUrl = process.env.HOMEPAGE_API_URL;
-
-  // 1. If no external backend API URL configured, return the normalized mock payload immediately
-  if (!apiUrl) {
-    return normalizeHomePageData(FELNA_MOCK_RAW_PAYLOAD);
-  }
-
-  // 2. Fetch from live backend admin panel with ISR caching & 4-second timeout guard
   try {
-    const res = await fetch(apiUrl, {
-      method: "GET",
-      next: { revalidate: 60 }, // Revalidate every 60 seconds (Next.js ISR)
-      signal: AbortSignal.timeout(4000), // 4-second safety guardrail
-    });
+    const cmsData = await getPublicCmsData();
 
-    if (!res.ok) {
-      console.warn(
-        `[HOMEPAGE_SERVICE] External API returned HTTP ${res.status}. Falling back to default mock data.`
-      );
-      return normalizeHomePageData(FELNA_MOCK_RAW_PAYLOAD);
-    }
+    // Map DB models to HomePagePayload domain models
+    const heroSlides: HeroSlide[] = cmsData.heroSlides.map((s) => ({
+      id: s.id,
+      title: s.title,
+      subtitle: s.subtitle || undefined,
+      badge: s.badge || undefined,
+      imageUrl: s.imageUrl,
+      linkUrl: s.linkUrl || undefined,
+    }));
 
-    const rawData = (await res.json()) as RawHomePagePayload;
-    return normalizeHomePageData(rawData);
-  } catch (error: any) {
+    const offer: BulkSmsOfferData | null = cmsData.bulkSmsOffer
+      ? {
+          title: cmsData.bulkSmsOffer.title,
+          description: cmsData.bulkSmsOffer.description || "",
+          imageUrl: cmsData.bulkSmsOffer.imageUrl || "",
+          badge: cmsData.bulkSmsOffer.badge || undefined,
+          ctaText: cmsData.bulkSmsOffer.ctaText || undefined,
+          ctaUrl: cmsData.bulkSmsOffer.ctaUrl || undefined,
+        }
+      : null;
+
+    const marketing: MarketingSectionData | null = cmsData.marketingSection
+      ? {
+          title: cmsData.marketingSection.title,
+          subtitle: cmsData.marketingSection.subtitle || undefined,
+          imageUrl: cmsData.marketingSection.imageUrl || "",
+          ctaText: cmsData.marketingSection.ctaText || undefined,
+          ctaUrl: cmsData.marketingSection.ctaUrl || undefined,
+        }
+      : null;
+
+    const benefits: BenefitItem[] = cmsData.benefits.map((b) => ({
+      id: b.id,
+      title: b.title,
+      description: b.description,
+      iconName: b.iconName || undefined,
+    }));
+
+    const features: ServiceFeatureItem[] = cmsData.whyChooseUs.map((w) => ({
+      id: w.id,
+      title: w.title,
+      description: w.description,
+      iconName: w.iconName || undefined,
+      imageUrl: w.imageUrl || undefined,
+    }));
+
+    const normalizedFallback = normalizeHomePageData(FELNA_MOCK_RAW_PAYLOAD);
+
+    return {
+      navItems: normalizedFallback.navItems,
+      heroSlides: heroSlides.length > 0 ? heroSlides : normalizedFallback.heroSlides,
+      offer: offer || normalizedFallback.offer,
+      marketing: marketing || normalizedFallback.marketing,
+      benefits: benefits.length > 0 ? benefits : normalizedFallback.benefits,
+      features: features.length > 0 ? features : normalizedFallback.features,
+    };
+  } catch (error) {
     console.warn(
-      `[HOMEPAGE_SERVICE] Failed to connect to ${apiUrl} (${error.message}). Using resilient fallback dataset.`
+      "[HOMEPAGE_SERVICE] Falling back to default mock data due to error:",
+      error
     );
     return normalizeHomePageData(FELNA_MOCK_RAW_PAYLOAD);
   }

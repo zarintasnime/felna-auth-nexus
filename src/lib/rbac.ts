@@ -77,18 +77,24 @@ export async function requirePermission(
 
 /**
  * Helper to check if a user can manage CMS content (write/edit).
+ * Accepts either a SessionPayload or a role string.
  */
-export function canManageCMS(session: SessionPayload | null): boolean {
-  if (!session) return false;
+export function canManageCMS(sessionOrRole: SessionPayload | string | null | undefined): boolean {
+  if (!sessionOrRole) return false;
+  const role = typeof sessionOrRole === "string" ? sessionOrRole : sessionOrRole.role;
   return (
-    session.role === ROLES.ADMIN ||
-    hasPermission(session.role, PERMISSIONS.CMS_WRITE)
+    role === ROLES.ADMIN ||
+    role === ROLES.SUPER_ADMIN ||
+    hasPermission(role, PERMISSIONS.CMS_WRITE)
   );
 }
 
 /**
  * Helper to check if a user is an admin without throwing.
+ * Accepts either a SessionPayload or a role string.
  */
-export function isAdmin(session: SessionPayload | null): boolean {
-  return session?.role === ROLES.ADMIN;
+export function isAdmin(sessionOrRole: SessionPayload | string | null | undefined): boolean {
+  if (!sessionOrRole) return false;
+  const role = typeof sessionOrRole === "string" ? sessionOrRole : sessionOrRole.role;
+  return role === ROLES.ADMIN || role === ROLES.SUPER_ADMIN;
 }

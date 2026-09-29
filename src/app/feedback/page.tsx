@@ -18,17 +18,20 @@ import Footer from "@/components/home/Footer";
 import FeedbackForm from "@/components/feedback/FeedbackForm";
 import { getSession } from "@/lib/auth";
 import { getHomePageData } from "@/lib/services/homepage-service";
+import { getCmsSiteSettings, getCmsSocialLinks } from "@/lib/services/cms-service";
 
 export const metadata: Metadata = {
-  title: "Feedback & Inquiries | Felna.com & IGL Group",
+  title: "Feedback & Inquiries | Felna.com",
   description:
     "We value your feedback. Rate your experience and send us your thoughts or inquiries to help us continuously improve our Bulk SMS and IT solutions.",
 };
 
 export default async function FeedbackPage() {
-  const [session, homeData] = await Promise.all([
+  const [session, homeData, settings, socialLinks] = await Promise.all([
     getSession(),
     getHomePageData(),
+    getCmsSiteSettings(),
+    getCmsSocialLinks(true),
   ]);
 
   return (
@@ -54,7 +57,13 @@ export default async function FeedbackPage() {
       {/* =================================================================== */}
       <header className="w-full relative z-20">
         <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative z-30">
-          <TopBar />
+          <TopBar
+            announcementText={settings.announcementText}
+            announcementLinkText={settings.announcementLinkText}
+            announcementHref={settings.announcementLinkUrl}
+            scheduleText={settings.scheduleText}
+            supportHref="/contact"
+          />
           <DynamicNavbar
             items={homeData.navItems}
             initialSession={
@@ -184,9 +193,9 @@ export default async function FeedbackPage() {
       </main>
 
       {/* =================================================================== */}
-      {/* 3. Universal Footer                                                 */}
+      {/* Universal Footer */}
       {/* =================================================================== */}
-      <Footer />
+      <Footer settings={settings} socialLinks={socialLinks} />
 
       {/* Sticky Mobile Quick Action Bar */}
       <MobileBottomBar />

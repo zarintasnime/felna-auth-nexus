@@ -14,18 +14,25 @@ import Footer from "@/components/home/Footer";
 import ContactForm from "@/components/contact/ContactForm";
 import { getSession } from "@/lib/auth";
 import { getHomePageData } from "@/lib/services/homepage-service";
+import { getCmsSiteSettings, getCmsSocialLinks } from "@/lib/services/cms-service";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Felna.com & IGL Group",
+  title: "Contact Us | Felna.com",
   description:
     "Ready to help you! We're here to help and answer any question you might have about our Bulk SMS and IT solutions.",
 };
 
 export default async function ContactPage() {
-  const [session, homeData] = await Promise.all([
+  const [session, homeData, settings, socialLinks] = await Promise.all([
     getSession(),
     getHomePageData(),
+    getCmsSiteSettings(),
+    getCmsSocialLinks(true),
   ]);
+
+  const phone = settings.primaryPhone || "+880-1958-666999";
+  const email = settings.supportEmail || "support@iglweb.com";
+  const address = settings.officeAddress || "Felna HQ, Dhaka, Bangladesh";
 
   return (
     <div className="min-h-screen bg-[#12100E] text-[#fcfbf9] flex flex-col justify-between selection:bg-[#4a3b32] selection:text-[#fcfbf9] relative overflow-hidden">
@@ -45,7 +52,13 @@ export default async function ContactPage() {
       {/* =================================================================== */}
       <header className="w-full relative z-20">
         <div className="w-[98%] 2xl:w-[98.5%] max-w-[1880px] mx-auto my-3 md:my-5 rounded-2xl md:rounded-3xl border border-neutral-800/60 bg-[#201915] shadow-2xl shadow-black/60 relative z-30">
-          <TopBar />
+          <TopBar
+            announcementText={settings.announcementText}
+            announcementLinkText={settings.announcementLinkText}
+            announcementHref={settings.announcementLinkUrl}
+            scheduleText={settings.scheduleText}
+            supportHref="/contact"
+          />
           <DynamicNavbar
             items={homeData.navItems}
             initialSession={
@@ -92,7 +105,7 @@ export default async function ContactPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* Item 1: Call us directly? */}
               <a
-                href="tel:+8801958666999"
+                href={`tel:${phone.replace(/[^0-9+]/g, "")}`}
                 className="group flex flex-col p-6 rounded-2xl bg-[#1B1815] border border-white/5 hover:border-[#F5B83D]/30 hover:-translate-y-1 transition-all duration-300 shadow-md block"
               >
                 <div className="w-12 h-12 bg-white/5 text-[#F5B83D] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#F5B83D]/15 transition-all">
@@ -102,13 +115,13 @@ export default async function ContactPage() {
                   Call us directly?
                 </span>
                 <span className="text-white font-semibold text-base mt-1 group-hover:text-[#F5B83D] transition-colors">
-                  +880-1958-666999
+                  {phone}
                 </span>
               </a>
 
               {/* Item 2: Need live support? */}
               <a
-                href="mailto:services@iglgroup.org"
+                href={`mailto:${email}`}
                 className="group flex flex-col p-6 rounded-2xl bg-[#1B1815] border border-white/5 hover:border-[#F5B83D]/30 hover:-translate-y-1 transition-all duration-300 shadow-md block"
               >
                 <div className="w-12 h-12 bg-white/5 text-[#F5B83D] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#F5B83D]/15 transition-all">
@@ -118,13 +131,13 @@ export default async function ContactPage() {
                   Need live support?
                 </span>
                 <span className="text-white font-semibold text-base mt-1 group-hover:text-[#F5B83D] transition-colors break-all">
-                  services@iglgroup.org
+                  {email}
                 </span>
               </a>
 
               {/* Item 3: Join growing team? */}
               <a
-                href="mailto:careers@iglgroup.org"
+                href={`mailto:${email}`}
                 className="group flex flex-col p-6 rounded-2xl bg-[#1B1815] border border-white/5 hover:border-[#F5B83D]/30 hover:-translate-y-1 transition-all duration-300 shadow-md block"
               >
                 <div className="w-12 h-12 bg-white/5 text-[#F5B83D] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#F5B83D]/15 transition-all">
@@ -134,7 +147,7 @@ export default async function ContactPage() {
                   Join growing team?
                 </span>
                 <span className="text-white font-semibold text-base mt-1 group-hover:text-[#F5B83D] transition-colors break-all">
-                  careers@iglgroup.org
+                  careers@felna.com
                 </span>
               </a>
 
@@ -152,7 +165,7 @@ export default async function ContactPage() {
                   Visit headquarters?
                 </span>
                 <span className="text-[#F5B83D] font-semibold text-base mt-1 flex items-center gap-1.5 group-hover:underline">
-                  <span>View on google map</span>
+                  <span>{address}</span>
                   <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
               </a>
@@ -170,9 +183,9 @@ export default async function ContactPage() {
       </main>
 
       {/* =================================================================== */}
-      {/* 3. Universal Footer                                                 */}
+      {/* 3. Universal Footer (Dynamic from CMS)                              */}
       {/* =================================================================== */}
-      <Footer />
+      <Footer settings={settings} socialLinks={socialLinks} />
 
       {/* Sticky Mobile Quick Action Bar */}
       <MobileBottomBar />

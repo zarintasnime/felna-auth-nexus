@@ -8,6 +8,18 @@ import {
   Headset,
   ShieldCheck,
   ArrowRight,
+  CheckCircle,
+  Zap,
+  TrendingUp,
+  Cpu,
+  Server,
+  Smartphone,
+  BarChart,
+  Users,
+  Award,
+  Globe,
+  Lock,
+  Send,
 } from "lucide-react";
 import { ServiceFeatureItem } from "@/types/homepage";
 
@@ -48,7 +60,6 @@ function resolveCardIcon(iconName?: string, index = 0): React.ComponentType<{ cl
   switch (iconName?.toLowerCase()) {
     case "wallet":
     case "creditcard":
-    case "smartphone":
       return Wallet;
     case "messagesquaretext":
     case "messagessquare":
@@ -63,8 +74,37 @@ function resolveCardIcon(iconName?: string, index = 0): React.ComponentType<{ cl
     case "shieldcheck":
     case "shield-check":
     case "badgecheck":
-    case "settings":
+    case "security":
       return ShieldCheck;
+    case "checkcircle":
+    case "check":
+      return CheckCircle;
+    case "zap":
+    case "lightning":
+      return Zap;
+    case "trendingup":
+    case "growth":
+      return TrendingUp;
+    case "cpu":
+      return Cpu;
+    case "server":
+      return Server;
+    case "smartphone":
+    case "mobile":
+      return Smartphone;
+    case "barchart":
+    case "analytics":
+      return BarChart;
+    case "users":
+      return Users;
+    case "award":
+      return Award;
+    case "globe":
+      return Globe;
+    case "lock":
+      return Lock;
+    case "send":
+      return Send;
     default:
       return DEFAULT_CARDS[index % DEFAULT_CARDS.length].icon;
   }
@@ -74,8 +114,8 @@ export default function WhyChooseUs({ features }: WhyChooseUsProps) {
   // Map dynamic features if provided and non-empty, applying grammar corrections and defaults
   const cards: FeatureCard[] =
     features && features.length > 0
-      ? features.slice(0, 4).map((f, i) => {
-          let desc = f.description || DEFAULT_CARDS[i].description;
+      ? features.map((f, i) => {
+          let desc = f.description || DEFAULT_CARDS[i % DEFAULT_CARDS.length].description;
           if (
             desc.includes("We are ensure Support and service") ||
             desc.includes("by mail/phone")
@@ -83,7 +123,7 @@ export default function WhyChooseUs({ features }: WhyChooseUsProps) {
             desc = "We ensure 24/7 support by mail and phone.";
           }
           return {
-            title: f.title || DEFAULT_CARDS[i].title,
+            title: f.title || DEFAULT_CARDS[i % DEFAULT_CARDS.length].title,
             description: desc,
             icon: resolveCardIcon(f.iconName, i),
           };

@@ -2,6 +2,13 @@
 
 import React from "react";
 
+export interface PartnerItem {
+  id?: string;
+  name: string;
+  logoUrl?: string | null;
+  websiteUrl?: string | null;
+}
+
 export const PARTNERS: string[] = [
   "Grameenphone",
   "Banglalink",
@@ -19,13 +26,15 @@ export const PARTNERS: string[] = [
 
 export interface TrustedPartnersProps {
   title?: string;
-  partners?: string[];
+  partners?: (string | PartnerItem)[];
 }
 
 export default function TrustedPartners({
   title = "Trusted by Leading Telecom & Corporate Brands",
   partners = PARTNERS,
 }: TrustedPartnersProps) {
+  const partnerList = partners && partners.length > 0 ? partners : PARTNERS;
+
   return (
     <section
       id="sister-concern"
@@ -61,16 +70,32 @@ export default function TrustedPartners({
         <div className="flex select-none">
           {/* Primary Track */}
           <div className="flex shrink-0 animate-marquee items-center">
-            {partners.map((partner, index) => (
-              <div
-                key={`partner-track1-${index}`}
-                className="group flex items-center justify-center min-w-[240px] h-20 mx-4 rounded-2xl bg-neutral-900/40 border border-neutral-800/80 backdrop-blur-sm transition-all duration-300 hover:bg-neutral-800 hover:border-neutral-600 hover:shadow-lg cursor-pointer px-6"
-              >
-                <span className="text-xl md:text-2xl font-black tracking-tight text-neutral-500 group-hover:text-white transition-colors duration-300 uppercase whitespace-nowrap">
-                  {partner}
-                </span>
-              </div>
-            ))}
+            {partnerList.map((partner, index) => {
+              const name = typeof partner === "string" ? partner : partner.name;
+              const logoUrl = typeof partner === "string" ? null : partner.logoUrl;
+              const websiteUrl = typeof partner === "string" ? null : partner.websiteUrl;
+
+              return (
+                <div
+                  key={`partner-track1-${index}`}
+                  className="group flex items-center justify-center min-w-[200px] h-20 mx-4 rounded-2xl bg-neutral-900/40 border border-neutral-800/80 backdrop-blur-sm transition-all duration-300 hover:bg-neutral-800 hover:border-neutral-600 hover:shadow-lg cursor-pointer px-6 gap-3"
+                  onClick={() => {
+                    if (websiteUrl) window.open(websiteUrl, "_blank");
+                  }}
+                >
+                  {logoUrl ? (
+                    <img
+                      src={logoUrl}
+                      alt={name}
+                      className="h-8 max-w-[120px] object-contain opacity-75 group-hover:opacity-100 transition-opacity"
+                    />
+                  ) : null}
+                  <span className="text-xl md:text-2xl font-black tracking-tight text-neutral-500 group-hover:text-white transition-colors duration-300 uppercase whitespace-nowrap">
+                    {name}
+                  </span>
+                </div>
+              );
+            })}
           </div>
 
           {/* Duplicate Track for Seamless Infinite Loop */}
@@ -78,16 +103,32 @@ export default function TrustedPartners({
             aria-hidden="true"
             className="flex shrink-0 animate-marquee items-center"
           >
-            {partners.map((partner, index) => (
-              <div
-                key={`partner-track2-${index}`}
-                className="group flex items-center justify-center min-w-[240px] h-20 mx-4 rounded-2xl bg-neutral-900/40 border border-neutral-800/80 backdrop-blur-sm transition-all duration-300 hover:bg-neutral-800 hover:border-neutral-600 hover:shadow-lg cursor-pointer px-6"
-              >
-                <span className="text-xl md:text-2xl font-black tracking-tight text-neutral-500 group-hover:text-white transition-colors duration-300 uppercase whitespace-nowrap">
-                  {partner}
-                </span>
-              </div>
-            ))}
+            {partnerList.map((partner, index) => {
+              const name = typeof partner === "string" ? partner : partner.name;
+              const logoUrl = typeof partner === "string" ? null : partner.logoUrl;
+              const websiteUrl = typeof partner === "string" ? null : partner.websiteUrl;
+
+              return (
+                <div
+                  key={`partner-track2-${index}`}
+                  className="group flex items-center justify-center min-w-[200px] h-20 mx-4 rounded-2xl bg-neutral-900/40 border border-neutral-800/80 backdrop-blur-sm transition-all duration-300 hover:bg-neutral-800 hover:border-neutral-600 hover:shadow-lg cursor-pointer px-6 gap-3"
+                  onClick={() => {
+                    if (websiteUrl) window.open(websiteUrl, "_blank");
+                  }}
+                >
+                  {logoUrl ? (
+                    <img
+                      src={logoUrl}
+                      alt={name}
+                      className="h-8 max-w-[120px] object-contain opacity-75 group-hover:opacity-100 transition-opacity"
+                    />
+                  ) : null}
+                  <span className="text-xl md:text-2xl font-black tracking-tight text-neutral-500 group-hover:text-white transition-colors duration-300 uppercase whitespace-nowrap">
+                    {name}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
