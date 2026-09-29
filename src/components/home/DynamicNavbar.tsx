@@ -90,7 +90,7 @@ const SISTER_CONCERN_ITEMS: SisterConcernItem[] = [
   { id: "sc-igl-host", label: "IGL Host LLC", href: "#" },
   { id: "sc-igl-network", label: "IGL Network", href: "#" },
   { id: "sc-igl-tours", label: "IGL Tours and Travels", href: "#" },
-  { id: "sc-igl-web", label: "IGL Web", href: "#" },
+  { id: "sc-igl-web", label: "IGL Web", href: "/igl-web" },
   { id: "sc-student-visa", label: "Student Visa", href: "/student-visa" },
 ];
 

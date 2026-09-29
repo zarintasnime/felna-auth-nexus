@@ -164,14 +164,12 @@ export default function Footer({ className = "" }: FooterProps) {
             <h3 className="text-[#2C2520] dark:text-white font-semibold text-lg mb-6">Sister Concerns</h3>
             <ul className="space-y-3">
               <li>
-                <a
-                  href="https://iglweb.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/igl-web"
                   className="text-[#6E665E] dark:text-[#B9B0A5] hover:text-[#D49624] dark:hover:text-[#F5B83D] transition-colors duration-300 text-[15px] block"
                 >
                   IGL Web
-                </a>
+                </Link>
               </li>
               <li>
                 <Link
