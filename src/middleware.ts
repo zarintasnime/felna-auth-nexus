@@ -49,3 +49,4 @@ export const config = {
     "/register",
   ],
 };
+// test
