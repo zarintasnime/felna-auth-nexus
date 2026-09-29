@@ -58,7 +58,7 @@ export default function TopBar({
   return (
     <aside
       aria-label="Utility Announcement and Quick Actions"
-      className="w-full bg-[#201915] text-[#e5ded4] border-b border-[#382b24] text-sm select-none rounded-t-2xl md:rounded-t-3xl"
+      className="w-full bg-[#12100E]/95 text-[13px] text-neutral-400 border-b border-white/10 select-none rounded-t-2xl md:rounded-t-3xl transition-colors"
     >
       <div className="w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="flex min-h-[42px] py-2 sm:py-2.5 items-center justify-between gap-4">
@@ -66,15 +66,15 @@ export default function TopBar({
           {/* Left Side: Announcement Text with Lightning/Zap Icon            */}
           {/* =============================================================== */}
           <div className="flex items-center gap-2.5 truncate">
-            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-amber-400/20 text-amber-400 shrink-0">
-              <Zap className="w-3 h-3 fill-amber-400 text-amber-400" />
+            <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#F5B83D]/10 text-[#F5B83D] shrink-0">
+              <Zap className="w-3 h-3 fill-[#F5B83D] text-[#F5B83D]" />
             </span>
-            <p className="text-xs sm:text-sm text-[#e5ded4] truncate font-normal leading-none flex items-center gap-1.5">
+            <p className="text-[13px] text-neutral-400 truncate font-normal leading-none flex items-center gap-1.5">
               <span>{announcementText}</span>
               {announcementLinkText && (
                 <Link
                   href={announcementHref}
-                  className="font-bold text-amber-300 hover:text-amber-200 underline underline-offset-2 decoration-amber-400/60 hover:decoration-amber-300 transition-colors"
+                  className="text-[#F5B83D] font-bold hover:underline transition-colors"
                 >
                   {announcementLinkText}
                 </Link>
@@ -85,29 +85,29 @@ export default function TopBar({
           {/* =============================================================== */}
           {/* Right Side: 3 Inline Utility Items (Time, Support, Language)    */}
           {/* =============================================================== */}
-          <div className="flex items-center gap-4 sm:gap-5 md:gap-6 text-xs sm:text-sm shrink-0">
+          <div className="flex items-center gap-4 sm:gap-5 md:gap-6 text-[13px] text-neutral-400 shrink-0">
             {/* Item 1: Clock Icon + Schedule */}
-            <div className="hidden sm:flex items-center gap-2 text-stone-300 font-medium">
-              <Clock className="w-4 h-4 text-amber-400/90 shrink-0" />
+            <div className="hidden sm:flex items-center gap-2 font-medium">
+              <Clock className="w-4 h-4 text-[#F5B83D] shrink-0" />
               <span className="tracking-tight">{scheduleText}</span>
             </div>
 
             {/* Separator on tablet+ */}
-            <span className="hidden sm:inline-block text-[#523e32]" aria-hidden="true">
+            <span className="hidden sm:inline-block text-white/10" aria-hidden="true">
               |
             </span>
 
             {/* Item 2: Support / Lifebuoy Icon + Support */}
             <Link
               href={supportHref}
-              className="flex items-center gap-2 text-stone-300 hover:text-[#fcfbf9] font-medium transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-amber-400 rounded px-1 py-0.5"
+              className="flex items-center gap-2 hover:text-white font-medium transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#F5B83D] rounded px-1 py-0.5"
             >
-              <LifeBuoy className="w-4 h-4 text-amber-400/90 shrink-0" />
+              <LifeBuoy className="w-4 h-4 text-[#F5B83D] shrink-0" />
               <span>Support</span>
             </Link>
 
             {/* Separator */}
-            <span className="text-[#523e32]" aria-hidden="true">
+            <span className="text-white/10" aria-hidden="true">
               |
             </span>
 
@@ -116,25 +116,25 @@ export default function TopBar({
               <button
                 type="button"
                 onClick={() => setIsDropdownOpen((prev) => !prev)}
-                className="flex items-center gap-2 text-stone-300 hover:text-[#fcfbf9] transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-amber-400 rounded px-1.5 py-0.5"
+                className="flex items-center gap-2 text-neutral-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-[#F5B83D] rounded px-1.5 py-0.5"
                 aria-haspopup="listbox"
                 aria-expanded={isDropdownOpen}
                 aria-label="Select display language"
               >
-                <Globe className="w-4 h-4 text-amber-400/90 shrink-0" />
-                <span className="font-semibold">{selectedLanguage}</span>
+                <Globe className="w-4 h-4 text-[#F5B83D] shrink-0" />
+                <span className="font-semibold text-neutral-300">{selectedLanguage}</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 text-stone-400 transition-transform duration-150 ${
-                    isDropdownOpen ? "rotate-180" : ""
+                  className={`w-3.5 h-3.5 text-neutral-400 transition-transform duration-150 ${
+                    isDropdownOpen ? "rotate-180 text-[#F5B83D]" : ""
                   }`}
                 />
               </button>
 
-              {/* Language Selection Popover (Strictly NO plain white bg-white) */}
+              {/* Language Selection Popover */}
               {isDropdownOpen && (
                 <div
                   role="listbox"
-                  className="absolute right-0 top-full mt-1.5 w-36 py-1.5 bg-[#2a221d] border border-[#4a3b32] rounded-xl shadow-xl z-50 animate-in fade-in-50 zoom-in-95 duration-100"
+                  className="absolute right-0 top-full mt-1.5 w-36 py-1.5 bg-[#1B1815] border border-white/10 rounded-xl shadow-xl z-50 animate-in fade-in-50 zoom-in-95 duration-100"
                 >
                   <button
                     type="button"
@@ -144,15 +144,15 @@ export default function TopBar({
                       setSelectedLanguage("English");
                       setIsDropdownOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-sm transition-colors ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-xs sm:text-sm transition-colors ${
                       selectedLanguage === "English"
-                        ? "bg-[#3d3028] text-amber-300 font-bold"
-                        : "text-stone-300 hover:bg-[#3d3028]/60 hover:text-[#fcfbf9]"
+                        ? "bg-white/10 text-[#F5B83D] font-bold"
+                        : "text-neutral-300 hover:bg-white/5 hover:text-white"
                     }`}
                   >
                     <span>English</span>
                     {selectedLanguage === "English" && (
-                      <Check className="w-4 h-4 text-amber-400" />
+                      <Check className="w-4 h-4 text-[#F5B83D]" />
                     )}
                   </button>
 
@@ -164,15 +164,15 @@ export default function TopBar({
                       setSelectedLanguage("Bangla");
                       setIsDropdownOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-sm transition-colors ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2 text-left text-xs sm:text-sm transition-colors ${
                       selectedLanguage === "Bangla"
-                        ? "bg-[#3d3028] text-amber-300 font-bold"
-                        : "text-stone-300 hover:bg-[#3d3028]/60 hover:text-[#fcfbf9]"
+                        ? "bg-white/10 text-[#F5B83D] font-bold"
+                        : "text-neutral-300 hover:bg-white/5 hover:text-white"
                     }`}
                   >
                     <span>বাংলা (Bangla)</span>
                     {selectedLanguage === "Bangla" && (
-                      <Check className="w-4 h-4 text-amber-400" />
+                      <Check className="w-4 h-4 text-[#F5B83D]" />
                     )}
                   </button>
                 </div>

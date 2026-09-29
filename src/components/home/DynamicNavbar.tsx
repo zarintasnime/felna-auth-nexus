@@ -2,19 +2,19 @@
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Shield,
-  LogIn,
-  UserPlus,
   Menu,
   X,
   ChevronDown,
-  Mail,
   MapPin,
   MessageSquare,
+  Megaphone,
+  TrendingUp,
+  Sparkles,
+  Building2,
 } from "lucide-react";
 import LogoutButton from "@/components/common/LogoutButton";
 import { NavItem } from "@/types/homepage";
@@ -28,13 +28,11 @@ export interface SessionUser {
 
 export const DEFAULT_NAV_ITEMS: NavItem[] = [
   { id: "nav-1", label: "Home", url: "#home", isExternal: false },
-  { id: "nav-2", label: "About Us", url: "/about", isExternal: false },
-  { id: "nav-3", label: "Contact Us", url: "/contact", isExternal: false },
-  { id: "nav-4", label: "Mobile Bill Solution", url: "#benefits", isExternal: false },
-  { id: "nav-5", label: "SEO", url: "#why-choose-us", isExternal: false },
-  { id: "nav-6", label: "Support", url: "#contact", isExternal: false },
-  { id: "nav-7", label: "Content Creator", url: "#services", isExternal: false },
-  { id: "nav-8", label: "Payment", url: "#services", isExternal: false },
+  { id: "nav-2", label: "SMS Services", url: "#services", isExternal: false },
+  { id: "nav-3", label: "Mobile Bill Solution", url: "#benefits", isExternal: false },
+  { id: "nav-4", label: "Services", url: "#services", isExternal: false },
+  { id: "nav-5", label: "Pricing", url: "#services", isExternal: false },
+  { id: "nav-6", label: "Contact Us", url: "/contact", isExternal: false },
 ];
 
 export interface DynamicNavbarProps {
@@ -42,8 +40,63 @@ export interface DynamicNavbarProps {
   initialSession?: SessionUser | null;
 }
 
+interface DropdownItem {
+  id: string;
+  label: string;
+  description: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const SERVICES_ITEMS: DropdownItem[] = [
+  {
+    id: "service-fb-marketing",
+    label: "Facebook Marketing",
+    description: "Targeted social campaigns",
+    href: "#marketing",
+    icon: Megaphone,
+  },
+  {
+    id: "service-seo",
+    label: "SEO",
+    description: "Search engine ranking & reach",
+    href: "#why-choose-us",
+    icon: TrendingUp,
+  },
+  {
+    id: "service-content-creator",
+    label: "Content Creator",
+    description: "High-converting copy & media",
+    href: "#content-creator",
+    icon: Sparkles,
+  },
+  {
+    id: "service-sister-concern",
+    label: "Sister Concern",
+    description: "Our corporate network & brands",
+    href: "#sister-concern",
+    icon: Building2,
+  },
+];
+
+const CONTACT_ITEMS: DropdownItem[] = [
+  {
+    id: "contact-address",
+    label: "Address",
+    description: "Dhaka & Chittagong offices",
+    href: "/address",
+    icon: MapPin,
+  },
+  {
+    id: "contact-feedback",
+    label: "Feedback",
+    description: "Send an inquiry or message",
+    href: "/feedback",
+    icon: MessageSquare,
+  },
+];
+
 export default function DynamicNavbar({
-  items = [],
   initialSession,
 }: DynamicNavbarProps) {
   const pathname = usePathname();
@@ -51,23 +104,14 @@ export default function DynamicNavbar({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoadingSession, setIsLoadingSession] = useState(initialSession === undefined);
 
+  // Dropdown states
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
   const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false);
+  const [isMobileServicesExpanded, setIsMobileServicesExpanded] = useState(false);
   const [isMobileContactExpanded, setIsMobileContactExpanded] = useState(false);
-  const contactDropdownRef = useRef<HTMLDivElement>(null);
 
-  const rawNavLinks = items && items.length > 0 ? items : DEFAULT_NAV_ITEMS;
-  const navLinks = rawNavLinks.map((item) => {
-    if (item.label === "SMS Services") {
-      return { ...item, label: "About Us", url: "/about", isExternal: false };
-    }
-    if (item.label === "Facebook Marketing" || item.url === "#marketing") {
-      return { ...item, label: "Contact Us", url: "/contact", isExternal: false };
-    }
-    if (item.id === "nav-6" && (item.label === "Contact Us" || item.url === "#contact")) {
-      return { ...item, label: "Support", url: "#contact", isExternal: false };
-    }
-    return item;
-  });
+  const servicesDropdownRef = useRef<HTMLDivElement>(null);
+  const contactDropdownRef = useRef<HTMLDivElement>(null);
 
   // Sync state if initialSession prop changes
   useEffect(() => {
@@ -106,12 +150,19 @@ export default function DynamicNavbar({
   // Close menus on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsServicesDropdownOpen(false);
     setIsContactDropdownOpen(false);
   }, [pathname]);
 
   // Close dropdown on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      if (
+        servicesDropdownRef.current &&
+        !servicesDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsServicesDropdownOpen(false);
+      }
       if (
         contactDropdownRef.current &&
         !contactDropdownRef.current.contains(event.target as Node)
@@ -129,6 +180,7 @@ export default function DynamicNavbar({
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") {
       setIsMobileMenuOpen(false);
+      setIsServicesDropdownOpen(false);
       setIsContactDropdownOpen(false);
     }
   }, []);
@@ -148,286 +200,254 @@ export default function DynamicNavbar({
 
   const isAdmin = user?.role === "ADMIN";
 
-  // Helper to render navigation items cleanly with interactive hover pill states
-  const renderNavLink = (item: NavItem, isMobile = false) => {
-    const isContactItem = item.label === "Contact Us" || item.url === "/contact";
-    const isAddressActive = pathname === "/address";
-    const isFeedbackActive = pathname === "/feedback" || pathname === "/contact";
-    const isParentActive = isAddressActive || isFeedbackActive;
-
-    // Mobile Contact Us Accordion
-    if (isContactItem && isMobile) {
-      return (
-        <div key={item.id} className="space-y-1">
-          <button
-            type="button"
-            onClick={() => setIsMobileContactExpanded((prev) => !prev)}
-            className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-base transition-all duration-300 ${
-              isParentActive
-                ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/10"
-                : "font-medium text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/10"
-            }`}
-            aria-label="Toggle contact options"
-            aria-expanded={isMobileContactExpanded}
-          >
-            <span>{item.label}</span>
-            <ChevronDown
-              className={`w-4 h-4 transition-transform duration-200 ${
-                isMobileContactExpanded ? "rotate-180 text-[#F5B83D]" : "text-stone-600"
-              }`}
-            />
-          </button>
-
-          {/* Submenu for mobile */}
-          <div
-            className={`pl-4 pr-2 space-y-1 border-l-2 border-[#d4ccc0] ml-4 transition-all duration-200 ${
-              isMobileContactExpanded || isParentActive ? "block" : "hidden"
-            }`}
-          >
-            <Link
-              href="/address"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-all ${
-                isAddressActive
-                  ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/10"
-                  : "text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/5"
-              }`}
-            >
-              <MapPin className="w-4 h-4 text-[#F5B83D]" />
-              <div className="flex flex-col text-left">
-                <span className="font-semibold leading-tight">Address</span>
-                <span className="text-[10px] text-neutral-500">Dhaka &amp; Chittagong offices</span>
-              </div>
-            </Link>
-            <Link
-              href="/feedback"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-all ${
-                isFeedbackActive
-                  ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/10"
-                  : "text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/5"
-              }`}
-            >
-              <MessageSquare className="w-4 h-4 text-[#F5B83D]" />
-              <div className="flex flex-col text-left">
-                <span className="font-semibold leading-tight">Feedback</span>
-                <span className="text-[10px] text-neutral-500">Send an inquiry or message</span>
-              </div>
-            </Link>
-          </div>
-        </div>
-      );
+  // Resolve cross-page anchor URLs correctly
+  const getHref = (url: string) => {
+    if (url.startsWith("#")) {
+      return pathname === "/" ? url : `/${url}`;
     }
-
-    // Desktop Contact Us Dropdown
-    if (isContactItem && !isMobile) {
-      return (
-        <div
-          key={item.id}
-          ref={contactDropdownRef}
-          className="relative group"
-          onMouseEnter={() => setIsContactDropdownOpen(true)}
-          onMouseLeave={() => setIsContactDropdownOpen(false)}
-        >
-          <div className="inline-flex items-center">
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setIsContactDropdownOpen((prev) => !prev);
-              }}
-              className={`inline-flex items-center justify-center gap-1.5 text-sm px-3 py-2 rounded-lg transition-all duration-300 whitespace-nowrap cursor-pointer select-none ${
-                isParentActive
-                  ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/5 hover:bg-[#4a3b32]/10"
-                  : "font-medium text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/10"
-              }`}
-              aria-haspopup="true"
-              aria-expanded={isContactDropdownOpen}
-            >
-              <span>{item.label}</span>
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  isContactDropdownOpen
-                    ? "rotate-180 text-[#F5B83D]"
-                    : "text-neutral-500 group-hover:text-[#4a3b32]"
-                }`}
-              />
-            </button>
-          </div>
-
-          {/* Desktop Floating Dropdown Menu */}
-          <div
-            className={`absolute top-full left-0 mt-2 w-56 bg-[#1B1815] border border-white/10 rounded-2xl p-2 shadow-2xl z-50 transition-all duration-200 before:absolute before:-top-3 before:left-0 before:w-full before:h-3 before:content-[''] ${
-              isContactDropdownOpen
-                ? "opacity-100 visible translate-y-0 pointer-events-auto"
-                : "opacity-0 invisible pointer-events-none -translate-y-1"
-            }`}
-            role="menu"
-          >
-            <Link
-              href="/address"
-              role="menuitem"
-              onClick={() => setIsContactDropdownOpen(false)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group/item ${
-                isAddressActive
-                  ? "bg-white/10 text-[#F5B83D] font-semibold"
-                  : "text-neutral-300 hover:bg-white/5 hover:text-[#F5B83D]"
-              }`}
-            >
-              <div className="w-8 h-8 rounded-lg bg-[#24201C] border border-white/10 flex items-center justify-center text-[#F5B83D] shrink-0 group-hover/item:border-[#F5B83D]/40 transition-colors">
-                <MapPin className="w-4 h-4 text-[#F5B83D]" />
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="text-sm font-semibold text-white group-hover/item:text-[#F5B83D] transition-colors leading-tight">
-                  Address
-                </span>
-                <span className="text-[11px] text-neutral-400 group-hover/item:text-neutral-300 transition-colors">
-                  Dhaka &amp; Chittagong offices
-                </span>
-              </div>
-            </Link>
-
-            <Link
-              href="/feedback"
-              role="menuitem"
-              onClick={() => setIsContactDropdownOpen(false)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group/item mt-1 ${
-                isFeedbackActive
-                  ? "bg-white/10 text-[#F5B83D] font-semibold"
-                  : "text-neutral-300 hover:bg-white/5 hover:text-[#F5B83D]"
-              }`}
-            >
-              <div className="w-8 h-8 rounded-lg bg-[#24201C] border border-white/10 flex items-center justify-center text-[#F5B83D] shrink-0 group-hover/item:border-[#F5B83D]/40 transition-colors">
-                <MessageSquare className="w-4 h-4 text-[#F5B83D]" />
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="text-sm font-semibold text-white group-hover/item:text-[#F5B83D] transition-colors leading-tight">
-                  Feedback
-                </span>
-                <span className="text-[11px] text-neutral-400 group-hover/item:text-neutral-300 transition-colors">
-                  Send an inquiry or message
-                </span>
-              </div>
-            </Link>
-          </div>
-        </div>
-      );
-    }
-
-    const isAnchor = item.url.startsWith("#");
-    const isActive = !isAnchor
-      ? pathname === item.url
-      : pathname === "/" && item.url === "#home";
-    const href = isAnchor && pathname !== "/" ? `/${item.url}` : item.url;
-
-    const baseClasses = isMobile
-      ? `flex items-center justify-between px-4 py-3 rounded-lg text-base transition-all duration-300 ${
-          isActive
-            ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/10"
-            : "font-medium text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/10"
-        }`
-      : `inline-flex items-center justify-center text-sm px-3 py-2 rounded-lg transition-all duration-300 whitespace-nowrap ${
-          isActive
-            ? "text-[#4a3b32] font-semibold bg-[#4a3b32]/5 hover:bg-[#4a3b32]/10"
-            : "font-medium text-neutral-600 hover:text-[#4a3b32] hover:bg-[#4a3b32]/10"
-        }`;
-
-    return (
-      <Link
-        key={item.id}
-        href={href}
-        className={baseClasses}
-        onClick={() => isMobile && setIsMobileMenuOpen(false)}
-      >
-        <span>{item.label}</span>
-      </Link>
-    );
+    return url;
   };
 
+  const isContactActive = pathname === "/address" || pathname === "/feedback" || pathname === "/contact";
+
   return (
-    <header
-      className={`sticky top-0 z-40 w-full border-b border-[#d4ccc0] bg-[#f4f0e6]/95 backdrop-blur-md shadow-xs transition-all ${
-        pathname !== "/" ? "rounded-b-2xl md:rounded-b-3xl" : ""
-      }`}
-    >
-      <div className="w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
-        <div className="flex h-20 items-center justify-between gap-4">
+    <header className="h-[72px] bg-[#12100E]/85 backdrop-blur-[12px] sticky top-0 z-50 transition-all duration-300 border-b border-white/10 w-full">
+      <div className="w-full max-w-[1880px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 h-full">
+        <div className="flex h-full items-center justify-between gap-4">
           {/* =============================================================== */}
-          {/* 1. Brand Logo & Title                                           */}
+          {/* 1. Brand Logo & Identity (CSS Monogram + Exact Brand Typography) */}
           {/* =============================================================== */}
           <div className="flex items-center gap-3 shrink-0">
             <Link
               href="/"
-              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4a3b32]/20 rounded-xl py-1 px-1.5"
+              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5B83D]/40 rounded-xl py-1 px-1.5"
             >
-              <div className="relative h-11 w-11 rounded-xl bg-[#201915] border border-neutral-700/60 p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform shrink-0">
-                <Image
-                  src="/images/igl-logo.png"
-                  alt="IGL Group Logo"
-                  width={120}
-                  height={40}
-                  priority
-                  className="w-full h-full object-contain"
-                />
+              {/* Monogram: F with amber gradient */}
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#F5B83D] to-[#E09819] flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-[#F5B83D]/20 shrink-0 group-hover:scale-105 transition-transform">
+                F
               </div>
               <div className="flex flex-col">
-                <span className="font-extrabold text-[#4a3b32] text-lg tracking-tight leading-none">
-                  IGL Group<span className="text-[#F5B83D] font-bold">.</span>
+                <span className="text-white font-bold text-lg leading-none">
+                  Felna.com
                 </span>
-                <span className="text-xs font-semibold text-stone-500 mt-1">
-                  Felna.com SMS Gateway
+                <span className="text-neutral-500 text-[11px] font-medium tracking-wide mt-1">
+                  Bulk SMS &amp; OTP Gateway
                 </span>
               </div>
             </Link>
           </div>
 
           {/* =============================================================== */}
-          {/* 2. Desktop Dynamic Navigation Links (No link icons)             */}
+          {/* 2. Streamlined Navigation Links (Desktop)                        */}
           {/* =============================================================== */}
           <nav
             aria-label="Main Navigation"
-            className="hidden xl:flex items-center gap-1 2xl:gap-1.5"
+            className="hidden xl:flex items-center gap-1.5 2xl:gap-2"
           >
-            {navLinks.map((item) => renderNavLink(item, false))}
+            {/* 1. Home */}
+            <Link
+              href={getHref("#home")}
+              className={`text-[15px] px-3 py-2 rounded-lg font-medium transition-colors ${
+                pathname === "/" ? "text-[#E8E3DC] hover:text-[#F5B83D]" : "text-[#E8E3DC] hover:text-[#F5B83D]"
+              }`}
+            >
+              Home
+            </Link>
+
+            {/* 2. SMS Services */}
+            <Link
+              href={getHref("#services")}
+              className="text-[15px] text-[#E8E3DC] hover:text-[#F5B83D] font-medium transition-colors px-3 py-2 rounded-lg"
+            >
+              SMS Services
+            </Link>
+
+            {/* 3. Mobile Bill Solution */}
+            <Link
+              href={getHref("#benefits")}
+              className="text-[15px] text-[#E8E3DC] hover:text-[#F5B83D] font-medium transition-colors px-3 py-2 rounded-lg"
+            >
+              Mobile Bill Solution
+            </Link>
+
+            {/* 4. Services Dropdown */}
+            <div
+              ref={servicesDropdownRef}
+              className="relative group"
+              onMouseEnter={() => setIsServicesDropdownOpen(true)}
+              onMouseLeave={() => setIsServicesDropdownOpen(false)}
+            >
+              <button
+                type="button"
+                onClick={() => setIsServicesDropdownOpen((prev) => !prev)}
+                className={`inline-flex items-center gap-1.5 text-[15px] px-3 py-2 rounded-lg font-medium transition-colors select-none ${
+                  isServicesDropdownOpen
+                    ? "text-[#F5B83D]"
+                    : "text-[#E8E3DC] hover:text-[#F5B83D]"
+                }`}
+                aria-haspopup="true"
+                aria-expanded={isServicesDropdownOpen}
+              >
+                <span>Services</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    isServicesDropdownOpen
+                      ? "rotate-180 text-[#F5B83D]"
+                      : "text-neutral-400 group-hover:text-[#F5B83D]"
+                  }`}
+                />
+              </button>
+
+              {/* Floating Dark Dropdown Menu */}
+              <div
+                className={`absolute top-full left-0 mt-2 w-64 bg-[#1B1815] border border-white/10 rounded-2xl p-2 shadow-2xl z-50 backdrop-blur-md transition-all duration-200 before:absolute before:-top-3 before:left-0 before:w-full before:h-3 before:content-[''] ${
+                  isServicesDropdownOpen
+                    ? "opacity-100 visible translate-y-0 pointer-events-auto"
+                    : "opacity-0 invisible pointer-events-none -translate-y-1"
+                }`}
+                role="menu"
+              >
+                {SERVICES_ITEMS.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.id}
+                      href={getHref(item.href)}
+                      role="menuitem"
+                      onClick={() => setIsServicesDropdownOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group/item text-neutral-300 hover:bg-white/5 hover:text-[#F5B83D]"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-[#24201C] border border-white/10 flex items-center justify-center text-[#F5B83D] shrink-0 group-hover/item:border-[#F5B83D]/40 transition-colors">
+                        <Icon className="w-4 h-4 text-[#F5B83D]" />
+                      </div>
+                      <div className="flex flex-col text-left">
+                        <span className="text-sm font-semibold text-white group-hover/item:text-[#F5B83D] transition-colors leading-tight">
+                          {item.label}
+                        </span>
+                        <span className="text-[11px] text-neutral-400 group-hover/item:text-neutral-300 transition-colors">
+                          {item.description}
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 5. Pricing */}
+            <Link
+              href={getHref("#services")}
+              className="text-[15px] text-[#E8E3DC] hover:text-[#F5B83D] font-medium transition-colors px-3 py-2 rounded-lg"
+            >
+              Pricing
+            </Link>
+
+            {/* 6. Contact Us Dropdown */}
+            <div
+              ref={contactDropdownRef}
+              className="relative group"
+              onMouseEnter={() => setIsContactDropdownOpen(true)}
+              onMouseLeave={() => setIsContactDropdownOpen(false)}
+            >
+              <button
+                type="button"
+                onClick={() => setIsContactDropdownOpen((prev) => !prev)}
+                className={`inline-flex items-center gap-1.5 text-[15px] px-3 py-2 rounded-lg font-medium transition-colors select-none ${
+                  isContactDropdownOpen || isContactActive
+                    ? "text-[#F5B83D]"
+                    : "text-[#E8E3DC] hover:text-[#F5B83D]"
+                }`}
+                aria-haspopup="true"
+                aria-expanded={isContactDropdownOpen}
+              >
+                <span>Contact Us</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    isContactDropdownOpen
+                      ? "rotate-180 text-[#F5B83D]"
+                      : "text-neutral-400 group-hover:text-[#F5B83D]"
+                  }`}
+                />
+              </button>
+
+              {/* Floating Dark Dropdown Menu */}
+              <div
+                className={`absolute top-full left-0 mt-2 w-60 bg-[#1B1815] border border-white/10 rounded-2xl p-2 shadow-2xl z-50 backdrop-blur-md transition-all duration-200 before:absolute before:-top-3 before:left-0 before:w-full before:h-3 before:content-[''] ${
+                  isContactDropdownOpen
+                    ? "opacity-100 visible translate-y-0 pointer-events-auto"
+                    : "opacity-0 invisible pointer-events-none -translate-y-1"
+                }`}
+                role="menu"
+              >
+                {CONTACT_ITEMS.map((item) => {
+                  const Icon = item.icon;
+                  const isItemActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.id}
+                      href={item.href}
+                      role="menuitem"
+                      onClick={() => setIsContactDropdownOpen(false)}
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group/item ${
+                        isItemActive
+                          ? "bg-white/10 text-[#F5B83D] font-semibold"
+                          : "text-neutral-300 hover:bg-white/5 hover:text-[#F5B83D]"
+                      }`}
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-[#24201C] border border-white/10 flex items-center justify-center text-[#F5B83D] shrink-0 group-hover/item:border-[#F5B83D]/40 transition-colors">
+                        <Icon className="w-4 h-4 text-[#F5B83D]" />
+                      </div>
+                      <div className="flex flex-col text-left">
+                        <span className="text-sm font-semibold text-white group-hover/item:text-[#F5B83D] transition-colors leading-tight">
+                          {item.label}
+                        </span>
+                        <span className="text-[11px] text-neutral-400 group-hover/item:text-neutral-300 transition-colors">
+                          {item.description}
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           </nav>
 
           {/* =============================================================== */}
-          {/* 3. Desktop Auth & Session Actions (Prominent, High-impact)      */}
+          {/* 3. Call-to-Action Buttons (Hierarchy Fix: Ghost + Solid Amber)   */}
           {/* =============================================================== */}
           <div className="hidden xl:flex items-center gap-3 shrink-0">
             {isLoadingSession ? (
-              <div className="h-10 w-32 bg-[#ebe5da] animate-pulse rounded-xl" />
+              <div className="h-10 w-44 bg-white/5 animate-pulse rounded-full" />
             ) : user ? (
               <div className="flex items-center gap-3">
                 {/* Member Dashboard Link */}
                 <Link
                   href="/dashboard"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-stone-700 hover:text-[#4a3b32] hover:bg-[#ebe5da] border border-[#d4ccc0] rounded-xl transition-all shadow-2xs"
+                  className="inline-flex items-center gap-2 px-4 h-10 text-sm font-medium text-white hover:text-[#F5B83D] hover:bg-white/5 border border-white/20 rounded-full transition-all"
                 >
-                  <LayoutDashboard className="w-4 h-4 text-[#4a3b32]" />
+                  <LayoutDashboard className="w-4 h-4 text-[#F5B83D]" />
                   <span>Dashboard</span>
                 </Link>
 
                 {isAdmin && (
                   <Link
                     href="/admin/dashboard"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-[#4a3b32] bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition-all shadow-2xs"
+                    className="inline-flex items-center gap-2 px-4 h-10 text-sm font-semibold text-black bg-[#F5B83D] hover:bg-[#e5a930] rounded-full transition-all shadow-md shadow-[#F5B83D]/10"
                   >
-                    <Shield className="w-4 h-4 text-[#4a3b32]" />
+                    <Shield className="w-4 h-4 text-black" />
                     <span>Admin</span>
                   </Link>
                 )}
 
                 {/* User Avatar & Role Badge */}
-                <div className="flex items-center gap-2.5 pl-3.5 pr-3 py-1.5 bg-[#ebe5da] border border-[#d4ccc0] rounded-xl text-sm">
-                  <div className="w-6 h-6 rounded-full bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center font-bold text-xs uppercase">
+                <div className="flex items-center gap-2.5 pl-3.5 pr-3 h-10 bg-white/5 border border-white/10 rounded-full text-sm">
+                  <div className="w-6 h-6 rounded-full bg-[#F5B83D] text-black flex items-center justify-center font-bold text-xs uppercase">
                     {user.name ? user.name.charAt(0) : "U"}
                   </div>
-                  <span className="font-bold text-stone-800 max-w-[120px] truncate">
+                  <span className="font-medium text-white max-w-[120px] truncate">
                     {user.name || "Member"}
                   </span>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#f5efe6] text-[#4a3b32] border border-[#d4ccc0]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-[#F5B83D] border border-white/10">
                     {user.role}
                   </span>
                 </div>
@@ -437,29 +457,19 @@ export default function DynamicNavbar({
               </div>
             ) : (
               <div className="flex items-center gap-3">
-                {/* Outline / Soft Button for Sign In */}
+                {/* Secondary Ghost Button for Sign In */}
                 <Link
                   href="/login"
-                  className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold border rounded-xl transition-all shadow-2xs hover:shadow-xs active:scale-[0.98] ${
-                    pathname === "/login"
-                      ? "text-[#4a3b32] bg-[#ebe5da] border-[#7c6a5e] ring-2 ring-[#4a3b32]/25 font-extrabold"
-                      : "text-[#4a3b32] hover:text-[#3d3028] bg-[#ebe5da]/80 hover:bg-[#ebe5da] border-[#d4ccc0]"
-                  }`}
+                  className="bg-transparent text-white border border-white/20 hover:bg-white/5 rounded-full h-10 px-6 font-medium transition-all inline-flex items-center justify-center text-sm"
                 >
-                  <LogIn className="w-4 h-4 text-[#4a3b32]" />
                   <span>Sign In</span>
                 </Link>
 
-                {/* Solid Primary Button for Create Account */}
+                {/* Primary Solid Amber Pill for Create Account */}
                 <Link
                   href="/register"
-                  className={`inline-flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-xl shadow-md transition-all active:scale-[0.98] ${
-                    pathname === "/register"
-                      ? "text-[#fcfbf9] bg-[#382b24] ring-2 ring-[#7c6a5e] shadow-lg"
-                      : "text-[#fcfbf9] bg-[#4a3b32] hover:bg-[#3d3028] shadow-[#4a3b32]/25 hover:shadow-lg hover:shadow-[#4a3b32]/30"
-                  }`}
+                  className="bg-[#F5B83D] text-black font-semibold rounded-full h-10 px-6 hover:bg-[#e5a930] transition-colors inline-flex items-center justify-center text-sm shadow-md shadow-[#F5B83D]/15"
                 >
-                  <UserPlus className="w-4 h-4 text-[#fcfbf9]" />
                   <span>Create Account</span>
                 </Link>
               </div>
@@ -473,97 +483,210 @@ export default function DynamicNavbar({
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2.5 rounded-xl text-[#4a3b32] bg-[#ebe5da]/70 hover:bg-[#ebe5da] border border-[#d4ccc0] transition"
+              className="p-2.5 rounded-xl text-[#E8E3DC] hover:text-[#F5B83D] bg-white/5 hover:bg-white/10 border border-white/10 transition"
               aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation-drawer"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6 text-[#4a3b32]" /> : <Menu className="w-6 h-6 text-[#4a3b32]" />}
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
       </div>
 
       {/* =================================================================== */}
-      {/* 5. Accessible Mobile Slide-out Menu Drawer                          */}
+      {/* 5. Mobile Slide-out Menu Drawer (Dark SaaS Theme)                   */}
       {/* =================================================================== */}
       {isMobileMenuOpen && (
         <>
-          {/* Backdrop overlay */}
+          {/* Dark Backdrop Overlay */}
           <div
-            className="fixed inset-0 z-40 bg-[#4a3b32]/50 backdrop-blur-xs xl:hidden transition-opacity"
+            className="fixed inset-0 z-40 bg-black/75 backdrop-blur-sm xl:hidden transition-opacity"
             onClick={() => setIsMobileMenuOpen(false)}
             aria-hidden="true"
           />
 
-          {/* Drawer content (Warm vintage off-white / parchment container - NO bg-white) */}
+          {/* Drawer Content */}
           <nav
             id="mobile-navigation-drawer"
             aria-label="Mobile Navigation"
-            className="fixed inset-x-0 top-0 z-50 max-h-[100vh] overflow-y-auto border-b border-[#d4ccc0] bg-[#fcfbf9] px-6 py-6 space-y-6 shadow-xl xl:hidden animate-in slide-in-from-top-2 duration-200"
+            className="fixed inset-x-0 top-0 z-50 max-h-[100vh] overflow-y-auto border-b border-white/10 bg-[#12100E] px-6 py-6 space-y-6 shadow-2xl xl:hidden animate-in slide-in-from-top-2 duration-200 text-[#E8E3DC]"
           >
             {/* Header row in mobile drawer */}
-            <div className="flex items-center justify-between pb-4 border-b border-[#d4ccc0]">
-              <div className="flex items-center gap-2.5">
-                <div className="relative w-10 h-10 rounded-xl bg-[#201915] border border-neutral-700/60 p-1 flex items-center justify-center shrink-0">
-                  <Image
-                    src="/images/igl-logo.png"
-                    alt="IGL Group Logo"
-                    width={100}
-                    height={36}
-                    className="w-full h-full object-contain"
-                  />
+            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#F5B83D] to-[#E09819] flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-[#F5B83D]/20 shrink-0">
+                  F
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-extrabold text-[#4a3b32] text-base leading-none">
-                    IGL Group<span className="text-[#F5B83D] font-bold">.</span>
+                  <span className="text-white font-bold text-base leading-none">
+                    Felna.com
                   </span>
-                  <span className="text-[10px] font-semibold text-stone-500 mt-0.5">
-                    Felna.com SMS Gateway
+                  <span className="text-neutral-500 text-[10px] font-medium tracking-wide mt-1">
+                    Bulk SMS &amp; OTP Gateway
                   </span>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-xl text-stone-700 hover:bg-[#ebe5da] transition"
+                className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition"
                 aria-label="Close navigation menu"
               >
-                <X className="w-6 h-6 text-[#4a3b32]" />
+                <X className="w-6 h-6" />
               </button>
             </div>
 
-            {/* Dynamic Navigation Links */}
+            {/* Navigation Links */}
             <div className="space-y-1">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-stone-500 px-3">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 px-3">
                 Navigation
               </span>
               <div className="pt-2 space-y-1.5">
-                {navLinks.length === 0 ? (
-                  <p className="text-xs text-stone-500 px-3 py-2">No navigation links configured.</p>
-                ) : (
-                  navLinks.map((item) => renderNavLink(item, true))
-                )}
+                {/* 1. Home */}
+                <Link
+                  href={getHref("#home")}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 transition-all"
+                >
+                  <span>Home</span>
+                </Link>
+
+                {/* 2. SMS Services */}
+                <Link
+                  href={getHref("#services")}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 transition-all"
+                >
+                  <span>SMS Services</span>
+                </Link>
+
+                {/* 3. Mobile Bill Solution */}
+                <Link
+                  href={getHref("#benefits")}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 transition-all"
+                >
+                  <span>Mobile Bill Solution</span>
+                </Link>
+
+                {/* 4. Services Accordion */}
+                <div className="space-y-1">
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileServicesExpanded((prev) => !prev)}
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 transition-all"
+                    aria-label="Toggle services options"
+                    aria-expanded={isMobileServicesExpanded}
+                  >
+                    <span>Services</span>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        isMobileServicesExpanded ? "rotate-180 text-[#F5B83D]" : "text-neutral-400"
+                      }`}
+                    />
+                  </button>
+
+                  <div
+                    className={`pl-4 pr-2 space-y-1 border-l-2 border-white/10 ml-4 transition-all duration-200 ${
+                      isMobileServicesExpanded ? "block" : "hidden"
+                    }`}
+                  >
+                    {SERVICES_ITEMS.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <Link
+                          key={item.id}
+                          href={getHref(item.href)}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-neutral-300 hover:text-[#F5B83D] hover:bg-white/5 transition-all"
+                        >
+                          <Icon className="w-4 h-4 text-[#F5B83D] shrink-0" />
+                          <div className="flex flex-col text-left">
+                            <span className="font-semibold leading-tight">{item.label}</span>
+                            <span className="text-[10px] text-neutral-400">{item.description}</span>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* 5. Pricing */}
+                <Link
+                  href={getHref("#services")}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 transition-all"
+                >
+                  <span>Pricing</span>
+                </Link>
+
+                {/* 6. Contact Us Accordion */}
+                <div className="space-y-1">
+                  <button
+                    type="button"
+                    onClick={() => setIsMobileContactExpanded((prev) => !prev)}
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-[#E8E3DC] hover:text-[#F5B83D] hover:bg-white/5 transition-all"
+                    aria-label="Toggle contact options"
+                    aria-expanded={isMobileContactExpanded}
+                  >
+                    <span>Contact Us</span>
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                        isMobileContactExpanded ? "rotate-180 text-[#F5B83D]" : "text-neutral-400"
+                      }`}
+                    />
+                  </button>
+
+                  <div
+                    className={`pl-4 pr-2 space-y-1 border-l-2 border-white/10 ml-4 transition-all duration-200 ${
+                      isMobileContactExpanded || isContactActive ? "block" : "hidden"
+                    }`}
+                  >
+                    {CONTACT_ITEMS.map((item) => {
+                      const Icon = item.icon;
+                      const isItemActive = pathname === item.href;
+                      return (
+                        <Link
+                          key={item.id}
+                          href={item.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm transition-all ${
+                            isItemActive
+                              ? "text-[#F5B83D] font-semibold bg-white/10"
+                              : "text-neutral-300 hover:text-[#F5B83D] hover:bg-white/5"
+                          }`}
+                        >
+                          <Icon className="w-4 h-4 text-[#F5B83D] shrink-0" />
+                          <div className="flex flex-col text-left">
+                            <span className="font-semibold leading-tight">{item.label}</span>
+                            <span className="text-[10px] text-neutral-400">{item.description}</span>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Auth Actions Section */}
-            <div className="pt-4 border-t border-[#d4ccc0]">
+            {/* Auth Actions Section in Mobile Drawer */}
+            <div className="pt-4 border-t border-white/10">
               {user ? (
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3.5 rounded-xl bg-[#f5efe6] border border-[#d4ccc0]">
+                  <div className="flex items-center justify-between p-3.5 rounded-xl bg-white/5 border border-white/10">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-[#4a3b32] text-[#fcfbf9] flex items-center justify-center font-bold text-xs uppercase">
+                      <div className="w-9 h-9 rounded-full bg-[#F5B83D] text-black flex items-center justify-center font-bold text-xs uppercase">
                         {user.name ? user.name.charAt(0) : "U"}
                       </div>
                       <div>
-                        <div className="text-sm font-bold text-stone-800">
+                        <div className="text-sm font-semibold text-white">
                           {user.name || "Member"}
                         </div>
-                        <div className="text-xs text-stone-500">{user.phone}</div>
+                        <div className="text-xs text-neutral-400">{user.phone}</div>
                       </div>
                     </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-[#ebe5da] text-[#4a3b32] border border-[#d4ccc0]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/10 text-[#F5B83D] border border-white/10">
                       {user.role}
                     </span>
                   </div>
@@ -572,9 +695,9 @@ export default function DynamicNavbar({
                     <Link
                       href="/dashboard"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-2 py-3 px-3 text-sm font-bold text-stone-800 bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition"
+                      className="flex items-center justify-center gap-2 py-3 px-3 text-sm font-medium text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition"
                     >
-                      <LayoutDashboard className="w-4 h-4 text-[#4a3b32]" />
+                      <LayoutDashboard className="w-4 h-4 text-[#F5B83D]" />
                       <span>Dashboard</span>
                     </Link>
 
@@ -582,9 +705,9 @@ export default function DynamicNavbar({
                       <Link
                         href="/admin/dashboard"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center justify-center gap-2 py-3 px-3 text-sm font-bold text-[#4a3b32] bg-[#ebe5da] hover:bg-[#e4ddd2] border border-[#d4ccc0] rounded-xl transition"
+                        className="flex items-center justify-center gap-2 py-3 px-3 text-sm font-semibold text-black bg-[#F5B83D] hover:bg-[#e5a930] rounded-full transition shadow-md"
                       >
-                        <Shield className="w-4 h-4 text-[#4a3b32]" />
+                        <Shield className="w-4 h-4 text-black" />
                         <span>Admin</span>
                       </Link>
                     ) : (
@@ -602,33 +725,23 @@ export default function DynamicNavbar({
                 </div>
               ) : (
                 <div className="space-y-3">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-stone-500 px-3">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 px-3">
                     Account Access
                   </span>
                   <div className="grid grid-cols-2 gap-3 pt-1">
                     <Link
                       href="/login"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center justify-center gap-2 py-3 px-4 text-sm font-bold border rounded-xl transition shadow-2xs ${
-                        pathname === "/login"
-                          ? "text-[#4a3b32] bg-[#ebe5da] border-[#7c6a5e] ring-2 ring-[#4a3b32]/25 font-extrabold"
-                          : "text-[#4a3b32] bg-[#ebe5da] hover:bg-[#e4ddd2] border-[#d4ccc0]"
-                      }`}
+                      className="flex items-center justify-center gap-2 py-3 px-4 text-sm font-medium text-white border border-white/20 hover:bg-white/5 rounded-full transition"
                     >
-                      <LogIn className="w-4 h-4 text-[#4a3b32]" />
                       <span>Sign In</span>
                     </Link>
                     <Link
                       href="/register"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center justify-center gap-2 py-3 px-4 text-sm font-bold rounded-xl shadow-md transition ${
-                        pathname === "/register"
-                          ? "text-[#fcfbf9] bg-[#382b24] ring-2 ring-[#7c6a5e]"
-                          : "text-[#fcfbf9] bg-[#4a3b32] hover:bg-[#3d3028]"
-                      }`}
+                      className="flex items-center justify-center gap-2 py-3 px-4 text-sm font-semibold text-black bg-[#F5B83D] hover:bg-[#e5a930] rounded-full transition shadow-md shadow-[#F5B83D]/15"
                     >
-                      <UserPlus className="w-4 h-4 text-[#fcfbf9]" />
-                      <span>Register</span>
+                      <span>Create Account</span>
                     </Link>
                   </div>
                 </div>

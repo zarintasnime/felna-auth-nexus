@@ -28,8 +28,9 @@ export default function TrustedPartners({
 }: TrustedPartnersProps) {
   return (
     <section
+      id="sister-concern"
       aria-label="Trusted Partners"
-      className="w-full my-8 md:my-14 overflow-hidden"
+      className="w-full my-8 md:my-14 overflow-hidden scroll-mt-24"
     >
       {/* =================================================================== */}
       {/* Header: Center-aligned Social Proof Title                          */}

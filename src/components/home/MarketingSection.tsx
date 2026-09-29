@@ -15,8 +15,9 @@ export default function MarketingSection({ marketing }: MarketingSectionProps) {
     <section
       id="marketing"
       aria-labelledby="marketing-section-title"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#d4ccc0] bg-[#201915] text-[#fcfbf9]"
+      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-neutral-800/60 bg-[#201915] text-[#fcfbf9] relative scroll-mt-20"
     >
+      <span id="content-creator" className="absolute -top-24 block invisible pointer-events-none" aria-hidden="true" />
       <div className="max-w-7xl mx-auto">
         <div className="p-8 sm:p-12 lg:p-14 rounded-3xl bg-[#2a221d] border border-[#7c6a5e]/50 shadow-md grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           

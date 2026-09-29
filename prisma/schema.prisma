@@ -128,3 +128,130 @@ model Upazila {
 
   @@index([districtId])
 }
+
+// =============================================================================
+// CMS Models (Content Management System)
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// CMS: Site Settings (Singleton)
+// -----------------------------------------------------------------------------
+model CmsSiteSettings {
+  id                   String   @id @default("default")
+  siteName             String   @default("Felna.com")
+  siteTagline          String   @default("Carrier-Grade Bulk SMS & OTP Gateway")
+  logoUrl              String?
+  announcementText     String   @default("Fast & Reliable Bulk SMS Services.")
+  announcementLinkText String   @default("Join Now")
+  announcementLinkUrl  String   @default("/register")
+  scheduleText         String   @default("9 am to 6 pm [mon-sat]")
+  primaryPhone         String   @default("+880-1958-666999")
+  supportEmail         String   @default("support@iglweb.com")
+  officeAddress        String   @default("Felna HQ, Dhaka, Bangladesh")
+  officeHours          String   @default("Sat - Thu: 9:00 AM - 6:00 PM")
+  footerAboutText      String   @default("Felna.com is Bangladesh's premier telecom-grade Bulk SMS & OTP verification platform delivering 99.98% carrier delivery with instant REST API integration.") @db.Text
+  copyrightText        String   @default("© Copyright 2007- 2026 Felna.com")
+  updatedAt            DateTime @updatedAt
+}
+
+// -----------------------------------------------------------------------------
+// CMS: Hero Slider Banners
+// -----------------------------------------------------------------------------
+model CmsHeroSlide {
+  id           String   @id @default(cuid())
+  title        String   @db.Text
+  subtitle     String?  @db.Text
+  badge        String?
+  imageUrl     String   @db.Text
+  linkUrl      String?  @default("/register")
+  ctaText      String?  @default("Get Started")
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([isActive, displayOrder])
+}
+
+// -----------------------------------------------------------------------------
+// CMS: Trusted Partners / Companies Worked With Me
+// -----------------------------------------------------------------------------
+model CmsPartner {
+  id           String   @id @default(cuid())
+  name         String
+  logoUrl      String?  @db.Text
+  websiteUrl   String?
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([isActive, displayOrder])
+}
+
+// -----------------------------------------------------------------------------
+// CMS: Promotional Sections (Bulk SMS Offer, Marketing Section)
+// -----------------------------------------------------------------------------
+model CmsPromotionalSection {
+  id          String   @id @default(cuid())
+  sectionKey  String   @unique // e.g. "bulk_sms_offer", "marketing_section"
+  badge       String?
+  title       String   @db.Text
+  subtitle    String?  @db.Text
+  description String?  @db.Text
+  imageUrl    String?  @db.Text
+  ctaText     String?
+  ctaUrl      String?
+  isActive    Boolean  @default(true)
+  updatedAt   DateTime @updatedAt
+}
+
+// -----------------------------------------------------------------------------
+// CMS: Features & Benefits (Accordion & Grid Cards)
+// -----------------------------------------------------------------------------
+model CmsFeatureItem {
+  id           String   @id @default(cuid())
+  section      String   // "BENEFIT" | "WHY_CHOOSE_US"
+  title        String   @db.Text
+  description  String   @db.Text
+  iconName     String?  @default("CheckCircle")
+  imageUrl     String?  @db.Text
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([section, isActive, displayOrder])
+}
+
+// -----------------------------------------------------------------------------
+// CMS: Social Links
+// -----------------------------------------------------------------------------
+model CmsSocialLink {
+  id           String   @id @default(cuid())
+  platform     String   // "facebook", "youtube", "linkedin", "twitter", etc.
+  label        String?
+  url          String
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([isActive, displayOrder])
+}
+
+// -----------------------------------------------------------------------------
+// CMS: Audit Logs (Enterprise Traceability & Security)
+// -----------------------------------------------------------------------------
+model CmsAuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String   // "CREATE", "UPDATE", "DELETE", "TOGGLE_STATUS"
+  entity    String   // "HeroSlide", "SiteSettings", "Partner", etc.
+  entityId  String
+  changes   String?  @db.Text // JSON snapshot
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([userId])
+}

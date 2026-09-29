@@ -83,7 +83,7 @@ export function MarketingSectionSkeleton() {
   return (
     <div
       aria-hidden="true"
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-[#d4ccc0] bg-[#201915]"
+      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-neutral-800/60 bg-[#201915]"
     >
       <div className="max-w-7xl mx-auto p-8 sm:p-12 rounded-3xl bg-[#2a221d] border border-[#7c6a5e]/50 animate-pulse grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div className="lg:col-span-7 space-y-5">
