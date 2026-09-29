@@ -15,7 +15,7 @@ export default async function AdminRootLayout({
     redirect("/login?from=/admin/dashboard");
   }
 
-  if (session.role !== ROLES.ADMIN) {
+  if (session.role !== ROLES.ADMIN && session.role !== ROLES.SUPER_ADMIN) {
     redirect("/forbidden");
   }
 

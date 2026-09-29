@@ -34,6 +34,11 @@ export async function requireAuth(): Promise<SessionPayload> {
 export async function requireRole(requiredRole: Role): Promise<SessionPayload> {
   const session = await requireAuth();
 
+  // SUPER_ADMIN has full access to all admin capabilities
+  if (session.role === ROLES.SUPER_ADMIN) {
+    return session;
+  }
+
   if (session.role !== requiredRole) {
     throw new AuthError(
       `Access denied. This section requires ${requiredRole} administrative privileges.`,

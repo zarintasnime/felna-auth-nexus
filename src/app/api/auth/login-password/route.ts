@@ -100,7 +100,10 @@ export async function POST(request: NextRequest) {
     await setSessionCookie(sessionToken);
     console.log(`[API: PASSWORD LOGIN] ✅ Login successful for ${user.phone}`);
 
-    const redirectUrl = user.role === ROLES.ADMIN ? "/admin/dashboard" : "/dashboard";
+    const redirectUrl =
+      user.role === ROLES.ADMIN || user.role === ROLES.SUPER_ADMIN
+        ? "/admin/dashboard"
+        : "/dashboard";
 
     return NextResponse.json({
       success: true,
