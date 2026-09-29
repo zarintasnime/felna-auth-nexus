@@ -14,7 +14,12 @@ import {
   TrendingUp,
   ShieldAlert,
 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import { ROLES, USER_STATUS } from "@/lib/constants/roles";
+import AdminSmsClient from "./sms/AdminSmsClient";
+import AdminSettingsClient from "./settings/AdminSettingsClient";
+import AdminRbacClient from "./rbac/AdminRbacClient";
+import AdminGeoClient from "./geo/AdminGeoClient";
 
 interface AdminUserItem {
   id: string;
@@ -48,6 +53,22 @@ export default function AdminDashboardClient({
   initialUsers,
   initialMetrics,
 }: AdminDashboardClientProps) {
+  const searchParams = useSearchParams();
+  const currentTab = searchParams.get("tab");
+
+  if (currentTab === "sms") {
+    return <AdminSmsClient />;
+  }
+  if (currentTab === "settings") {
+    return <AdminSettingsClient />;
+  }
+  if (currentTab === "rbac") {
+    return <AdminRbacClient />;
+  }
+  if (currentTab === "geo") {
+    return <AdminGeoClient />;
+  }
+
   const [users, setUsers] = useState<AdminUserItem[]>(initialUsers);
   const [metrics, setMetrics] = useState<AdminMetrics>(initialMetrics);
 
@@ -331,7 +352,9 @@ export default function AdminDashboardClient({
             className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 focus:bg-white w-full md:w-auto"
           >
             <option value="ALL">All Roles</option>
+            <option value={ROLES.SUPER_ADMIN}>SUPER_ADMIN</option>
             <option value={ROLES.ADMIN}>ADMIN</option>
+            <option value={ROLES.EDITOR}>EDITOR</option>
             <option value={ROLES.USER}>USER</option>
           </select>
         </div>

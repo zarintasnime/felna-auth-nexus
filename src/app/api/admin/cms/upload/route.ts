@@ -92,6 +92,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: "Image uploaded successfully.",
+      url: publicUrl,
       data: {
         url: publicUrl,
         filename: uniqueFilename,

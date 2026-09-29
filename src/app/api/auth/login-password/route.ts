@@ -3,7 +3,12 @@ import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 import { passwordLoginSchema } from "@/lib/validations/auth";
 import { normalizeBdPhone } from "@/lib/sms";
-import { createSessionToken, setSessionCookie } from "@/lib/auth";
+import {
+  createSessionToken,
+  setSessionCookie,
+  SESSION_COOKIE_NAME,
+  sessionCookieOptions,
+} from "@/lib/auth";
 import { ROLES, USER_STATUS } from "@/lib/constants/roles";
 
 export async function POST(request: NextRequest) {
@@ -96,7 +101,7 @@ export async function POST(request: NextRequest) {
       name: user.name,
     });
 
-    // 6. Set HttpOnly, Secure cookie
+    // 6. Set HttpOnly, Secure cookie via cookieStore
     await setSessionCookie(sessionToken);
     console.log(`[API: PASSWORD LOGIN] ✅ Login successful for ${user.phone}`);
 
@@ -105,7 +110,7 @@ export async function POST(request: NextRequest) {
         ? "/admin/dashboard"
         : "/dashboard";
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       message: "Login successful. Redirecting to your dashboard...",
       user: {
@@ -117,12 +122,23 @@ export async function POST(request: NextRequest) {
       },
       redirectUrl,
     });
-  } catch (error) {
+
+    // Also attach cookie directly to the response header to guarantee browser receives Set-Cookie
+    const { name: _ignored, ...cookieOpts } = sessionCookieOptions;
+    response.cookies.set(SESSION_COOKIE_NAME, sessionToken, cookieOpts);
+
+    return response;
+  } catch (error: any) {
     console.error("[LOGIN_PASSWORD_ERROR]", error);
+    const errorMessage =
+      process.env.NODE_ENV !== "production" && error?.message
+        ? `Server error: ${error.message}`
+        : "An unexpected server error occurred during login. Please try again.";
+
     return NextResponse.json(
       {
         success: false,
-        error: "An unexpected server error occurred during login. Please try again.",
+        error: errorMessage,
       },
       { status: 500 }
     );

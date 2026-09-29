@@ -10,7 +10,6 @@ import {
 import TopBar from "@/components/home/TopBar";
 import DynamicNavbar from "@/components/home/DynamicNavbar";
 import MobileBottomBar from "@/components/home/MobileBottomBar";
-import Footer from "@/components/home/Footer";
 import ContactForm from "@/components/contact/ContactForm";
 import { getSession } from "@/lib/auth";
 import { getHomePageData } from "@/lib/services/homepage-service";
@@ -181,11 +180,6 @@ export default async function ContactPage() {
 
         </div>
       </main>
-
-      {/* =================================================================== */}
-      {/* 3. Universal Footer (Dynamic from CMS)                              */}
-      {/* =================================================================== */}
-      <Footer settings={settings} socialLinks={socialLinks} />
 
       {/* Sticky Mobile Quick Action Bar */}
       <MobileBottomBar />

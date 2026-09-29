@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { requireRole } from "@/lib/rbac";
 import { db } from "@/lib/db";
 import { ROLES, USER_STATUS } from "@/lib/constants/roles";
@@ -45,10 +45,16 @@ export default async function AdminDashboardPage() {
   };
 
   return (
-    <AdminDashboardClient
-      currentAdminId={session.userId}
-      initialUsers={users}
-      initialMetrics={metrics}
-    />
+    <Suspense
+      fallback={
+        <div className="py-12 text-center text-slate-400">Loading admin console...</div>
+      }
+    >
+      <AdminDashboardClient
+        currentAdminId={session.userId}
+        initialUsers={users}
+        initialMetrics={metrics}
+      />
+    </Suspense>
   );
 }

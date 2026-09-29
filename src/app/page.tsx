@@ -9,7 +9,6 @@ import SmsBenefits from "@/components/home/SmsBenefits";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import TrustedPartners from "@/components/home/TrustedPartners";
 import MobileBottomBar from "@/components/home/MobileBottomBar";
-import Footer from "@/components/home/Footer";
 import SectionErrorBoundary from "@/components/common/SectionErrorBoundary";
 import {
   HeroSliderSkeleton,
@@ -160,11 +159,6 @@ export default async function HomePage() {
           </div>
         </section>
       </main>
-
-      {/* =================================================================== */}
-      {/* Universal Footer (Dynamic from CMS Settings & Social Links)         */}
-      {/* =================================================================== */}
-      <Footer settings={cmsData.settings} socialLinks={cmsData.socialLinks} />
 
       {/* Sticky Mobile Quick Action Bar (<640px) */}
       <MobileBottomBar />

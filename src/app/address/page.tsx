@@ -15,7 +15,6 @@ import {
 import TopBar from "@/components/home/TopBar";
 import DynamicNavbar from "@/components/home/DynamicNavbar";
 import MobileBottomBar from "@/components/home/MobileBottomBar";
-import Footer from "@/components/home/Footer";
 import { getSession } from "@/lib/auth";
 import { getHomePageData } from "@/lib/services/homepage-service";
 import { getCmsSiteSettings, getCmsSocialLinks } from "@/lib/services/cms-service";
@@ -382,11 +381,6 @@ export default async function AddressPage() {
           </div>
         </section>
       </main>
-
-      {/* =================================================================== */}
-      {/* Universal Footer */}
-      {/* =================================================================== */}
-      <Footer settings={settings} socialLinks={socialLinks} />
 
       {/* Sticky Mobile Quick Action Bar */}
       <MobileBottomBar />

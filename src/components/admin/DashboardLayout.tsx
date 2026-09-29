@@ -50,35 +50,30 @@ const NAV_ITEMS: NavItem[] = [
     icon: LayoutDashboard,
   },
   {
+    label: "SMS & Gateway",
+    href: "/admin/sms",
+    icon: MessageSquare,
+  },
+  {
     label: "Content & CMS",
     href: "/admin/cms",
     icon: Globe,
     badge: "Live",
   },
   {
-    label: "User Management",
-    href: "/admin/dashboard?tab=users",
-    icon: Users,
+    label: "System Settings",
+    href: "/admin/settings",
+    icon: Settings,
   },
   {
     label: "Role & RBAC",
-    href: "/admin/dashboard?tab=rbac",
+    href: "/admin/rbac",
     icon: ShieldCheck,
   },
   {
     label: "Geo Hierarchy",
-    href: "/admin/dashboard?tab=geo",
+    href: "/admin/geo",
     icon: MapPin,
-  },
-  {
-    label: "SMS & Gateway",
-    href: "/admin/dashboard?tab=sms",
-    icon: MessageSquare,
-  },
-  {
-    label: "System Settings",
-    href: "/admin/dashboard?tab=settings",
-    icon: Settings,
   },
 ];
 
@@ -183,8 +178,9 @@ export default function DashboardLayout({ children, session }: DashboardLayoutPr
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
               const isActive =
-                pathname === item.href ||
-                (item.href === "/admin/dashboard" && pathname.startsWith("/admin/dashboard"));
+                item.href === "/admin/dashboard"
+                  ? pathname === "/admin/dashboard"
+                  : pathname.startsWith(item.href);
 
               return (
                 <Link

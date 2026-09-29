@@ -6,7 +6,9 @@ import { z } from "zod";
 
 const updateUserSchema = z.object({
   userId: z.string().min(1, "User ID is required."),
-  role: z.enum([ROLES.ADMIN, ROLES.USER]).optional(),
+  role: z
+    .enum([ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.EDITOR, ROLES.USER])
+    .optional(),
   status: z
     .enum([
       USER_STATUS.ACTIVE,
@@ -36,7 +38,7 @@ export async function GET(request: NextRequest) {
       ];
     }
 
-    if (roleFilter !== "ALL" && (roleFilter === ROLES.ADMIN || roleFilter === ROLES.USER)) {
+    if (roleFilter !== "ALL" && Object.values(ROLES).includes(roleFilter as any)) {
       where.role = roleFilter;
     }
 

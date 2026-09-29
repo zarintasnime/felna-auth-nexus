@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
 
-    if (session.role !== ROLES.ADMIN) {
+    if (session.role !== ROLES.ADMIN && session.role !== ROLES.SUPER_ADMIN) {
       // Redirect regular users to 403 Forbidden page
       return NextResponse.redirect(new URL("/forbidden", request.url));
     }
@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
 
   // 3. Redirect already authenticated users away from public auth pages
   if ((pathname === "/login" || pathname === "/register") && session) {
-    if (session.role === ROLES.ADMIN) {
+    if (session.role === ROLES.ADMIN || session.role === ROLES.SUPER_ADMIN) {
       return NextResponse.redirect(new URL("/admin/dashboard", request.url));
     }
     return NextResponse.redirect(new URL("/dashboard", request.url));

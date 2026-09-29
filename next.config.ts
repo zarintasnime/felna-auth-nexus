@@ -57,3 +57,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+// Server config reloaded with updated Prisma schema

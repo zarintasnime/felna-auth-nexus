@@ -14,7 +14,6 @@ import {
 import TopBar from "@/components/home/TopBar";
 import DynamicNavbar from "@/components/home/DynamicNavbar";
 import MobileBottomBar from "@/components/home/MobileBottomBar";
-import Footer from "@/components/home/Footer";
 import FeedbackForm from "@/components/feedback/FeedbackForm";
 import { getSession } from "@/lib/auth";
 import { getHomePageData } from "@/lib/services/homepage-service";
@@ -191,11 +190,6 @@ export default async function FeedbackPage() {
           </div>
         </div>
       </main>
-
-      {/* =================================================================== */}
-      {/* Universal Footer */}
-      {/* =================================================================== */}
-      <Footer settings={settings} socialLinks={socialLinks} />
 
       {/* Sticky Mobile Quick Action Bar */}
       <MobileBottomBar />

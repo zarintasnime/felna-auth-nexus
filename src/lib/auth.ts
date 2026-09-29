@@ -17,7 +17,8 @@ export * from "./auth-token";
  */
 export async function setSessionCookie(token: string): Promise<void> {
   const cookieStore = await cookies();
-  cookieStore.set(SESSION_COOKIE_NAME, token, sessionCookieOptions);
+  const { name: _ignored, ...options } = sessionCookieOptions;
+  cookieStore.set(SESSION_COOKIE_NAME, token, options);
 }
 
 /**
@@ -25,8 +26,9 @@ export async function setSessionCookie(token: string): Promise<void> {
  */
 export async function clearSessionCookie(): Promise<void> {
   const cookieStore = await cookies();
+  const { name: _ignored, ...options } = sessionCookieOptions;
   cookieStore.set(SESSION_COOKIE_NAME, "", {
-    ...sessionCookieOptions,
+    ...options,
     maxAge: 0,
   });
 }

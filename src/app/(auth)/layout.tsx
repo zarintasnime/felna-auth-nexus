@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "@/components/home/Footer";
 import TopBar from "@/components/home/TopBar";
 import DynamicNavbar from "@/components/home/DynamicNavbar";
 import { getSession } from "@/lib/auth";
@@ -48,11 +47,6 @@ export default async function AuthLayout({
       <main className="flex-1 flex flex-col justify-center py-6 sm:py-10">
         {children}
       </main>
-
-      {/* =================================================================== */}
-      {/* 3. Universal Footer (Cohesive Dark/Vintage Theme)                   */}
-      {/* =================================================================== */}
-      <Footer />
     </div>
   );
 }

@@ -70,6 +70,11 @@ export async function requirePermission(
 ): Promise<SessionPayload> {
   const session = await requireAuth();
 
+  // SUPER_ADMIN has full access to all system capabilities
+  if (session.role === ROLES.SUPER_ADMIN) {
+    return session;
+  }
+
   if (!hasPermission(session.role, permission)) {
     throw new AuthError(
       `Access denied. You lack the '${permission}' permission to perform this operation.`,

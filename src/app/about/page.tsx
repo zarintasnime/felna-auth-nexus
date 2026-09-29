@@ -6,7 +6,6 @@ import { Play } from "lucide-react";
 import TopBar from "@/components/home/TopBar";
 import DynamicNavbar from "@/components/home/DynamicNavbar";
 import MobileBottomBar from "@/components/home/MobileBottomBar";
-import Footer from "@/components/home/Footer";
 import OurValues from "@/components/about/OurValues";
 import { getSession } from "@/lib/auth";
 import { getHomePageData } from "@/lib/services/homepage-service";
@@ -244,11 +243,6 @@ export default async function AboutPage() {
         {/* =============================================================== */}
         <OurValues />
       </main>
-
-      {/* =================================================================== */}
-      {/* Universal Footer */}
-      {/* =================================================================== */}
-      <Footer settings={settings} socialLinks={socialLinks} />
 
       {/* Sticky Mobile Quick Action Bar */}
       <MobileBottomBar />

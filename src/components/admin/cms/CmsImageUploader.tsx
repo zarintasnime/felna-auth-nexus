@@ -64,7 +64,13 @@ export default function CmsImageUploader({
         return;
       }
 
-      onChange(json.url);
+      const uploadedUrl = json.url || json.data?.url;
+      if (!uploadedUrl) {
+        setUploadError("Server returned an invalid image URL.");
+        return;
+      }
+
+      onChange(uploadedUrl);
       setUploadSuccess(true);
       setTimeout(() => setUploadSuccess(false), 3000);
     } catch (err) {
