@@ -229,7 +229,6 @@ export default function CmsSettingsTab({ initialSettings, onShowToast }: CmsSett
               placeholder="Fast & Reliable Bulk SMS Services."
             />
           </div>
-
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1">
               Action Link Text
@@ -242,7 +241,6 @@ export default function CmsSettingsTab({ initialSettings, onShowToast }: CmsSett
               placeholder="Join Now"
             />
           </div>
-
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1">
               Action Link Destination (URL)
@@ -255,7 +253,6 @@ export default function CmsSettingsTab({ initialSettings, onShowToast }: CmsSett
               placeholder="/register or https://..."
             />
           </div>
-
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1">
               Operating Schedule Text
