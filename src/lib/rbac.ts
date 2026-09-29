@@ -1,5 +1,6 @@
 import { getSession, SessionPayload } from "./auth";
 import { ROLES, Role } from "./constants/roles";
+import { PERMISSIONS, Permission, ROLE_PERMISSIONS } from "./constants/permissions";
 
 export class AuthError extends Error {
   statusCode: number;
@@ -41,6 +42,48 @@ export async function requireRole(requiredRole: Role): Promise<SessionPayload> {
   }
 
   return session;
+}
+
+/**
+ * Checks whether a given role holds the requested granular permission.
+ */
+export function hasPermission(
+  role: string | null | undefined,
+  permission: Permission
+): boolean {
+  if (!role) return false;
+  const granted = ROLE_PERMISSIONS[role] || [];
+  return granted.includes(permission);
+}
+
+/**
+ * Asserts that the authenticated user has a specific granular capability/permission.
+ * Throws an AuthError (401 or 403) if unauthorized.
+ */
+export async function requirePermission(
+  permission: Permission
+): Promise<SessionPayload> {
+  const session = await requireAuth();
+
+  if (!hasPermission(session.role, permission)) {
+    throw new AuthError(
+      `Access denied. You lack the '${permission}' permission to perform this operation.`,
+      403
+    );
+  }
+
+  return session;
+}
+
+/**
+ * Helper to check if a user can manage CMS content (write/edit).
+ */
+export function canManageCMS(session: SessionPayload | null): boolean {
+  if (!session) return false;
+  return (
+    session.role === ROLES.ADMIN ||
+    hasPermission(session.role, PERMISSIONS.CMS_WRITE)
+  );
 }
 
 /**
